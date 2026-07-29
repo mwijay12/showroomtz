@@ -1,0 +1,58 @@
+{
+  "placeholderImages": [
+    {
+      "id": "model-s",
+      "description": "Toyota Land Cruiser 300 ZX V8 Twin-Turbo",
+      "imageUrl": "/images/cars/land_cruiser.jpg",
+      "imageHint": "Land Cruiser 300"
+    },
+    {
+      "id": "lucid-air",
+      "description": "BMW 7 Series Executive Sedan",
+      "imageUrl": "/images/cars/bmw_7.jpg",
+      "imageHint": "BMW 7 Series"
+    },
+    {
+      "id": "porsche-taycan",
+      "description": "Range Rover Sport P530 First Edition",
+      "imageUrl": "/images/cars/range_rover.jpg",
+      "imageHint": "Range Rover Sport"
+    },
+    {
+      "id": "mercedes-eqs",
+      "description": "Mercedes-Benz S-Class S 500 AMG Line",
+      "imageUrl": "/images/cars/s_class.jpg",
+      "imageHint": "Mercedes S-Class"
+    },
+    {
+      "id": "rivian-r1s",
+      "description": "Toyota Land Cruiser Prado TXL 4WD",
+      "imageUrl": "/images/cars/prado.jpg",
+      "imageHint": "Prado TXL"
+    },
+    {
+      "id": "model-y",
+      "description": "Lexus LX 570 / LX 600 Ultra Luxury",
+      "imageUrl": "/images/cars/lexus_lx.jpg",
+      "imageHint": "Lexus LX 570"
+    },
+    {
+      "id": "cyber-truck",
+      "description": "Toyota Alphard Executive Lounge",
+      "imageUrl": "/images/cars/alphard.jpg",
+      "imageHint": "Toyota Alphard"
+    },
+    {
+      "id": "audi-gt",
+      "description": "Toyota HiAce Super GL Bus",
+      "imageUrl": "/images/cars/hiace.jpg",
+      "imageHint": "Toyota HiAce"
+    },
+    {
+      "id": "hero-bg",
+      "description": "VoltaShowroom Luxury Showroom Display",
+      "imageUrl": "/images/cars/suv_hero.jpg",
+      "imageHint": "Luxury Showroom"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+
+/**
+ * @fileOverview Automation utilities for triggering N8N workflows.
+ * Enhanced for AI Strategic Intelligence, Risk Detection, and Personality Tags.
+ */
+
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
+
+async function triggerWebhook(endpoint: string, data: any) {
+  let webhookUrl = '';
+  let specificUrl = '';
+  let companyName = 'VoltaShowroom Tanzania';
+
+  try {
+    const brandingRef = doc(db, 'settings', 'branding');
+    const brandingSnap = await getDoc(brandingRef);
+    if (brandingSnap.exists()) {
+      const snapData = brandingSnap.data();
+      webhookUrl = snapData.n8nWebhookUrl || '';
+      companyName = snapData.companyName || companyName;
+
+      if (endpoint === 'volta-booking') specificUrl = snapData.webhookUrlBooking || '';
+      else if (endpoint === 'payment-verified') specificUrl = snapData.webhookUrlPayment || '';
+      else if (endpoint === 'booking-status-updated') specificUrl = snapData.webhookUrlStatus || '';
+      else if (endpoint === 'car-added') specificUrl = snapData.webhookUrlCar || '';
+      else if (endpoint === 'driver-added') specificUrl = snapData.webhookUrlDriver || '';
+      else if (endpoint === 'volta-user-register') specificUrl = snapData.webhookUrlUser || '';
+      else if (endpoint === 'telegram-webhook') specificUrl = snapData.webhookUrlTelegram || '';
+    }
+  } catch (e) {
+    console.warn("Automation: Settings fetch failed.");
+  }
+
+  if (!specificUrl && !webhookUrl) {
+    console.warn(`N8N Automation: No webhook URL configured for ${endpoint}`);
+    return;
+  }
+  
+  const payload = {
+    timestamp: new Date().toISOString(),
+    companyName: companyName,
+    companyId: data.companyId || 'volta001',
+    event: endpoint,
+    
+    // Core Data (Accounting Sheet Ready)
+    bookingCode: data.bookingCode,
+    customerName: data.userName,
+    phone: data.userPhone,
+    email: data.userEmail,
+    vehicle: data.vehicleName,
+    pickupLocation: data.pickupLocation,
+    startDate: data.startDate,
+    endDate: data.endDate,
+    duration: data.totalDays,
+    amount: data.totalPrice,
+    status: data.status,
+    paymentStatus: data.paymentStatus,
+    amountPaid: data.amountPaid || 0,
+    balanceDue: (data.totalPrice || 0) - (data.amountPaid || 0),
+    
+    // AI Strategic Inputs (For Gemini to Process)
+    aiPersonalityTag: data.aiPersonalityTag || 'standard',
+    geminiInsight: data.geminiInsight || '',
+    riskStatus: data.riskStatus || 'low',
+    riskReason: data.riskReason || '',
+    
+    // Logistics
+    driverName: data.driverName || 'UNASSIGNED',
+    driverEmail: data.driverEmail || '',
+    reminder48Sent: data.reminder48Sent || false,
+    reminder24Sent: data.reminder24Sent || false,
+    contractUrl: data.contractUrl || '',
+    
+    raw: data
+  };
+
+  try {
+    let finalUrl = '';
+    if (specificUrl) {
+      finalUrl = specificUrl.trim();
+    } else {
+      let inputUrl = webhookUrl.trim().replace(/\/+$/, '');
+      
+      // Determine if sandbox or production webhook type
+      let webhookType = 'webhook-test';
+      if (inputUrl.includes('/webhook/')) {
+        webhookType = 'webhook';
+      } else if (inputUrl.includes('/webhook-test/')) {
+        webhookType = 'webhook-test';
+      } else if (inputUrl.endsWith('/webhook')) {
+        webhookType = 'webhook';
+      } else if (inputUrl.endsWith('/webhook-test')) {
+        webhookType = 'webhook-test';
+      }
+      
+      // Extract base domain
+      let baseDomain = '';
+      try {
+        const parsed = new URL(inputUrl);
+        baseDomain = `${parsed.protocol}//${parsed.host}`;
+      } catch {
+        const match = inputUrl.match(/^(https?:\/\/[^\/]+)/);
+        baseDomain = match ? match[1] : inputUrl;
+      }
+      
+      if (endpoint === 'telegram-webhook') {
+        finalUrl = `${baseDomain}/${webhookType}/volta-tg-bot/webhook`;
+      } else {
+        finalUrl = `${baseDomain}/${webhookType}/volta-booking/${endpoint}`;
+      }
+    }
+
+    const res = await fetch(finalUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return res.ok;
+  } catch (e) {
+    console.error(`N8N ${endpoint} Trigger Failed:`, e);
+    return false;
+  }
+}
+
+export const automation = {
+  userRegistered: (userData: any) => triggerWebhook('volta-user-register', userData),
+  newBooking: (bookingData: any) => triggerWebhook('volta-booking', bookingData),
+  paymentVerified: (paymentData: any) => triggerWebhook('payment-verified', paymentData),
+  bookingStatusUpdated: (bookingData: any) => triggerWebhook('booking-status-updated', bookingData),
+  bookingCompleted: (bookingData: any) => triggerWebhook('booking-completed', bookingData),
+  riskAlertTriggered: (alertData: any) => triggerWebhook('risk-alert', alertData),
+  pricingStrategyUpdate: (priceData: any) => triggerWebhook('pricing-strategy', priceData),
+  telegramBotWebhook: (tgData: any) => triggerWebhook('telegram-webhook', tgData)
+};
