@@ -1,10 +1,11 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Zap, Car } from "lucide-react";
+import { ShowroomMark } from "@/components/ui/ShowroomMark";
 
 /**
  * Branded Loading Component for ShowroomTZ.
+ * Espresso mark inside a slowly rotating dashed crimson ring.
  */
 export function VoltaLoader({ fullPage = false }: { fullPage?: boolean }) {
   const content = (
@@ -12,18 +13,17 @@ export function VoltaLoader({ fullPage = false }: { fullPage?: boolean }) {
       <div className="relative">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          className="h-20 w-20 rounded-[2rem] border-2 border-dashed border-primary/30 flex items-center justify-center"
+          transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
+          className="h-24 w-24 rounded-[1.9rem] border-2 border-dashed border-primary/40 flex items-center justify-center"
         >
-          <Car size={32} className="text-primary" />
+          <ShowroomMark className="h-12 w-12 rounded-2xl shadow-lg" />
         </motion.div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Zap size={16} className="text-secondary fill-current animate-pulse" />
-        </div>
+        <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-secondary animate-ping opacity-60" />
+        <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full bg-secondary" />
       </div>
       <div className="text-center space-y-1">
         <p className="text-sm font-black uppercase tracking-[0.3em] text-foreground">
-          ShowroomTZ<span className="text-primary italic">Showroom</span>
+          Showroom<span className="text-primary italic">TZ</span>
         </p>
         <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">
           Synchronizing Registry...

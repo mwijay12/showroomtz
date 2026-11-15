@@ -121,3 +121,40 @@
     -webkit-user-select: text;
   }
 }
+
+/* ── CINEMATIC HERO MOTION ─────────────────────────────────────────── */
+@keyframes kenburns {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to   { transform: scale(1.13) translate3d(-1.5%, -2.2%, 0); }
+}
+.kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes sheen {
+  0%        { transform: translateX(-150%) skewX(-17deg); opacity: 0; }
+  10%       { opacity: 0.6; }
+  34%       { opacity: 0.3; }
+  48%, 100% { transform: translateX(250%) skewX(-17deg); opacity: 0; }
+}
+.sheen {
+  position: absolute;
+  top: -22%;
+  bottom: -22%;
+  left: 0;
+  width: 36%;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 22%,
+    rgba(255, 238, 205, 0.2) 50%,
+    rgba(255, 255, 255, 0.06) 78%,
+    transparent 100%);
+  mix-blend-mode: screen;
+  animation: sheen 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns, .sheen { animation: none !important; }
+}

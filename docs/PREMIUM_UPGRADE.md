@@ -210,3 +210,24 @@ welcome (karibu message), booking confirmation (reference code + showroom detail
 **Palette** — dark theme shifted from cold navy-charcoal (`222 47% 4%`) to warm espresso charcoal (`24 10% 4%`); emerald accent replaced with champagne `36 55% 58%`; primary crimson kept; `theme_color`/`background_color` warmed to `#0D0B0A`; service worker cache bumped `showroomtz-v3` so returning visitors actually receive the new shell.
 
 **Deps added:** `@react-three/fiber@^9`, `@react-three/drei@^10` (three `^0.187` already present).
+
+---
+
+## 9. Cinematic photo hero replaces the 3D scene; logo synced everywhere
+
+**Decision (user feedback):** the procedural R3F GT coupé "haijakaa sawa" — removed it (`HeroScene.tsx` deleted, `@react-three/fiber` + `@react-three/drei` uninstalled; `three` retained for the legacy GLSL overlay). Replaced with a **cinematic full-bleed photograph**:
+
+- `public/images/hero-showroom.jpg` — 1376×768 AI-generated studio shot (black grand tourer, champagne/crimson rim light, dark negative space left) — self-hosted, no stock licensing/hotlink risk
+- Ken-burns drift (`.kenburns`, 24s alternate) + travelling light sheen (`.sheen`, 9s, screen blend, ~8% hot stop); admin `webglEnabled` now toggles cinematic vs minimal typographic backdrop; intensity slider = image presence (55–100%); local video URL still overrides the still
+- Left-weighted legibility gradient kept; `prefers-reduced-motion` disables both animations
+- Premium Studio section renamed "Cinematic Hero"; live preview renders the same image + copy
+
+**Brand mark — now synced everywhere:**
+- `public/favicon.svg` overwritten (was the rental-era red V + bolt); `src/app/favicon.ico` rebuilt (48/32/16, PIL)
+- PNG renders via sharp+fontconfig/DejaVu: `icon-192x192.png`, `icon-512x512.png`, `icon-maskable-512x512.png` (full-bleed for Android maskable), `apple-touch-icon.png` (180, replaces SVG-on-iOS which never worked)
+- `public/icons/og-image.png` — 1200×630 share card (mark tile + "SHOWROOMTZ" + "Tanzania's Premier Showroom" + domain); wired into `openGraph` + `twitter.card=summary_large_image` in `layout.tsx`; layout icons + manifest rebuilt (PNGs purpose `any` + maskable; shortcuts use PNG)
+- `VoltaLoader` → ShowroomMark in rotating dashed ring; mobile-menu wordmark fixed (`ShowroomTZShowroom` → `Showroom` + crimson italic `TZ`)
+- Email templates: header now carries hosted `icon-192x192.png` + champagne wordmark with crimson italic `TZ` (no more plain crimson "S" square)
+- `sw.js` → `showroomtz-v4`
+
+**Icons pipeline note:** sandbox had no fonts — rendered with FONTCONFIG_FILE pointing at matplotlib's bundled DejaVu; PNG-in-ICO for `favicon.ico`. In CI, any standard rasterizer works (SVGs use Georgia/DejaVu Serif italic bold with generic `serif` fallback).
