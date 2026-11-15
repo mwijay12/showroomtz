@@ -190,3 +190,23 @@ SMTP is missing — client flows (signup, inquiry, payment) never block on email
 **Templates:** `src/lib/email/templates.ts` — dark-header crimson ShowroomTZ shell, table-safe inline CSS,
 welcome (karibu message), booking confirmation (reference code + showroom details), payment receipt
 (amount + booking code). All user input is HTML-escaped.
+
+---
+
+## 8. ShowroomTZ brand mark + 3D hero (React Three Fiber)
+
+**Problem addressed:** production looked identical to yesterday for visitors, the PWA served stale shell (`voltarentals-v1`), icons still read "SHOWROOMTZ RENTALS" (navy/amber rental-era tile), navbar used the legacy Volta lightning `<Zap>`, accent emerald clashed with the crimson/gold identity, and the "WebGL shader" was a dark-on-dark fbm plane that stayed invisible.
+
+**3D Hero (`src/components/three/HeroScene.tsx`)** — React Three Fiber + Drei + GSAP, zero external assets:
+- Procedural GT coupé: 2D silhouette → `ExtrudeGeometry` (bevelled), `MeshPhysicalMaterial` clearcoat paint, separate gloss greenhouse slab, crimson side spears, rear wing, emissive head/taillights, crimson underglow point light
+- Blurred planar reflections via `<MeshReflectorMaterial>` floor; local `<Environment frames={1}>` + `<Lightformer>` rig (warm key / crimson rim / cool fill) — **no HDR downloads**
+- GSAP timeline on mount: drive-in from off-camera (`expo.out`), wheel spin-down, headlight flash; idle breathing yaw; pointer-parallax camera (`MathUtils.damp`); `Sparkles` gold dust; `fog` depth; DPR capped at 1.6
+- `prefers-reduced-motion` respected; WebGL-less devices get the `fallback` prop (hero image or CSS crimson halo) — never a black screen
+- Toggled by the existing admin key `webglEnabled`; intensity slider drives scene opacity (Premium Studio → "3D Hero Engine" section, which now previews the *same* scene live)
+- Hero image is used only when the 3D scene is switched off **or** WebGL is unavailable
+
+**Brand mark (`src/components/ui/ShowroomMark.tsx`)** — dark espresso tile, champagne italic-serif "S", crimson road-dash (matches `public/icons/icon-192x192.svg` / `icon-512x512.svg`, regenerated). Applied to navbar, footer, mobile menu, splash screen. Old navy/amber rental icons deleted.
+
+**Palette** — dark theme shifted from cold navy-charcoal (`222 47% 4%`) to warm espresso charcoal (`24 10% 4%`); emerald accent replaced with champagne `36 55% 58%`; primary crimson kept; `theme_color`/`background_color` warmed to `#0D0B0A`; service worker cache bumped `showroomtz-v3` so returning visitors actually receive the new shell.
+
+**Deps added:** `@react-three/fiber@^9`, `@react-three/drei@^10` (three `^0.187` already present).

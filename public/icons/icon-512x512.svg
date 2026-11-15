@@ -1,6 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="80" fill="#1E3A5F"/>
-  <text x="256" y="220" text-anchor="middle" font-family="Arial,sans-serif" font-size="64" font-weight="bold" fill="#F59E0B">SHOWROOMTZ</text>
-  <text x="256" y="300" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" fill="#FFFFFF">RENTALS</text>
-  <text x="256" y="380" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" fill="#94A3B8">🚗 Tanzania</text>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D1815"/>
+      <stop offset="1" stop-color="#0D0B0A"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F9ECD6"/>
+      <stop offset="0.55" stop-color="#E3C089"/>
+      <stop offset="1" stop-color="#B98A4E"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E5483C"/>
+      <stop offset="0.5" stop-color="#D42B1E"/>
+      <stop offset="1" stop-color="#7E1B12"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <rect x="5" y="5" width="502" height="502" rx="113" fill="none" stroke="#D4A24E" stroke-opacity="0.3" stroke-width="10"/>
+  <text x="256" y="326" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-weight="700" font-size="278" fill="url(#s)">S</text>
+  <rect x="113" y="370" width="286" height="26" rx="13" fill="url(#road)"/>
+  <rect x="176" y="416" width="160" height="14" rx="7" fill="#D4A24E" fill-opacity="0.88"/>
 </svg>

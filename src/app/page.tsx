@@ -49,7 +49,7 @@ import { useFirestore } from "@/firebase";
 import { TripEstimator } from "@/components/ui/TripEstimator";
 import { optimizeImageUrl } from "@/lib/utils";
 import { SEED_CARS } from "@/lib/showroom-seed";
-import { WebGLShaderBackground } from "@/components/effects/WebGLShaderBackground";
+import { HeroScene } from "@/components/three/HeroScene";
 import { GsapScrollFX } from "@/components/effects/GsapScrollFX";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
 
@@ -664,7 +664,6 @@ export default function Home() {
     tagline,
     stats,
     webglEnabled = true,
-    webglStyle = 'aurora',
     webglOpacity = 80,
     grainEnabled = true,
     heroKicker,
@@ -782,7 +781,14 @@ export default function Home() {
         {/* HERO SECTION */}
         <section ref={heroRef} className="relative min-h-[95vh] flex items-center overflow-hidden w-full">
           <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0 z-0">
-            {heroVideoUrl && (heroVideoUrl.endsWith('.mp4') || heroVideoUrl.includes('video')) ? (
+            {webglEnabled ? (
+              // 3D showroom: procedural GT coupe + reflector floor (R3F/Drei/GSAP).
+              // Admin "hero video/image" still honoured when the 3D scene is disabled in Premium Studio.
+              <HeroScene
+                fallbackImage={optimizeImageUrl(heroImageUrl, 1920, 75) || null}
+                style={{ opacity: webglOpacity01 }}
+              />
+            ) : heroVideoUrl && (heroVideoUrl.endsWith('.mp4') || heroVideoUrl.includes('video')) ? (
               <video 
                 autoPlay 
                 muted 
@@ -805,14 +811,12 @@ export default function Home() {
                 className="opacity-30"
               />
             )}
-            {webglEnabled && (
-              <WebGLShaderBackground
-                style={webglStyle}
-                opacity={webglOpacity01}
-                className="mix-blend-screen"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
+            {/* text-legibility wash: strong at the text side, open on the car side */}
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(101deg, hsl(var(--background) / 0.94) 0%, hsl(var(--background) / 0.78) 28%, hsl(var(--background) / 0.34) 52%, transparent 76%)' }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent via-55% to-background" />
             {grainEnabled && <GrainOverlay opacity={0.08} />}
           </motion.div>
           

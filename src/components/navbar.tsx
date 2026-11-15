@@ -3,10 +3,10 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { 
-  LogOut, 
-  Loader2, 
-  Zap,
+import {
+  LogOut,
+  Loader2,
+  User,
   Menu,
   X,
   Sparkles
@@ -21,6 +21,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import { useBranding } from "@/components/providers/BrandingProvider";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 import { MenuVertical } from "@/components/ui/menu-vertical";
+import { ShowroomMark } from "@/components/ui/ShowroomMark";
 
 const NAV_LINKS = [
   { name: "Cars for Sale", href: "/cars" },
@@ -139,12 +140,10 @@ export function Navbar() {
                 )} 
               />
             ) : (
-              <div className={cn(
-                "flex items-center justify-center rounded-xl bg-primary text-white shadow-xl transition-all duration-500",
-                scrolled ? "h-8 w-8" : "h-10 w-10"
-              )}>
-                <Zap size={scrolled ? 16 : 20} fill="currentColor" />
-              </div>
+              <ShowroomMark className={cn(
+                "rounded-xl shadow-xl transition-all duration-500",
+                scrolled ? "h-9 w-9" : "h-11 w-11"
+              )} />
             )}
             <span className={cn(
               "font-black tracking-tighter uppercase transition-all duration-500",
@@ -195,7 +194,7 @@ export function Navbar() {
                 )}
                 <Link href="/dashboard" aria-label="User Dashboard">
                    <div className="h-10 w-10 rounded-2xl bg-muted border border-border flex items-center justify-center text-muted-foreground hover:text-primary transition-all cursor-pointer shadow-inner">
-                      <Zap size={18} fill="currentColor" />
+                      <User size={18} />
                    </div>
                 </Link>
                 <Button 
@@ -242,9 +241,9 @@ export function Navbar() {
           >
             <div className="flex justify-between items-center mb-8 shrink-0">
               <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
-                <Zap className="text-primary h-8 w-8 fill-current" />
+                <ShowroomMark className="h-9 w-9 rounded-lg" />
                 <span className="font-black text-xl tracking-tighter uppercase text-foreground">
-                  ShowroomTZ<span className="text-primary italic">Showroom</span>
+                  Showroom<span className="text-primary italic">TZ</span>
                 </span>
               </Link>
               <button onClick={() => setIsOpen(false)} className="h-12 w-12 flex items-center justify-center text-foreground">
