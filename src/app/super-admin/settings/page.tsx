@@ -14,6 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { resolveWebhookTarget, postJsonWithRetry } from '@/lib/n8n/core'
 
 export default function SuperAdminSettingsPage() {
   return (
@@ -185,54 +186,32 @@ function SettingsPageInner() {
     setTestingWebhook(true);
     setWebhookStatus('idle');
     try {
-      const endpoint = 'volta-booking';
-      let inputUrl = form.n8nWebhookUrl.trim().replace(/\/+$/, '');
-      
-      // Determine if sandbox or production webhook type
-      let webhookType = 'webhook-test';
-      if (inputUrl.includes('/webhook/')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.includes('/webhook-test/')) {
-        webhookType = 'webhook-test';
-      } else if (inputUrl.endsWith('/webhook')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.endsWith('/webhook-test')) {
-        webhookType = 'webhook-test';
-      }
-      
-      // Extract base domain
-      let baseDomain = '';
-      try {
-        const parsed = new URL(inputUrl);
-        baseDomain = `${parsed.protocol}//${parsed.host}`;
-      } catch {
-        const match = inputUrl.match(/^(https?:\/\/[^\/]+)/);
-        baseDomain = match ? match[1] : inputUrl;
-      }
-      
-      const targetUrl = `${baseDomain}/${webhookType}/volta-booking/${endpoint}`;
+      const targetUrl = resolveWebhookTarget(form.n8nWebhookUrl, 'volta-booking');
 
-      const res = await fetch(targetUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bookingCode: 'TEST-000000',
-          userName: 'Volta Test Hub',
-          email: 'test@voltashowroom.co.tz',
-          phone: '+255700000000',
-          vehicleName: 'Test Sentinel SUV',
-          startDate: new Date().toISOString(),
-          endDate: new Date(Date.now() + 86400000).toISOString(),
-          totalPrice: 100000,
-          companyId: 'volta001',
-          source: 'super_admin_test',
-        }),
+      const result = await postJsonWithRetry(targetUrl, {
+        timestamp: new Date().toISOString(),
+        companyName: form.companyName || 'VoltaShowroom Tanzania',
+        companyId: 'volta001',
+        event: 'volta-booking',
+        bookingCode: 'TEST-000000',
+        userName: 'Volta Test Hub',
+        email: 'test@voltashowroom.co.tz',
+        phone: '+255700000000',
+        vehicleName: 'Test Sentinel SUV',
+        startDate: new Date().toISOString(),
+        endDate: new Date(Date.now() + 86400000).toISOString(),
+        totalPrice: 100000,
+        source: 'super_admin_test',
+      }, { timeoutMs: 12000, retries: 0 });
+      setWebhookStatus(result.ok ? 'ok' : 'fail');
+      toast({
+        title: result.ok ? '✅ Webhook Connected!' : `⚠️ Webhook Failed${result.status !== 'ERR' ? ` (HTTP ${result.status})` : ''}`,
+        description: result.ok ? `Reached n8n in ${result.durationMs}ms.` : result.error,
+        variant: result.ok ? 'default' : 'destructive',
       });
-      setWebhookStatus(res.ok ? 'ok' : 'fail');
-      toast({ title: res.ok ? '✅ Webhook Connected!' : '⚠️ Webhook rejection', variant: res.ok ? 'default' : 'destructive' });
-    } catch {
+    } catch (e: any) {
       setWebhookStatus('fail');
-      toast({ variant: "destructive", title: "Webhook unreachable" });
+      toast({ variant: "destructive", title: "Webhook unreachable", description: e?.message });
     } finally {
       setTestingWebhook(false);
     }
@@ -254,31 +233,7 @@ function SettingsPageInner() {
         toast({ variant: "destructive", title: "Enter a webhook URL for this trigger first" });
         return;
       }
-      let inputUrl = form.n8nWebhookUrl.trim().replace(/\/+$/, '');
-      let webhookType = 'webhook-test';
-      if (inputUrl.includes('/webhook/')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.includes('/webhook-test/')) {
-        webhookType = 'webhook-test';
-      } else if (inputUrl.endsWith('/webhook')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.endsWith('/webhook-test')) {
-        webhookType = 'webhook-test';
-      }
-      
-      let baseDomain = '';
-      try {
-        const parsed = new URL(inputUrl);
-        baseDomain = `${parsed.protocol}//${parsed.host}`;
-      } catch {
-        const match = inputUrl.match(/^(https?:\/\/[^\/]+)/);
-        baseDomain = match ? match[1] : inputUrl;
-      }
-      if (endpoint === 'telegram-webhook') {
-        targetUrl = `${baseDomain}/${webhookType}/volta-tg-bot/webhook`;
-      } else {
-        targetUrl = `${baseDomain}/${webhookType}/volta-booking/${endpoint}`;
-      }
+      targetUrl = resolveWebhookTarget(form.n8nWebhookUrl, endpoint);
     }
 
     setTestingWebhooks(prev => ({ ...prev, [endpoint]: true }));
@@ -294,38 +249,24 @@ function SettingsPageInner() {
         ...payload
       };
 
-      const res = await fetch(targetUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(finalPayload),
-      });
-
-      let responseText = '';
-      try {
-        const contentType = res.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          const json = await res.json();
-          responseText = JSON.stringify(json, null, 2);
-          setLastResponses(prev => ({ ...prev, [endpoint]: { status: res.status, body: json } }));
-        } else {
-          responseText = await res.text();
-          setLastResponses(prev => ({ ...prev, [endpoint]: { status: res.status, body: responseText } }));
-        }
-      } catch (err) {
-        responseText = 'Response read failed';
-      }
-
-      const isOk = res.ok;
+      const result = await postJsonWithRetry(targetUrl, finalPayload, { timeoutMs: 12000, retries: 0 });
+      const isOk = result.ok;
+      setLastResponses(prev => ({ ...prev, [endpoint]: {
+        status: result.status,
+        body: result.data !== undefined ? result.data : (result.error || 'No response body'),
+      } }));
       setWebhookStatuses(prev => ({ ...prev, [endpoint]: isOk ? 'ok' : 'fail' }));
-      
+
       if (endpoint === 'volta-booking') {
         setWebhookStatus(isOk ? 'ok' : 'fail');
       }
-      
-      toast({ 
-        title: isOk ? `✅ ${endpoint} Connected!` : `⚠️ ${endpoint} Failed`, 
-        description: isOk ? `Successfully reached n8n (HTTP ${res.status}).` : `n8n returned HTTP ${res.status}. Check details below.`,
-        variant: isOk ? 'default' : 'destructive' 
+
+      toast({
+        title: isOk ? `✅ ${endpoint} Connected!` : `⚠️ ${endpoint} Failed`,
+        description: isOk
+          ? `Successfully reached n8n (HTTP ${result.status}, ${result.durationMs}ms).`
+          : (result.error || `n8n returned HTTP ${result.status}. Check details below.`),
+        variant: isOk ? 'default' : 'destructive'
       });
     } catch (e: any) {
       setWebhookStatuses(prev => ({ ...prev, [endpoint]: 'fail' }));
@@ -535,7 +476,7 @@ function SettingsPageInner() {
                   <Input
                     value={form.n8nWebhookUrl ?? ""}
                     onChange={e => setForm({...form, n8nWebhookUrl: e.target.value})}
-                    placeholder="e.g. https://mwijay-automation.duckdns.org/webhook-test"
+                    placeholder="e.g. https://mwijay-automation.duckdns.org/webhook  (production) · /webhook-test (sandbox)"
                     className="h-12 bg-muted border-none font-mono text-xs text-foreground"
                   />
                 </div>

@@ -49,6 +49,9 @@ import { useFirestore } from "@/firebase";
 import { TripEstimator } from "@/components/ui/TripEstimator";
 import { optimizeImageUrl } from "@/lib/utils";
 import { SEED_CARS } from "@/lib/showroom-seed";
+import { WebGLShaderBackground } from "@/components/effects/WebGLShaderBackground";
+import { GsapScrollFX } from "@/components/effects/GsapScrollFX";
+import { GrainOverlay } from "@/components/effects/GrainOverlay";
 
 function LiveFleetPreview() {
   const db = useFirestore();
@@ -653,13 +656,23 @@ function PremiumTrustMarquee() {
 }
 
 export default function Home() {
-  const { 
+  const {
     heroVideoUrl,
     heroImageUrl,
     precisionImageUrl,
-    companyName = "VoltaShowroom", 
+    companyName = "VoltaShowroom",
     tagline,
-    stats
+    stats,
+    webglEnabled = true,
+    webglStyle = 'aurora',
+    webglOpacity = 60,
+    grainEnabled = true,
+    heroKicker,
+    heroHeadlineLine1,
+    heroHeadlineLine2,
+    heroCtaPrimary,
+    heroCtaSecondary,
+    announcementText,
   } = useBranding();
 
   const [displayText, setDisplayText] = useState("");
@@ -741,6 +754,11 @@ export default function Home() {
   const nameParts = safeName.split(' ');
   const firstName = nameParts[0] || "Volta";
   const restOfName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : "Showroom";
+  const headlineLine1 = (heroHeadlineLine1 || '').trim() || firstName;
+  const headlineLine2 = (heroHeadlineLine2 || '').trim() || restOfName;
+  const ctaPrimaryLabel = (heroCtaPrimary || '').trim() || 'Explore Showroom';
+  const ctaSecondaryLabel = (heroCtaSecondary || '').trim() || 'Find My Car';
+  const webglOpacity01 = Math.min(100, Math.max(0, webglOpacity ?? 60)) / 100;
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -753,7 +771,14 @@ export default function Home() {
         }}
       />
       <Navbar />
+      <GsapScrollFX />
       <main className="flex-1 bg-background overflow-x-hidden pt-14">
+        {announcementText && (
+          <div role="status" className="relative z-20 flex items-center justify-center gap-3 border-b border-primary/20 bg-primary/10 px-4 py-2 text-center">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] text-primary">{announcementText}</p>
+          </div>
+        )}
         {/* HERO SECTION */}
         <section ref={heroRef} className="relative min-h-[95vh] flex items-center overflow-hidden w-full">
           <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0 z-0">
@@ -780,7 +805,15 @@ export default function Home() {
                 className="opacity-50"
               />
             )}
+            {webglEnabled && (
+              <WebGLShaderBackground
+                style={webglStyle}
+                opacity={webglOpacity01}
+                className="mix-blend-screen"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
+            {grainEnabled && <GrainOverlay opacity={0.08} />}
           </motion.div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full text-foreground">
@@ -789,11 +822,11 @@ export default function Home() {
               style={{ opacity: heroOpacity }} className="max-max-w-3xl space-y-12"
             >
               <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-card/50 backdrop-blur-xl border border-border text-primary text-[8px] font-black uppercase tracking-[0.4em]">
-                <Zap className="h-3 w-3 fill-current animate-pulse text-secondary" /> Ready 2026
+                <Zap className="h-3 w-3 fill-current animate-pulse text-secondary" /> {(heroKicker || '').trim() || 'Ready 2026'}
               </motion.div>
               <div className="space-y-6">
                 <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-foreground">
-                  {firstName} <br /> <span className="text-primary italic glow-text">{restOfName}</span>
+                  {headlineLine1} <br /> <span className="text-primary italic glow-text">{headlineLine2}</span>
                 </motion.h1>
                 <motion.p variants={itemVariants} className="text-lg md:text-xl font-black text-secondary tracking-[0.2em] h-8">
                   {displayText}<span className="animate-pulse">|</span>
@@ -812,7 +845,7 @@ export default function Home() {
                       aria-label="Browse Cars for Sale"
                       className="h-16 px-12 bg-primary hover:bg-primary/90 text-white font-black uppercase text-[10px] tracking-widest rounded-2xl shadow-xl group"
                     >
-                      Explore Showroom <ArrowRight className="ml-3 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      {ctaPrimaryLabel} <ArrowRight className="ml-3 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
                 </motion.div>
@@ -826,7 +859,7 @@ export default function Home() {
                       aria-label="Find My Car"
                       className="h-16 px-12 border-border text-foreground hover:bg-muted font-black uppercase text-[10px] tracking-widest rounded-2xl backdrop-blur-md"
                     >
-                      Find My Car
+                      {ctaSecondaryLabel}
                     </Button>
                   </Link>
                 </motion.div>
@@ -858,7 +891,7 @@ export default function Home() {
         <section className="py-20 border-y border-border bg-card/40 backdrop-blur-sm relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/3 via-transparent to-secondary/3 pointer-events-none" />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-0" data-gsap="reveal">
               {[
                 { value: stats?.deployed || 500,  suffix: "+", label: "Showroom Vehicles Listed", color: "text-primary"   },
                 { value: stats?.missions || 2800, suffix: "+", label: "Vehicles Sold & Delivered", color: "text-secondary" },
@@ -901,7 +934,7 @@ export default function Home() {
         <section className="py-32 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
              <AnimatedSection className="text-center mb-24" direction="down">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4">Elite Classifications</h2>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4" data-gsap="reveal">Elite Classifications</h2>
                 <div className="h-1.5 w-24 bg-primary mx-auto rounded-full" />
              </AnimatedSection>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -951,7 +984,7 @@ export default function Home() {
         {/* TRIP ESTIMATOR SECTION */}
         <section className="py-32 bg-muted/30 border-y border-border">
            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center mb-20 space-y-4">
-              <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">Acquisition <span className="text-primary">Intelligence</span></h2>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase" data-gsap="reveal">Acquisition <span className="text-primary">Intelligence</span></h2>
               <p className="text-muted-foreground font-medium italic">"No hidden costs. Calculate your total vehicle purchase price and financing options before contacting the showroom."</p>
            </div>
            <TripEstimator />
@@ -962,7 +995,7 @@ export default function Home() {
           <div className="absolute top-0 right-0 p-40 opacity-10 rotate-12"><Zap size={400} fill="white" /></div>
           <div className="container mx-auto px-4 text-center space-y-12 relative z-10">
             <AnimatedSection direction="up">
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9]">READY TO FIND <br/><span className="text-secondary italic">YOUR CAR?</span></h2>
+              <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9]" data-gsap="reveal">READY TO FIND <br/><span className="text-secondary italic">YOUR CAR?</span></h2>
               <p className="text-blue-50/60 text-xl font-medium max-w-xl mx-auto leading-relaxed mt-8">
                 Discover top-tier vehicles from verified Tanzanian showroom owners or list your showroom inventory.
               </p>

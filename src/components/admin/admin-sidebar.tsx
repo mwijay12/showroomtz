@@ -27,7 +27,8 @@ import {
   ShieldCheck,
   UserPlus,
   Database,
-  Building2
+  Building2,
+  Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser, useAuth } from '@/firebase';
@@ -66,6 +67,7 @@ const NAV_GROUPS = [
       { icon: ShieldAlert, label: "Master Command", key: "masterCommand", href: "/super-admin", color: "text-rose-500", roles: ['super_admin'] },
       { icon: Users, label: "Showroom Registry", key: "showroomRegistry", href: "/super-admin/admins", color: "text-indigo-400", roles: ['super_admin'] },
       { icon: Palette, label: "Theme Studio", key: "themeStudio", href: "/super-admin/settings/theme", color: "text-purple-400", roles: ['super_admin'] },
+      { icon: Sparkles, label: "Premium Studio", key: "premiumStudio", href: "/super-admin/settings/premium", color: "text-amber-300", roles: ['super_admin'] },
       { icon: ImageIcon, label: "Visual Media", key: "visualMedia", href: "/super-admin/media", color: "text-amber-400", roles: ['super_admin'] },
       { icon: Zap, label: "Automation Hub", key: "automationHub", href: "/super-admin/settings?tab=automation", color: "text-primary", roles: ['super_admin'] },
       { icon: Settings, label: "Global Protocols", key: "globalProtocols", href: "/super-admin/settings", color: "text-zinc-400", roles: ['super_admin'] },

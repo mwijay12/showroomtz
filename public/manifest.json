@@ -1,7 +1,7 @@
 {
   "name": "VoltaShowroom - Premium Car Showroom Tanzania",
   "short_name": "VoltaShowroom",
-  "description": "Rent premium vehicles across Tanzania. Book online in minutes.",
+  "description": "Tanzania's premier showroom for quality & luxury vehicles. Verified dealers, transparent pricing, nationwide delivery.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -11,7 +11,11 @@
   "dir": "ltr",
   "lang": "en-TZ",
   "prefer_related_applications": false,
-  "categories": ["travel", "business", "transportation"],
+  "categories": [
+    "travel",
+    "business",
+    "transportation"
+  ],
   "icons": [
     {
       "src": "/icons/icon-192x192.svg",
@@ -28,18 +32,28 @@
   ],
   "shortcuts": [
     {
-      "name": "Browse Fleet",
-      "short_name": "Fleet",
-      "description": "View all available vehicles",
-      "url": "/fleet",
-      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+      "name": "Browse Vehicles",
+      "short_name": "Cars",
+      "description": "View all verified vehicles for sale",
+      "url": "/cars",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.svg",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
-      "name": "My Bookings",
-      "short_name": "Bookings",
-      "description": "View your rental bookings",
-      "url": "/dashboard/bookings",
-      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+      "name": "Find My Car",
+      "short_name": "Find Car",
+      "description": "AI-assisted car finder",
+      "url": "/find-my-car",
+      "icons": [
+        {
+          "src": "/icons/icon-192x192.svg",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

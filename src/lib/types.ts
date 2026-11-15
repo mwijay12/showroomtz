@@ -376,6 +376,17 @@ export interface Branding {
     cities: number;
   };
   marqueeItems?: { label: string; tag: string; plate: string }[];
+  // ── Premium experience controls (Super Admin → Premium Studio) ──
+  webglEnabled?: boolean;                 // WebGL/GLSL hero shader on/off
+  webglStyle?: 'aurora' | 'liquid' | 'starfield'; // GLSL program variant
+  webglOpacity?: number;                  // 0–100 intensity of the shader layer
+  grainEnabled?: boolean;                 // Film-grain overlay on hero
+  heroKicker?: string;                    // Small pill above the headline (e.g. "Ready 2026")
+  heroHeadlineLine1?: string;             // Optional headline override — line 1
+  heroHeadlineLine2?: string;             // Optional headline override — line 2 (accent)
+  heroCtaPrimary?: string;                // Primary CTA label override
+  heroCtaSecondary?: string;              // Secondary CTA label override
+  announcementText?: string;              // Announcement ribbon copy (empty = hidden)
   updatedAt: any;
   updatedBy: string;
 }

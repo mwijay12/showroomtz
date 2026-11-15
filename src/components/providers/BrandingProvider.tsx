@@ -82,6 +82,16 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
       { label: "Lexus LX 570", tag: "LUXURY", plate: "T 147 EPD" },
       { label: "Mercedes GLE", tag: "SUV", plate: "T 258 ETR" },
     ],
+    webglEnabled: true,
+    webglStyle: 'aurora',
+    webglOpacity: 60,
+    grainEnabled: true,
+    heroKicker: '',
+    heroHeadlineLine1: '',
+    heroHeadlineLine2: '',
+    heroCtaPrimary: '',
+    heroCtaSecondary: '',
+    announcementText: '',
     updatedAt: null,
     updatedBy: "system"
   });
