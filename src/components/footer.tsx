@@ -11,7 +11,6 @@ import {
   Twitter, 
   Linkedin, 
   MessageCircle, 
-  Zap
 } from "lucide-react";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { Button } from "./ui/button";
@@ -21,6 +20,7 @@ import { useMediaQuery } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { StaggerContainer, StaggerItem } from "@/components/ui/AnimatedSection";
 import { ShareButton } from "@/components/sharing/ShareButton";
+import { ShowroomMark } from "@/components/ui/ShowroomMark";
 
 export function Footer() {
   const { companyName, logoUrl, officeAddress, supportEmail, whatsappNumber, mode } = useBranding();
@@ -75,9 +75,7 @@ export function Footer() {
               {logoUrl ? (
                 <img src={logoUrl} alt={brandName} className="h-10 w-auto object-contain transition-transform group-hover:scale-110" />
               ) : (
-                <div className="h-12 w-12 rounded-2xl bg-primary text-white flex items-center justify-center shadow-2xl transition-transform group-hover:rotate-12">
-                  <Zap size={24} fill="currentColor" />
-                </div>
+                <ShowroomMark className="h-12 w-12 rounded-2xl shadow-2xl transition-transform group-hover:scale-110" />
               )}
               <span className="text-3xl font-black text-foreground tracking-tighter uppercase leading-none">
                 {firstName}

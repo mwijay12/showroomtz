@@ -173,13 +173,25 @@ export function VoltaSplash() {
                  style={{ filter: `drop-shadow(0 8px 25px ${themeColor || '#cc0000'}88)` }}>
                 <defs>
                     <linearGradient id="splashBg" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style={{ stopColor: '#dd0000' }}/>
-                        <stop offset="100%" style={{ stopColor: '#7a0000' }}/>
+                        <stop offset="0%" style={{ stopColor: '#1D1815' }}/>
+                        <stop offset="100%" style={{ stopColor: '#0D0B0A' }}/>
+                    </linearGradient>
+                    <linearGradient id="splashS" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style={{ stopColor: '#F9ECD6' }}/>
+                        <stop offset="55%" style={{ stopColor: '#E3C089' }}/>
+                        <stop offset="100%" style={{ stopColor: '#B98A4E' }}/>
+                    </linearGradient>
+                    <linearGradient id="splashRoad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style={{ stopColor: '#E5483C' }}/>
+                        <stop offset="50%" style={{ stopColor: '#D42B1E' }}/>
+                        <stop offset="100%" style={{ stopColor: '#7E1B12' }}/>
                     </linearGradient>
                 </defs>
-                <rect width="100" height="100" rx="22" fill="url(#splashBg)"/>
-                <path d="M15 22 L50 72 L85 22 L74 22 L50 60 L26 22 Z" fill="white" opacity="0.9"/>
-                <path d="M56 16 L40 48 L50 48 L44 80 L65 42 L54 42 Z" fill="white"/>
+                <rect width="100" height="100" rx="23" fill="url(#splashBg)"/>
+                <rect x="1.5" y="1.5" width="97" height="97" rx="21.5" fill="none" stroke="#D4A24E" strokeOpacity="0.35" strokeWidth="2"/>
+                <text x="50" y="63" textAnchor="middle" fontFamily="Georgia, 'Times New Roman', serif" fontStyle="italic" fontWeight="700" fontSize="54" fill="url(#splashS)">S</text>
+                <rect x="22" y="72" width="56" height="5.5" rx="2.75" fill="url(#splashRoad)"/>
+                <rect x="34" y="81.5" width="32" height="3" rx="1.5" fill="#D4A24E" fillOpacity="0.9"/>
               </svg>
             )}
           </motion.div>

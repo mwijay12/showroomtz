@@ -2,7 +2,7 @@
 
 /**
  * Premium Studio — Super Admin control deck for the cinematic layer of the site.
- * Controls the WebGL/GLSL hero shader, film grain, headline copy overrides,
+ * Controls the 3D hero scene (React Three Fiber + Drei), film grain, headline copy overrides,
  * CTA labels and the announcement ribbon. Persisted to Firestore
  * `settings/branding` (merged) and picked up site-wide by BrandingProvider.
  */
@@ -17,17 +17,17 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import {
   Sparkles, Save, Loader2, MonitorPlay, Film, Type, Megaphone,
-  ExternalLink, Zap, CheckCircle2, MousePointerClick, Droplets, Stars, Wind,
+  ExternalLink, Zap, MousePointerClick, Car, Cpu, Layers,
 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { WebGLShaderBackground, type WebGLStyle } from '@/components/effects/WebGLShaderBackground';
+import { HeroScene } from '@/components/three/HeroScene';
 import { GrainOverlay } from '@/components/effects/GrainOverlay';
 
-const WEBGL_STYLES: { id: WebGLStyle; name: string; description: string; icon: any }[] = [
-  { id: 'aurora',    name: 'Crimson Aurora', description: 'Signature flowing GLSL aurora — crimson, ember & gold over deep black.', icon: Droplets },
-  { id: 'liquid',    name: 'Liquid Chrome',  description: 'Warped liquid-metal specular bands — cold steel with hot-red flashes.',   icon: Wind },
-  { id: 'starfield', name: 'Nebula Starfield', description: 'Procedural twinkling starfield drifting through a violet nebula.',      icon: Stars },
+const SCENE_FACTS = [
+  { icon: Car,    text: 'Procedural GT coupé — extruded silhouette, clearcoat paint, crimson spear lighting. Not a downloaded model; renders instantly.' },
+  { icon: Layers, text: 'Blurred planar reflections (MeshReflectorMaterial), local Lightformer rig — zero external HDR fetches.' },
+  { icon: Cpu,    text: 'GSAP drive-in intro, wheels spin down, headlight flash, pointer-parallax camera, gold dust glints.' },
 ];
 
 export default function PremiumStudioPage() {
@@ -37,7 +37,7 @@ export default function PremiumStudioPage() {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
     webglEnabled: true,
-    webglStyle: 'aurora' as WebGLStyle,
+    webglStyle: 'aurora' as const,
     webglOpacity: 80,
     grainEnabled: true,
     heroKicker: '',
@@ -58,7 +58,7 @@ export default function PremiumStudioPage() {
           setForm(prev => ({
             ...prev,
             webglEnabled: d.webglEnabled ?? true,
-            webglStyle: (d.webglStyle as WebGLStyle) || 'aurora',
+            webglStyle: (d.webglStyle as 'aurora') || 'aurora',
             webglOpacity: typeof d.webglOpacity === 'number' ? d.webglOpacity : 80,
             grainEnabled: d.grainEnabled ?? true,
             heroKicker: d.heroKicker || '',
@@ -118,7 +118,7 @@ export default function PremiumStudioPage() {
             <span className="text-[9px] font-black uppercase tracking-[0.4em]">Cinematic Layer</span>
           </div>
           <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase leading-none">Premium<br />Studio</h1>
-          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">WebGL shaders · film grain · hero copy — all live, no redeploy</p>
+          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">3D hero · film grain · hero copy — all live, no redeploy</p>
         </div>
         <div className="flex items-center gap-3">
           <Button asChild variant="outline" className="h-12 rounded-xl border-white/10 font-black uppercase text-[10px] tracking-widest gap-2">
@@ -135,16 +135,16 @@ export default function PremiumStudioPage() {
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div className="flex items-center gap-3">
             <MonitorPlay className="h-4 w-4 text-primary" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Live Shader Preview</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Live 3D Preview</span>
           </div>
-          <Badge variant="outline" className="font-mono text-[9px] uppercase">{form.webglStyle} · {Math.round(form.webglOpacity)}%</Badge>
+          <Badge variant="outline" className="font-mono text-[9px] uppercase">{form.webglEnabled ? "3D SCENE" : "OFF"} · {Math.round(form.webglOpacity)}%</Badge>
         </div>
         <div className="relative h-72 sm:h-80 bg-black overflow-hidden">
           {form.webglEnabled ? (
-            <WebGLShaderBackground style={form.webglStyle} opacity={Math.min(100, Math.max(0, form.webglOpacity)) / 100} />
+            <HeroScene style={{ opacity: Math.min(100, Math.max(0, form.webglOpacity)) / 100 }} />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">WebGL Disabled — Image Hero</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">3D Scene Disabled — Image Hero</span>
             </div>
           )}
           {form.grainEnabled && <GrainOverlay opacity={0.09} />}
@@ -165,41 +165,26 @@ export default function PremiumStudioPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Zap className="h-5 w-5 text-primary" />
-              <h2 className="text-sm font-black uppercase tracking-widest">Shader Engine</h2>
+              <h2 className="text-sm font-black uppercase tracking-widest">3D Hero Engine</h2>
             </div>
-            <Switch checked={form.webglEnabled} onCheckedChange={(v) => set({ webglEnabled: v })} aria-label="Toggle WebGL hero" />
+            <Switch checked={form.webglEnabled} onCheckedChange={(v) => set({ webglEnabled: v })} aria-label="Toggle 3D hero scene" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {WEBGL_STYLES.map((s) => {
-              const Icon = s.icon;
-              const active = form.webglStyle === s.id;
+          <div className="space-y-4">
+            {SCENE_FACTS.map((f, i) => {
+              const Icon = f.icon;
               return (
-                <button
-                  key={s.id}
-                  onClick={() => set({ webglStyle: s.id })}
-                  className={cn(
-                    'group rounded-2xl border p-5 text-left transition-all duration-300 space-y-3',
-                    active
-                      ? 'border-primary bg-primary/10 ring-2 ring-primary/40 shadow-2xl'
-                      : 'border-border bg-muted/30 hover:border-primary/40 hover:-translate-y-0.5'
-                  )}
-                >
-                  <Icon className={cn('h-6 w-6 transition-colors', active ? 'text-primary' : 'text-muted-foreground group-hover:text-primary')} />
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-foreground flex items-center gap-2">
-                      {s.name} {active && <CheckCircle2 size={12} className="text-primary" />}
-                    </p>
-                    <p className="mt-1 text-[9px] leading-relaxed text-muted-foreground">{s.description}</p>
-                  </div>
-                </button>
+                <div key={i} className="flex items-start gap-4 rounded-2xl border border-border bg-muted/30 px-5 py-4">
+                  <Icon className="h-5 w-5 mt-0.5 text-primary shrink-0" />
+                  <p className="text-[10px] leading-relaxed text-muted-foreground">{f.text}</p>
+                </div>
               );
             })}
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label htmlFor="webgl-opacity" className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Shader Intensity</label>
+              <label htmlFor="webgl-opacity" className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Scene Intensity</label>
               <span className="font-mono text-[10px] text-primary">{Math.round(form.webglOpacity)}%</span>
             </div>
             <input
