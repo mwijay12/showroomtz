@@ -14,6 +14,7 @@ import { useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { CountUp } from '@/components/effects/CountUp';
+import { Parallax } from '@/components/effects/Reveal';
 import { AuctionSeal, RoadDoodle, WrenchDoodle, SparkDoodle, WordRing } from '@/components/effects/Stickers';
 
 const STATEMENT = [
@@ -112,7 +113,8 @@ export function Manifesto() {
         </div>
 
         {/* seal composition */}
-        <div className="relative hidden aspect-square items-center justify-center lg:flex">
+        <Parallax distance={38} className="relative hidden aspect-square items-center justify-center lg:flex">
+        <div className="relative flex h-full w-full items-center justify-center">
           <WordRing
             size={330}
             className="absolute inset-0 m-auto text-border"
@@ -137,6 +139,7 @@ export function Manifesto() {
             <SparkDoodle className="animate-twinkle absolute -right-3 -top-3 text-secondary" size={26} />
           </motion.div>
         </div>
+        </Parallax>
       </div>
     </section>
   );

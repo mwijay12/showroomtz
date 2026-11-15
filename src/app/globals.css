@@ -573,3 +573,58 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none !important; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   CAR PART MOTION — wheels, pistons, gears, springs, beams
+   Each part exposes `--part-speed` so a card can spool it up on hover.
+   ══════════════════════════════════════════════════════════════════════ */
+
+@keyframes part-rotate { to { transform: rotate(360deg); } }
+@keyframes part-rotate-rev { to { transform: rotate(-360deg); } }
+@keyframes part-piston-stroke {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(17px); }
+}
+@keyframes part-conrod-swing {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+@keyframes part-spring-squash {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.88); }
+}
+@keyframes part-beam-sweep {
+  0%, 100% { opacity: 0.22; }
+  50% { opacity: 0.62; }
+}
+@keyframes part-soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.part-spin { animation: part-rotate var(--part-speed, 12s) linear infinite; transform-box: view-box; }
+.part-spin-rev { animation: part-rotate-rev var(--part-speed, 12s) linear infinite; transform-box: view-box; }
+.part-piston { animation: part-piston-stroke var(--part-speed, 2.2s) ease-in-out infinite; transform-box: view-box; }
+.part-conrod { animation: part-conrod-swing var(--part-speed, 2.2s) ease-in-out infinite; transform-box: view-box; transform-origin: 60px 50px; }
+.part-spring { animation: part-spring-squash var(--part-speed, 2.8s) ease-in-out infinite; transform-box: view-box; transform-origin: 60px 26px; }
+.part-beam { animation: part-beam-sweep 3.6s ease-in-out infinite; }
+.part-pulse { animation: part-soft-pulse var(--part-speed, 3s) ease-in-out infinite; }
+
+/* A part card spins its anatomy up when you point at it */
+.part-card:hover .part-spin,
+.part-card:hover .part-spin-rev,
+.part-card:focus-within .part-spin,
+.part-card:focus-within .part-spin-rev { animation-duration: 1.5s; }
+.part-card:hover .part-piston { animation-duration: 0.85s; }
+.part-card:hover .part-spring { animation-duration: 1.1s; }
+
+.tz-city:focus { outline: none; }
+.tz-city:focus-visible circle:last-of-type { stroke: hsl(var(--secondary)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .part-spin, .part-spin-rev, .part-piston, .part-conrod,
+  .part-spring, .part-beam, .part-pulse { animation: none !important; }
+}
+
+/* Preloader lock — applied only while the curtain is on screen */
+html.srz-loading { overflow: hidden; }

@@ -39,6 +39,8 @@ import { ServiceWorkerRegistration } from '@/components/pwa/ServiceWorkerRegistr
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { RouteCurtain } from '@/components/effects/RouteCurtain';
+import { Preloader } from '@/components/effects/Preloader';
+import { SiteTexture } from '@/components/effects/SiteTexture';
 import { CompareProvider } from '@/context/CompareContext';
 import { CompareBar } from '@/components/ui/CompareBar';
 
@@ -118,6 +120,8 @@ export default function RootLayout({
                       {children}
                     </div>
                   </LazyMotion>
+                  <SiteTexture />
+                  <Preloader />
                   <RouteCurtain />
                   <CompareBar />
                   <ServiceWorkerRegistration />

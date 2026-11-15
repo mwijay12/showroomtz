@@ -267,9 +267,9 @@ function FleetCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: (index % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="w-[78vw] shrink-0 snap-center sm:w-[340px] lg:w-[380px]"
+      className="group/card w-[78vw] shrink-0 snap-center transition-transform duration-500 hover:-translate-y-1.5 sm:w-[340px] lg:w-[380px]"
     >
-      <SpotlightCard className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card">
+      <SpotlightCard className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-colors duration-500 hover:border-primary/40">
         <Link href={`/cars/${car.id}`} className="group flex h-full flex-col">
           {/* media */}
           <div className="relative aspect-[16/11] overflow-hidden">

@@ -24,6 +24,7 @@ import { Hero, TickerStrip } from '@/components/home/Hero';
 import { Manifesto } from '@/components/home/Manifesto';
 import { FeaturedFleet } from '@/components/home/FeaturedFleet';
 import { ProcessRail } from '@/components/home/ProcessRail';
+import { Engineering } from '@/components/home/Engineering';
 import { StatsBand } from '@/components/home/StatsBand';
 import { Coverage } from '@/components/home/Coverage';
 import { FinalCta } from '@/components/home/FinalCta';
@@ -70,6 +71,7 @@ export default function Home() {
         <Manifesto />
         <FeaturedFleet />
         <ProcessRail />
+        <Engineering />
         <StatsBand />
         <Coverage />
 
@@ -80,7 +82,7 @@ export default function Home() {
               <div>
                 <div className="mb-4 flex items-center gap-4">
                   <span className="text-[9px] font-black uppercase tracking-[0.42em] text-primary">
-                    04 / Estimate
+                    05 / Estimate
                   </span>
                   <span className="h-px w-12 bg-border" />
                 </div>

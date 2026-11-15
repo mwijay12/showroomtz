@@ -37,7 +37,7 @@ export function FinalCta() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex items-center gap-4">
           <span className="text-[9px] font-black uppercase tracking-[0.42em] text-secondary">
-            05 / Next move
+            06 / Next move
           </span>
           <SpeedLines className="text-white/25" width={90} count={3} />
         </div>

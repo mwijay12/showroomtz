@@ -223,3 +223,24 @@ system, so every page reads like the same publication.
 `.text-outline` uses `-webkit-text-fill-color: transparent` + a `currentColor`
 stroke (so `text-outline text-primary` keeps the accent), `.index-number` gives
 tabular catalogue numerals, `.grid-lines` adds a masked technical grid.
+
+---
+
+## 12. Animated car parts, real geography, and the preloader
+
+| Piece | File | Notes |
+| --- | --- | --- |
+| `AlloyWheel`, `GearPair`, `Piston`, `BrakeDisc`, `Turbo`, `Headlight`, `Suspension`, `KeyFob` | `components/effects/CarParts.tsx` | hand-built SVGs, CSS/SMIL motion, `--part-speed` so cards spool them up on hover |
+| `Engineering` | `components/home/Engineering.tsx` | the eight-part "teardown" act; each card is the inspection domain it illustrates |
+| `TanzaniaMap` | `components/effects/TanzaniaMap.tsx` | real TZ outline + lake holes, projected city nodes, SMIL courier dots, hover = filter |
+| `ImportLane` | `components/effects/ImportLane.tsx` | Yokohama → Singapore → Colombo → Dar es Salaam, 11,800 km / 30–38 days |
+| `tanzania-geo.ts` | `components/effects/tanzania-geo.ts` | **generated** from `world-atlas@2` + `@geo-maps/earth-lakes-10km`; regenerate with `scripts/generate-tanzania-map.mjs` |
+| `Preloader` | `components/effects/Preloader.tsx` | once per session, ~1.1 s, skipped for reduced motion, renders nothing on the server |
+| `Reveal` / `Parallax` | `components/effects/Reveal.tsx` | the two entrance/depth primitives used across sections |
+| `SiteTexture` | `components/effects/SiteTexture.tsx` | fixed film grain + vignette over the whole app |
+
+**Why the map changed:** the previous "Tanzania map" was a decorative Bézier
+squiggle with dots placed by eye — cities sat in the wrong regions and the
+`JPN → TZ` provenance had no route. The map is now generated from Natural Earth
+polygons, city dots come from true lon/lat, and the sea leg is drawn as its own
+diagram with real ports and transit time.

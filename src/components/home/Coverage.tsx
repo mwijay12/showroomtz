@@ -1,31 +1,25 @@
 'use client';
 
 /**
- * Coverage — the nationwide delivery story.
+ * Coverage — the two legs of delivery, on real geography.
  *
- * A drawn route map (Anime.js motion path) with city waypoints, paired with
- * an editorial city list and two hand-drawn stickers. Deliberately diagrammatic
- * rather than a stock photo: it answers “do you deliver to me?” in one glance.
+ * Leg 1 (sea): Yokohama → Singapore → Colombo → Dar es Salaam.
+ * Leg 2 (land): Dar es Salaam → the seven regions we deliver to.
+ *
+ * The map is generated from Natural Earth polygons (see `tanzania-geo.ts`),
+ * so Lake Victoria, Tanganyika, Rukwa and Nyasa sit where they belong and the
+ * city nodes are projected from true coordinates.
  */
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 
 import { SplitReveal } from '@/components/effects/SplitReveal';
-import { RouteTrace } from '@/components/effects/AnimatedSVG';
+import { Reveal } from '@/components/effects/Reveal';
+import { TanzaniaMap } from '@/components/effects/TanzaniaMap';
+import { ImportLane } from '@/components/effects/ImportLane';
 import { Stamp, WordRing, ProvenanceSticker } from '@/components/effects/Stickers';
 import { MagneticButton } from '@/components/effects/Interactive';
-
-const CITIES = [
-  { name: 'Dar es Salaam', note: 'HQ · Mikocheni', primary: true },
-  { name: 'Dodoma', note: 'Central corridor' },
-  { name: 'Arusha', note: 'Northern circuit' },
-  { name: 'Mwanza', note: 'Lake zone' },
-  { name: 'Zanzibar', note: 'Ferry handover' },
-  { name: 'Mbeya', note: 'Southern highlands' },
-  { name: 'Tanga', note: 'Coastal north' },
-];
 
 export function Coverage() {
   return (
@@ -34,93 +28,115 @@ export function Coverage() {
         <div className="absolute right-[-10%] top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-secondary/5 blur-[120px]" />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.1fr_1fr]">
-        <div>
-          <div className="mb-4 flex items-center gap-4">
-            <span className="text-[9px] font-black uppercase tracking-[0.42em] text-primary">
-              03 / Coverage
-            </span>
-            <span className="h-px w-12 bg-border" />
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
+          <div>
+            <div className="mb-4 flex items-center gap-4">
+              <span className="text-[9px] font-black uppercase tracking-[0.42em] text-primary">
+                04 / Coverage
+              </span>
+              <span className="h-px w-12 bg-border" />
+            </div>
+
+            <SplitReveal
+              as="h2"
+              type="words"
+              text="Cleared at the port. Delivered to your gate."
+              stagger={0.05}
+              className="max-w-xl text-[clamp(2rem,5vw,3.9rem)] font-black uppercase leading-[0.92] tracking-[-0.03em]"
+            />
+
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
+              We handle the boring, expensive part — auction, shipping, TRA assessment, duty,
+              registration — then put the keys in your hand wherever you actually are. Every
+              distance on this page is real.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              <Stamp text="Port → gate" sub="Insured transit" tone="hsl(var(--muted-foreground))" />
+              <Stamp text="Registration" sub="TRA plates" tone="hsl(var(--muted-foreground))" />
+              <ProvenanceSticker className="hidden !border-border !bg-card/60 sm:inline-flex [&_span]:!text-muted-foreground" />
+            </div>
+
+            <MagneticButton strength={0.14} className="mt-8">
+              <Link
+                href="/contact"
+                className="group inline-flex h-12 items-center gap-3 rounded-full border border-border px-6 text-[9px] font-black uppercase tracking-[0.26em] text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                Check delivery to your town
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </MagneticButton>
           </div>
 
-          <SplitReveal
-            as="h2"
-            type="words"
-            text="Cleared at the port. Delivered to your gate."
-            stagger={0.05}
-            className="max-w-xl text-[clamp(2rem,5vw,3.9rem)] font-black uppercase leading-[0.92] tracking-[-0.03em]"
-          />
+          {/* the map */}
+          <Reveal y={28}>
+            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card/50 p-3 sm:p-5">
+              <div className="mb-2 flex items-center justify-between px-2">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-3.5 w-3.5 text-primary" />
+                  <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                    Delivery network
+                  </span>
+                </div>
+                <span className="rounded-full border border-border px-3 py-1 text-[7px] font-black uppercase tracking-[0.22em] text-muted-foreground">
+                  7 regions · hover a node
+                </span>
+              </div>
 
-          <p className="mt-6 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
-            We handle the boring, expensive part — inspection, shipping, TRA assessment, duty,
-            registration — then put the keys in your hand wherever you actually are.
-          </p>
+              <TanzaniaMap />
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            <Stamp text="Port → gate" sub="Insured transit" tone="hsl(var(--muted-foreground))" />
-            <Stamp text="Registration" sub="TRA + TRA plates" tone="hsl(var(--muted-foreground))" />
-            <ProvenanceSticker className="hidden !border-border !bg-card/60 sm:inline-flex [&_span]:!text-muted-foreground" />
-          </div>
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-border px-2 pt-3">
+                <div className="flex items-center gap-5">
+                  <span className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+                    <span className="h-2 w-2 rounded-full bg-primary" /> HQ · port
+                  </span>
+                  <span className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+                    <span className="h-2 w-2 rounded-full bg-foreground" /> Delivery node
+                  </span>
+                </div>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+                  Dar → Mbeya ≈ 850 km
+                </span>
+              </div>
 
-          <MagneticButton strength={0.14} className="mt-8">
-            <Link
-              href="/contact"
-              className="group inline-flex h-12 items-center gap-3 rounded-full border border-border px-6 text-[9px] font-black uppercase tracking-[0.26em] text-foreground transition-colors hover:border-primary/50 hover:text-primary"
-            >
-              Check delivery to your town
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-          </MagneticButton>
+              <WordRing
+                size={120}
+                className="pointer-events-none absolute -left-8 -top-8 text-border/60"
+                words="NATIONWIDE · INSURED · TRACKED · "
+              />
+            </div>
+          </Reveal>
         </div>
 
-        {/* map card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[2rem] border border-border bg-card/60 p-6 sm:p-8"
-        >
-          <div className="mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5 text-primary" />
-              <span className="text-[8px] font-black uppercase tracking-[0.3em] text-muted-foreground">
-                Delivery network
-              </span>
-            </div>
-            <span className="rounded-full border border-border px-3 py-1 text-[7px] font-black uppercase tracking-[0.24em] text-muted-foreground">
-              7 regions
-            </span>
-          </div>
-
-          <RouteTrace className="w-full" />
-
-          <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border pt-5">
-            {CITIES.map((c) => (
-              <div key={c.name} className="flex items-start gap-2.5">
-                <span
-                  className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                    c.primary ? 'bg-primary' : 'bg-border'
-                  }`}
-                />
-                <div>
-                  <p className="text-[11px] font-black uppercase tracking-[0.08em] text-foreground">
-                    {c.name}
-                  </p>
-                  <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                    {c.note}
-                  </p>
-                </div>
+        {/* the sea leg */}
+        <Reveal y={30} className="mt-8">
+          <div className="overflow-hidden rounded-[2rem] border border-border bg-card/40">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 sm:px-7">
+              <div className="flex items-center gap-3">
+                <span className="text-[8px] font-black uppercase tracking-[0.34em] text-primary">
+                  The import lane
+                </span>
+                <span className="h-px w-10 bg-border" />
+                <span className="text-[8px] font-black uppercase tracking-[0.26em] text-muted-foreground">
+                  Yokohama → Dar es Salaam
+                </span>
               </div>
-            ))}
+              <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.24em]">
+                <span className="rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+                  JPN
+                </span>
+                <ArrowUpRight className="h-3 w-3 rotate-45 text-secondary" />
+                <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-primary">
+                  TZ
+                </span>
+              </div>
+            </div>
+            <div className="px-2 pb-2 pt-4 sm:px-5">
+              <ImportLane />
+            </div>
           </div>
-
-          <WordRing
-            size={150}
-            className="pointer-events-none absolute -right-10 -top-10 text-border/70"
-            words="NATIONWIDE · INSURED · TRACKED · "
-          />
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
