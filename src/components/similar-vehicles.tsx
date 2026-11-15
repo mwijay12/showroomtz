@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Users, MapPin, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { resolveCarImage } from '@/lib/car-image';
 import { VoltaImage } from "./ui/VoltaImage";
 import { SEED_CARS } from "@/lib/showroom-seed";
 
@@ -62,7 +63,7 @@ export function SimilarVehicles({ category, currentCarId }: SimilarVehiclesProps
                 <div className="bg-card rounded-[2rem] border border-border overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <VoltaImage 
-                      src={car.images?.[0] || null} 
+                      src={resolveCarImage(car.images?.[0], `${car.make ?? ''} ${car.model ?? ''}`)} 
                       alt={car.model} 
                       fill 
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"

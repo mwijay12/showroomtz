@@ -18,6 +18,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { AuctionSeal, Stamp } from '@/components/effects/Stickers';
+import { resolveCarImage } from '@/lib/car-image';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
@@ -167,6 +169,16 @@ export function CampaignPage({
           </motion.div>
         </div>
 
+        {/* auction seal */}
+        <motion.div
+          initial={{ opacity: 0, rotate: 18, scale: 0.9 }}
+          animate={{ opacity: 1, rotate: -8, scale: 1 }}
+          transition={{ delay: 1.25, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-none absolute bottom-40 right-6 z-10 hidden text-amber-400/80 lg:block xl:right-12"
+        >
+          <AuctionSeal size={132} center="JP→TZ" label="VERIFIED IMPORT" />
+        </motion.div>
+
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 pb-16 pt-28">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -259,6 +271,17 @@ export function CampaignPage({
             </a>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.15 }}
+            className="mt-8 flex flex-wrap gap-2.5"
+          >
+            <Stamp text="Duty cleared" sub="TRA · EFD" tone="rgba(255,255,255,0.55)" />
+            <Stamp text="Auction graded" sub="Sheet attached" tone="rgba(255,255,255,0.55)" />
+            <Stamp text="Insured transit" sub="Port → gate" tone="rgba(255,255,255,0.55)" />
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -323,7 +346,7 @@ export function CampaignPage({
                   <Link href={`/cars/${car.id}`} data-gsap="reveal" className="block">
                     <div className="relative h-52 sm:h-60 overflow-hidden rounded-t-3xl">
                       <Image
-                        src={car.coverImage || car.images[0]}
+                        src={resolveCarImage(car.coverImage || car.images?.[0], `${car.make ?? ''} ${car.model ?? ''}`)}
                         alt={`${car.year} ${car.make} ${car.model}`}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"

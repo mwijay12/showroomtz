@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Navbar } from "@/components/navbar";
+import { PageMasthead } from "@/components/layout/PageMasthead";
 import { Footer } from "@/components/footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -191,22 +192,17 @@ export default function FindMyCarPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col font-body">
       <Navbar />
       
-      <main className="flex-1 pt-28 pb-32">
+      <PageMasthead
+        kicker="Match protocol"
+        index="03"
+        title="Five questions."
+        outline="One shortlist."
+        blurb="Tell us how you drive and what you can spend. We match you against verified stock in Dar es Salaam, Arusha and Mwanza — then hand you the showroom contact directly."
+        seal="auction"
+      />
+
+      <main className="flex-1 pb-32 pt-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12">
-          
-          {/* HEADER NODE */}
-          <div className="text-center space-y-4 mb-12">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 text-primary">
-              <Sparkles size={14} className="animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Vehicle & Showroom Match Protocol</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">
-              Find Your <span className="text-primary italic">Perfect Vehicle</span>
-            </h1>
-            <p className="text-muted-foreground text-xs md:text-sm font-bold uppercase tracking-wider max-w-xl mx-auto">
-              Answer 5 quick questions to match with verified Tanzanian showroom stock in Dar es Salaam, Arusha & Mwanza.
-            </p>
-          </div>
 
           {/* PROGRESS BAR */}
           {step < 6 && (

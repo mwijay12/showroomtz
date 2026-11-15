@@ -2,6 +2,7 @@
 'use client';
 
 import { Navbar } from "@/components/navbar";
+import { PageMasthead } from "@/components/layout/PageMasthead";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { 
@@ -28,32 +29,29 @@ export function AboutClient() {
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
       <main className="flex-1 bg-background">
-        {/* Hero Section */}
-        <section className="relative py-32 bg-primary text-white overflow-hidden rounded-b-[5rem]">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
+        <PageMasthead
+          kicker="The house"
+          index="04"
+          title="Driving Tanzania"
+          outline="forward."
+          blurb="ShowroomTZ is a documented marketplace: verified dealers, inspected vehicles and cleared paperwork. We built it because buying a car in Tanzania should not feel like a gamble."
+          seal="provenance"
+        >
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/cars"
+              className="inline-flex h-12 items-center rounded-full bg-foreground px-7 text-[9px] font-black uppercase tracking-[0.26em] text-background transition-colors hover:bg-primary hover:text-white"
+            >
+              Explore collection
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex h-12 items-center rounded-full border border-border px-7 text-[9px] font-black uppercase tracking-[0.26em] text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              Get in touch
+            </Link>
           </div>
-          <div className="container mx-auto px-4 relative z-10 text-center space-y-8">
-            <AnimatedSection direction="down">
-              <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">
-                DRIVING TANZANIA <br/><span className="text-secondary italic">FORWARD</span>
-              </h1>
-            </AnimatedSection>
-            <AnimatedSection delay={0.2}>
-              <p className="text-xl md:text-2xl text-blue-50/60 font-medium max-w-2xl mx-auto">
-                ShowroomTZ is the premium logistical partner for elite events and travelers in the United Republic.
-              </p>
-            </AnimatedSection>
-            <AnimatedSection delay={0.4} className="flex justify-center gap-4">
-              <Button asChild className="h-14 px-8 bg-secondary text-primary font-black rounded-xl hover:scale-105 transition-transform">
-                <Link href="/fleet">Explore Collection</Link>
-              </Button>
-              <Button asChild className="h-14 px-8 bg-transparent border-2 border-white/40 text-white hover:bg-white/10 font-black rounded-xl backdrop-blur-md">
-                <Link href="/contact">Get in Touch</Link>
-              </Button>
-            </AnimatedSection>
-          </div>
-        </section>
+        </PageMasthead>
 
         {/* Our Story */}
         <section className="py-32">
@@ -97,7 +95,7 @@ export function AboutClient() {
               </div>
               <AnimatedSection direction="scale" delay={0.2} className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl group">
                 <VoltaImage 
-                  src={aboutImageUrl || "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop"} 
+                  src={aboutImageUrl || "/images/studio/hero-suv.jpg"} 
                   alt="Elite Fleet" 
                   fill 
                   sizes="(max-width: 1024px) 100vw, 50vw"

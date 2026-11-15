@@ -15,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { resolveCarImage } from '@/lib/car-image';
 import { VoltaImage } from "@/components/ui/VoltaImage";
 import { useCompare } from "@/context/CompareContext";
 import { useSound } from "@/hooks/use-sound";
@@ -75,7 +76,7 @@ function CarCardComponent({ car: rawCar, index, viewMode }: CarCardProps) {
     return map[car.fuelType] || { icon: "⛽", color: "text-muted-foreground" };
   }, [car.fuelType]);
 
-  const imageSrc = car.images?.[0] || null;
+  const imageSrc = resolveCarImage(car.images?.[0], `${car.make ?? ''} ${car.model ?? ''}`);
 
   const ImageDisplay = () => (
     <div className="relative w-full h-full overflow-hidden bg-muted">

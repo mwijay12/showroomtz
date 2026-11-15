@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import CarCard from '@/components/fleet/car-card';
 import { formatTSh } from '@/lib/utils';
 import { Navbar } from '@/components/navbar';
+import { PageMasthead } from '@/components/layout/PageMasthead';
 import { Footer } from '@/components/footer';
 import { getCustomCarsFromLocalStorage } from '@/lib/custom-cars-store';
 
@@ -79,22 +80,31 @@ export default function CarsListingPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
-      {/* Hero */}
-      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-12 border-b border-border/40 bg-gradient-to-b from-primary/5 to-transparent">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-4">
-            <Badge variant="outline" className="text-[10px] font-black tracking-[0.3em] uppercase">
-              <Sparkles className="w-3 h-3 mr-1" /> Premium Showroom
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter">
-              The <span className="text-primary italic">Registry</span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-              Verified vehicles from Tanzania&apos;s most trusted dealers and private showrooms. Browse, compare, inquire.
-            </p>
-          </motion.div>
+      <PageMasthead
+        kicker="The registry"
+        index="01"
+        title="Every unit,"
+        outline="documented."
+        blurb="Verified vehicles from Tanzania's most trusted dealers and private showrooms. Auction sheet, chassis check and duty status available before you commit."
+        seal="auction"
+      >
+        <div className="flex flex-wrap items-center gap-2.5">
+          {[
+            { k: `${cars.length}`, v: 'units live' },
+            { k: '9', v: 'model lines' },
+            { k: '7', v: 'regions' },
+            { k: '48h', v: 'delivery' },
+          ].map((c) => (
+            <span
+              key={c.v}
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-2 text-[9px] font-black uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              <span className="text-foreground">{c.k}</span>
+              {c.v}
+            </span>
+          ))}
         </div>
-      </section>
+      </PageMasthead>
 
       {/* Filters */}
       <section className="sticky top-16 md:top-20 z-30 bg-background/95 backdrop-blur border-b border-border/40 py-3 px-4 sm:px-6 lg:px-12">

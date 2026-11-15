@@ -38,6 +38,7 @@ import { LazyMotion, domMax } from "framer-motion";
 import { ServiceWorkerRegistration } from '@/components/pwa/ServiceWorkerRegistration';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { RouteCurtain } from '@/components/effects/RouteCurtain';
 import { CompareProvider } from '@/context/CompareContext';
 import { CompareBar } from '@/components/ui/CompareBar';
 
@@ -117,6 +118,7 @@ export default function RootLayout({
                       {children}
                     </div>
                   </LazyMotion>
+                  <RouteCurtain />
                   <CompareBar />
                   <ServiceWorkerRegistration />
                   <Toaster />

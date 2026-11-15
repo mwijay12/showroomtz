@@ -74,24 +74,25 @@ export function sanitizeData<T>(data: T): T {
 }
 
 /**
- * Optimizes external image URLs or maps legacy placeholders to local HD vehicle photos.
+ * Optimizes external image URLs or maps legacy placeholders to local studio vehicle photos.
+ * Legacy `/images/cars/*` references are remapped by model in `@/lib/car-image`.
  */
 export function optimizeImageUrl(url: string | null | undefined, width: number = 1200, quality: number = 80): string | null {
-  if (!url) return '/images/cars/land_cruiser.jpg';
-  
+  if (!url) return '/images/studio/hero-suv.jpg';
+
   const keyMap: Record<string, string> = {
-    'model-s': '/images/cars/land_cruiser.jpg',
-    'rivian-r1s': '/images/cars/prado.jpg',
-    'cyber-truck': '/images/cars/s_class.jpg',
-    'lucid-air': '/images/cars/bmw_7.jpg',
-    'porsche-taycan': '/images/cars/range_rover.jpg',
-    'audi-gt': '/images/cars/alphard.jpg',
-    'hummer-ev': '/images/cars/lexus_lx.jpg',
-    'eqs-sedan': '/images/cars/mercedes_gle.jpg',
-    'suv': '/images/cars/suv_hero.jpg',
-    'sedan': '/images/cars/sedan_hero.jpg',
-    'van': '/images/cars/van_hero.jpg',
-    'luxury': '/images/cars/luxury_hero.jpg',
+    'model-s': '/images/studio/lc300.jpg',
+    'rivian-r1s': '/images/studio/prado.jpg',
+    'cyber-truck': '/images/studio/sclass.jpg',
+    'lucid-air': '/images/studio/bmw7.jpg',
+    'porsche-taycan': '/images/studio/rangerover.jpg',
+    'audi-gt': '/images/studio/alphard.jpg',
+    'hummer-ev': '/images/studio/lx600.jpg',
+    'eqs-sedan': '/images/studio/sclass.jpg',
+    'suv': '/images/studio/hero-suv.jpg',
+    'sedan': '/images/studio/sclass.jpg',
+    'van': '/images/studio/hiace.jpg',
+    'luxury': '/images/studio/sclass.jpg',
   };
 
   if (keyMap[url.toLowerCase()]) {

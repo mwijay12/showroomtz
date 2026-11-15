@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useFirestore } from '@/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { Navbar } from '@/components/navbar';
+import { PageMasthead } from '@/components/layout/PageMasthead';
 import { Footer } from '@/components/footer';
 import { 
   Building2, 
@@ -91,23 +92,16 @@ export default function ShowroomsDirectoryPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full space-y-12">
-        {/* HERO SECTION */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/60 backdrop-blur-sm">
-            <ShieldCheck size={14} className="text-emerald-500" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
-              Verified Tanzanian Dealers
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase text-foreground">
-            Trusted Car <span className="text-primary">Showrooms</span>
-          </h1>
-          <p className="text-muted-foreground text-sm md:text-base">
-            Discover verified motor vehicle dealerships in Dar es Salaam, Arusha, Mwanza and across Tanzania.
-          </p>
-        </div>
+      <PageMasthead
+        kicker="Showrooms"
+        index="02"
+        title="Seven floors."
+        outline="One standard."
+        blurb="Verified dealerships in Dar es Salaam, Arusha, Mwanza and beyond — each one audited for paperwork, pricing discipline and after-sale follow-through."
+        seal="provenance"
+      />
 
+      <main className="flex-1 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full space-y-12">
         {/* SEARCH & FILTERS */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-2xl mx-auto w-full">
           <div className="relative w-full">
