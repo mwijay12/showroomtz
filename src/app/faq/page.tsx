@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Navbar } from "@/components/navbar";
+import { PageMasthead } from "@/components/layout/PageMasthead";
 import { Footer } from "@/components/footer";
 import { 
   Accordion, 
@@ -60,26 +61,24 @@ export default function FAQPage() {
     <>
       <Navbar />
       <main className="flex-1 bg-background">
-        <section className="py-24 bg-primary text-white overflow-hidden relative">
-          <div className="absolute top-0 right-0 p-32 opacity-10 rotate-12"><HelpCircle size={400} /></div>
-          <div className="container mx-auto px-4 relative z-10 text-center space-y-12">
-            <AnimatedSection direction="down">
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">FAQS</h1>
-              <p className="text-blue-50/60 text-xl font-medium max-w-xl mx-auto">Instant answers to your logistical questions for 2026.</p>
-            </AnimatedSection>
-            <AnimatedSection direction="up" delay={0.2}>
-              <div className="max-w-xl mx-auto relative group">
-                <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-primary/40 group-focus-within:text-primary transition-colors" />
-                <Input 
-                  className="h-16 pl-14 pr-6 rounded-2xl bg-white border-none text-primary font-bold shadow-2xl" 
-                  placeholder="Search for answers..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-            </AnimatedSection>
+        <PageMasthead
+          kicker="Answers"
+          index="07"
+          title="No small print."
+          outline="Just answers."
+          blurb="Duty, financing, paperwork, delivery — the questions buyers actually ask, answered in plain language."
+          seal="none"
+        >
+          <div className="relative max-w-xl group">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+            <Input
+              className="h-14 pl-12 pr-6 rounded-full bg-card border-border font-bold"
+              placeholder="Search for answers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-        </section>
+        </PageMasthead>
 
         <section className="py-32">
           <div className="container mx-auto max-w-4xl px-4">

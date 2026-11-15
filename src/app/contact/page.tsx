@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Navbar } from "@/components/navbar";
+import { PageMasthead } from "@/components/layout/PageMasthead";
 import { Footer } from "@/components/footer";
 import { 
   Form, 
@@ -83,14 +84,14 @@ export default function ContactPage() {
     <>
       <Navbar />
       <main className="flex-1 bg-background">
-        <section className="py-24 bg-primary text-white text-center">
-          <div className="container mx-auto px-4 space-y-6">
-            <AnimatedSection direction="down">
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">GET IN TOUCH</h1>
-              <p className="text-blue-50/60 text-xl font-medium max-w-xl mx-auto">Elite 24/7 concierge support for all Tanzanian operations.</p>
-            </AnimatedSection>
-          </div>
-        </section>
+        <PageMasthead
+          kicker="Contact"
+          index="06"
+          title="Get in touch."
+          outline="Actually fast."
+          blurb="A human replies — usually within minutes on WhatsApp. Tell us the vehicle, the budget and the town, and we will come back with a real answer."
+          seal="provenance"
+        />
 
         <section className="py-32">
           <div className="container mx-auto px-4">
