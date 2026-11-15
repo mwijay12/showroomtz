@@ -1,4 +1,4 @@
-# VoltaShowroom — Premium Upgrade Playbook
+# ShowroomTZ — Premium Upgrade Playbook
 
 > Branch: `arena/8b1f1664-showroomtz` · Nov 2026 · Companion to the Super Admin → **Premium Studio** (`/super-admin/settings/premium`)
 
@@ -98,7 +98,7 @@ Saves to Firestore `settings/branding` (merged). Existing **Theme Studio** handl
 ```json
 {
   "timestamp": "2026-11-15T…Z",
-  "companyName": "VoltaShowroom",
+  "companyName": "ShowroomTZ",
   "companyId": "volta001",
   "event": "volta-booking",
   "...eventSpecificFields": "…"
@@ -155,3 +155,38 @@ vercel deploy --prod
 - `tsc --noEmit` — clean.
 - `next build` — green; routes include `/`, `/landing`, `/landing/luxury`, `/landing/corporate`, `/super-admin/settings/premium`, `/sitemap.xml`.
 - Prod server smoke tests — `/`, `/landing*`, `/sitemap.xml`, `/robots.txt` all HTTP 200; `/super-admin/settings/premium` correctly 307→`/auth` when logged out.
+
+---
+
+## 7. Nodemailer transactional email (welcome / booking / payment)
+
+Transactional email is server-side only via `nodemailer` — no Firebase Admin SDK required.
+
+**Env vars (Vercel → Project → Settings → Environment Variables):**
+
+| Var | Example |
+|---|---|
+| `SMTP_HOST` | `smtp.gmail.com` |
+| `SMTP_PORT` | `465` |
+| `SMTP_SECURE` | `true` (465) / `false` (587+STARTTLS) |
+| `SMTP_USER` | your `*.gmail.com` address |
+| `SMTP_PASS` | Gmail **App Password** (16 chars, not your normal password) |
+| `SMTP_FROM` | defaults to `SMTP_USER` |
+| `SMTP_FROM_NAME` | defaults to `ShowroomTZ` |
+
+**Gmail setup:** enable 2FA → myaccount.google.com/apppasswords → create password → paste into `SMTP_PASS`.
+
+**Endpoint:** `POST /api/email/send` with `{ "kind": "welcome"|"booking"|"payment", "to": "...", ... }`.
+`GET /api/email/send` reports `{ configured: bool }` (no secrets). Implements HTML-escaped
+templates, per-IP+recipient in-memory rate limiting (6 per 10 min, best-effort serverless), a
+`company` honeypot, and returns `503 email_not_configured` instead of crashing the client when
+SMTP is missing — client flows (signup, inquiry, payment) never block on email.
+
+**Wired at:**
+- `src/app/auth/page.tsx` → `welcome` after signup (Google + email paths).
+- `src/components/booking-form-client.tsx` → `booking` confirmation after showroom inquiry submit.
+- `src/components/payments/PesapalPayButton.tsx` → `payment` receipt after successful demo/Pesapal payment (both success paths).
+
+**Templates:** `src/lib/email/templates.ts` — dark-header crimson ShowroomTZ shell, table-safe inline CSS,
+welcome (karibu message), booking confirmation (reference code + showroom details), payment receipt
+(amount + booking code). All user input is HTML-escaped.

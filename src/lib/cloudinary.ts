@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileOverview Cloudinary REST API utilities for VoltaShowroom.
+ * @fileOverview Cloudinary REST API utilities for ShowroomTZ.
  * Integrated with master credentials: djpfdthdk / ml_default
  */
 

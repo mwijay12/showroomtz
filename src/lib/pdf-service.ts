@@ -12,7 +12,7 @@ export const pdfService = {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(24);
     doc.setFont("helvetica", "bold");
-    doc.text("VOLTA SHOWROOM", 20, 25);
+    doc.text("SHOWROOMTZ", 20, 25);
     
     doc.setFontSize(10);
     doc.text("OFFICIAL BOOKING RECEIPT", 140, 25);
@@ -82,7 +82,7 @@ export const pdfService = {
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text("This is a computer-generated receipt. No signature required.", 105, 270, { align: 'center' });
-    doc.text("VoltaShowroom Executive Fleet | Dar es Salaam, Tanzania", 105, 275, { align: 'center' });
+    doc.text("ShowroomTZ Executive Fleet | Dar es Salaam, Tanzania", 105, 275, { align: 'center' });
     
     doc.save(`Receipt-${booking.bookingCode}.pdf`);
   }

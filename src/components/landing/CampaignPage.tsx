@@ -81,7 +81,7 @@ export function CampaignPage({
           <Link href="/" className="group flex items-center gap-3">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center font-black text-black text-sm">V</div>
             <div className="leading-none">
-              <p className="text-[11px] font-black uppercase tracking-[0.35em] text-white group-hover:text-amber-400 transition-colors">Volta</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.35em] text-white group-hover:text-amber-400 transition-colors">ShowroomTZ</p>
               <p className="text-[7px] font-bold uppercase tracking-[0.5em] text-white/40">Showroom · TZ</p>
             </div>
           </Link>
@@ -185,11 +185,11 @@ export function CampaignPage({
         </div>
       </section>
 
-      {/* ── WHY VOLTA ──────────────────────────────────────────── */}
+      {/* ── WHY SHOWROOMTZ ──────────────────────────────────────────── */}
       <section className="relative border-t border-white/5 py-20 sm:py-28 bg-gradient-to-b from-[#050505] to-[#0b0605]">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-14">
           <div>
-            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-4">Why Volta</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary mb-4">Why ShowroomTZ</p>
             <h2 data-gsap="reveal" className="text-4xl sm:text-6xl font-black uppercase tracking-tighter leading-[0.9]">Documentation.<br />Integrity.<br /><span className="text-primary">Delivery.</span></h2>
             <blockquote data-gsap="reveal" className="mt-10 border-l-2 border-primary/60 pl-6">
               <p className="text-lg text-white/70 italic leading-relaxed">“{quote.text}”</p>
@@ -243,7 +243,7 @@ export function CampaignPage({
       {/* ── MINI FOOTER ────────────────────────────────────────── */}
       <footer className="border-t border-white/5 py-8">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[8px] font-bold uppercase tracking-[0.35em] text-white/30">© {new Date().getFullYear()} {companyName || 'VoltaShowroom'} · Dar es Salaam, Tanzania</p>
+          <p className="text-[8px] font-bold uppercase tracking-[0.35em] text-white/30">© {new Date().getFullYear()} {companyName || 'ShowroomTZ'} · Dar es Salaam, Tanzania</p>
           <nav className="flex items-center gap-6 text-[8px] font-black uppercase tracking-[0.3em] text-white/40">
             <Link href="/cars" className="hover:text-white transition-colors">Stock</Link>
             <Link href="/showrooms" className="hover:text-white transition-colors">Showrooms</Link>

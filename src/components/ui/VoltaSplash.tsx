@@ -127,7 +127,7 @@ export function VoltaSplash() {
     };
   }, [dismiss]);
 
-  const brandName = companyName || "VoltaShowroom";
+  const brandName = companyName || "ShowroomTZ";
   const firstName = brandName.split(' ')[0].toUpperCase();
   const restName = brandName.split(' ').slice(1).join(' ') || "Showroom";
 

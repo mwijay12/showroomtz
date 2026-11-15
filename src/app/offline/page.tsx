@@ -18,7 +18,7 @@ export default function OfflinePage() {
           </div>
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tighter">
-              VOLTA<span className="text-primary italic">SHOWROOM</span>
+              SHOWROOMTZ<span className="text-primary italic">SHOWROOM</span>
             </h2>
             <p className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40">
               Elite Fleet Terminal

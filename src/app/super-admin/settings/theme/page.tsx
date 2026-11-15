@@ -83,7 +83,7 @@ export default function ThemeStudioPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-10">
         <div className="space-y-2">
           <h1 className="text-4xl lg:text-5xl font-black text-white tracking-tighter uppercase leading-none">Theme Studio</h1>
-          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">Fine-tune the visual DNA of VoltaShowroom</p>
+          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">Fine-tune the visual DNA of ShowroomTZ</p>
         </div>
         <div className="bg-primary/10 border border-primary/20 px-6 py-4 rounded-2xl flex items-center gap-4">
            <Zap className="text-primary h-5 w-5 fill-current animate-pulse" />

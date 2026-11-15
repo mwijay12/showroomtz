@@ -89,7 +89,7 @@ export default function CustomerLayout({ children }: { children: React.ReactNode
             "font-black text-white tracking-tighter uppercase transition-all",
             scrolled ? "text-lg" : "text-xl"
           )}>
-            Volta<span className="text-primary italic">Showroom</span>
+            ShowroomTZ<span className="text-primary italic">Showroom</span>
           </span>
         </Link>
 

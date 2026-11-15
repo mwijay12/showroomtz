@@ -4,7 +4,7 @@ import { jsPDF } from "jspdf";
 import { format } from "date-fns";
 
 // ============================================================
-// VOLTA SHOWROOM — BRAND COLOR SYSTEM (CLEAN CORPORATE)
+// SHOWROOMTZ — BRAND COLOR SYSTEM (CLEAN CORPORATE)
 // ============================================================
 const C = {
   primaryBlue: [15, 38, 92] as [number, number, number],
@@ -78,7 +78,7 @@ function drawHeader(doc: jsPDF, docType: string) {
   doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
   setFont(doc, C.primaryBlue);
-  doc.text("VOLTA SHOWROOM", 40, 24);
+  doc.text("SHOWROOMTZ", 40, 24);
 
   // Tagline
   doc.setFontSize(8);
@@ -336,7 +336,7 @@ function drawFooter(doc: jsPDF, bookingCode: string, pageNum: number, totalPages
   doc.setFont("helvetica", "normal");
   setFont(doc, C.textMuted);
   
-  doc.text("VoltaShowroom Tanzania", 14, footerY + 5);
+  doc.text("ShowroomTZ Tanzania", 14, footerY + 5);
   doc.text("info@voltashowroom.co.tz | +255 700 000 000", W / 2, footerY + 5, { align: "center" });
   doc.text(`Page ${pageNum} of ${totalPages}`, W - 14, footerY + 5, { align: "right" });
   
@@ -378,14 +378,14 @@ function drawSignatures(doc: jsPDF, booking: any, y: number) {
 
   const colW = (W - 28 - 20) / 2;
   
-  // Left: Volta
+  // Left: ShowroomTZ
   setFill(doc, C.card);
   doc.roundedRect(14, y, colW, 35, 2, 2, "F");
   
   doc.setFontSize(8);
   doc.setFont("helvetica", "bold");
   setFont(doc, C.primaryBlue);
-  doc.text("AUTHORIZED BY (VOLTA SHOWROOM)", 18, y + 6);
+  doc.text("AUTHORIZED BY (SHOWROOMTZ)", 18, y + 6);
   
   if (booking.adminSignature) {
     try {
@@ -455,7 +455,7 @@ export const generateBookingReceipt = (booking: any, user?: any) => {
   y = drawTimeline(doc, booking, y);
   y = drawFinancialTable(doc, booking, y);
   
-  drawFooter(doc, booking.bookingCode ?? "VOLTA", 1, totalPages);
+  drawFooter(doc, booking.bookingCode ?? "SHOWROOMTZ", 1, totalPages);
 
   // --- PAGE 2: TERMS AND SIGNATURE ---
   doc.addPage();
@@ -465,9 +465,9 @@ export const generateBookingReceipt = (booking: any, user?: any) => {
   y = drawTerms(doc, y);
   drawSignatures(doc, booking, y);
   
-  drawFooter(doc, booking.bookingCode ?? "VOLTA", 2, totalPages);
+  drawFooter(doc, booking.bookingCode ?? "SHOWROOMTZ", 2, totalPages);
 
-  doc.save(`VoltaShowroom-Receipt-${booking.bookingCode}.pdf`);
+  doc.save(`ShowroomTZ-Receipt-${booking.bookingCode}.pdf`);
 };
 
 export const generateRentalContract = (booking: any, user?: any) => {
@@ -486,7 +486,7 @@ export const generateRentalContract = (booking: any, user?: any) => {
   y = drawTimeline(doc, booking, y);
   y = drawFinancialTable(doc, booking, y);
   
-  drawFooter(doc, booking.bookingCode ?? "VOLTA", 1, totalPages);
+  drawFooter(doc, booking.bookingCode ?? "SHOWROOMTZ", 1, totalPages);
 
   // --- PAGE 2: TERMS AND SIGNATURE ---
   doc.addPage();
@@ -496,7 +496,7 @@ export const generateRentalContract = (booking: any, user?: any) => {
   y = drawTerms(doc, y);
   drawSignatures(doc, booking, y);
   
-  drawFooter(doc, booking.bookingCode ?? "VOLTA", 2, totalPages);
+  drawFooter(doc, booking.bookingCode ?? "SHOWROOMTZ", 2, totalPages);
 
-  doc.save(`VoltaShowroom-Contract-${booking.bookingCode}.pdf`);
+  doc.save(`ShowroomTZ-Contract-${booking.bookingCode}.pdf`);
 };

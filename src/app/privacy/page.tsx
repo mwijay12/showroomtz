@@ -15,7 +15,7 @@ export default function PrivacyPage() {
       id: "introduction",
       icon: <ShieldCheck className="h-5 w-5 text-primary" />,
       title: "Introduction & Scope",
-      content: `VoltaShowroom Tanzania ("we", "us", "our") is committed to protecting the personal information of every individual who interacts with our services. This Privacy Policy explains how we collect, use, store, share, and protect your personal data in compliance with applicable Tanzanian law, including the Electronic and Postal Communications Act (Cap. 306), and internationally recognized data protection best practices.
+      content: `ShowroomTZ Tanzania ("we", "us", "our") is committed to protecting the personal information of every individual who interacts with our services. This Privacy Policy explains how we collect, use, store, share, and protect your personal data in compliance with applicable Tanzanian law, including the Electronic and Postal Communications Act (Cap. 306), and internationally recognized data protection best practices.
 
 This Policy applies to all personal data collected through:
 • Our website (voltashowroom.co.tz) and mobile-optimized platform.
@@ -96,7 +96,7 @@ MARKETING (With Your Consent Only):
 Your data is stored on Google Firebase (Google Cloud Platform), which employs industry-standard encryption both in transit (TLS/SSL) and at rest (AES-256). Google Cloud data centers maintain ISO 27001, SOC 2, and SOC 3 certifications.
 
 SECURITY MEASURES WE EMPLOY:
-• Role-based access control — only authorized VoltaShowroom personnel can access your data, and only to the extent required by their job function.
+• Role-based access control — only authorized ShowroomTZ personnel can access your data, and only to the extent required by their job function.
 • Multi-factor authentication for all administrative systems.
 • Automated audit logs for all data access and modifications.
 • Regular security assessments and vulnerability testing.
@@ -110,7 +110,7 @@ RETENTION PERIODS:
 • Technical/Usage logs: 90 days on a rolling basis.
 
 DATA BREACH RESPONSE:
-In the unlikely event of a security breach that may compromise your personal data, VoltaShowroom will notify affected individuals within 72 hours of becoming aware of the breach, detailing what data was affected and what steps we are taking to mitigate harm.`
+In the unlikely event of a security breach that may compromise your personal data, ShowroomTZ will notify affected individuals within 72 hours of becoming aware of the breach, detailing what data was affected and what steps we are taking to mitigate harm.`
     },
     {
       id: "sharing",
@@ -137,7 +137,7 @@ Some service providers (e.g., Google Cloud) may process data outside Tanzania. A
       id: "rights",
       icon: <UserCheck className="h-5 w-5 text-primary" />,
       title: "Your Privacy Rights",
-      content: `As a data subject, you have the following rights regarding your personal information held by VoltaShowroom:
+      content: `As a data subject, you have the following rights regarding your personal information held by ShowroomTZ:
 
 • RIGHT TO ACCESS — You may request a full copy of all personal data we hold about you at any time.
 • RIGHT TO RECTIFICATION — You may request correction of any inaccurate or incomplete data.
@@ -180,13 +180,13 @@ In line with our rental eligibility requirements (minimum age 23), any booking m
 • Special offers, seasonal promotions, and loyalty rewards.
 • New vehicle additions to our fleet.
 • Policy updates and important service announcements.
-• VoltaShowroom newsletters and event invitations.
+• ShowroomTZ newsletters and event invitations.
 
 You have full control over your marketing preferences. To opt out:
-• Reply "STOP" or "UNSUBSCRIBE" to any SMS from VoltaShowroom.
+• Reply "STOP" or "UNSUBSCRIBE" to any SMS from ShowroomTZ.
 • Click the "Unsubscribe" link in any marketing email.
 • Send a written request to privacy@voltashowroom.co.tz.
-• Update your preferences directly in your VoltaShowroom account profile.
+• Update your preferences directly in your ShowroomTZ account profile.
 
 Opting out of marketing communications will not affect service-critical communications (e.g., booking confirmations, payment receipts, emergency alerts).`
     },
@@ -194,7 +194,7 @@ Opting out of marketing communications will not affect service-critical communic
       id: "changes",
       icon: <Lock className="h-5 w-5 text-primary" />,
       title: "Policy Updates & Contact",
-      content: `VoltaShowroom reserves the right to update this Privacy Policy at any time. Whenever we make material changes, we will:
+      content: `ShowroomTZ reserves the right to update this Privacy Policy at any time. Whenever we make material changes, we will:
 • Update the "Last Updated" date at the top of this page.
 • Notify registered users via email or in-app notification.
 • For significant changes, obtain fresh consent where required.
@@ -203,7 +203,7 @@ We encourage you to review this Policy periodically to stay informed about how w
 
 For all privacy-related inquiries, requests, or complaints:
 
-VoltaShowroom Privacy & Compliance Officer
+ShowroomTZ Privacy & Compliance Officer
 Mikocheni, Dar es Salaam, Tanzania
 Email: privacy@voltashowroom.co.tz
 Phone: +255 790 942 616
@@ -229,7 +229,7 @@ Office Hours: Monday–Friday, 8:00 AM – 5:00 PM EAT`
                     Privacy <span className="text-primary">Policy</span>
                   </h1>
                   <p className="text-muted-foreground uppercase text-[9px] font-black tracking-[0.3em] mt-1 print:text-black">
-                    VoltaShowroom Tanzania — Protecting your data — Last Updated: May 2026
+                    ShowroomTZ Tanzania — Protecting your data — Last Updated: May 2026
                   </p>
                 </div>
               </div>
@@ -317,7 +317,7 @@ Office Hours: Monday–Friday, 8:00 AM – 5:00 PM EAT`
                 <span className="font-black text-foreground">+255 790 942 616</span>
               </div>
               <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/40 mt-8">
-                Registered Business · Dar es Salaam, Tanzania · TCRA Compliant · © 2026 VoltaShowroom
+                Registered Business · Dar es Salaam, Tanzania · TCRA Compliant · © 2026 ShowroomTZ
               </p>
             </div>
           </AnimatedSection>

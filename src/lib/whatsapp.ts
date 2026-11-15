@@ -19,7 +19,7 @@ export function getBookingConfirmedMessage(booking: Booking): string {
   
   return `Hello ${booking.userName}! 🎉
 
-Your VoltaShowroom booking has been confirmed!
+Your ShowroomTZ booking has been confirmed!
 
 📋 Booking: ${booking.bookingCode}
 🚗 Vehicle: ${booking.vehicleName}
@@ -29,7 +29,7 @@ Your VoltaShowroom booking has been confirmed!
 Please complete payment to secure your booking.
 Pay here: https://voltashowroom.co.tz/booking/${booking.id}/payment
 
-Thank you for choosing VoltaShowroom! 🚗`;
+Thank you for choosing ShowroomTZ! 🚗`;
 }
 
 /**
@@ -46,7 +46,7 @@ Your payment for ${booking.bookingCode} has been verified!
 
 Your booking is fully confirmed. Please arrive at the pickup location on time.
 
-VoltaShowroom Team 🇹🇿`;
+ShowroomTZ Team 🇹🇿`;
 }
 
 /**
@@ -55,7 +55,7 @@ VoltaShowroom Team 🇹🇿`;
 export function getBookingReminderMessage(booking: Booking): string {
   return `Hello ${booking.userName}! 🔔
 
-Friendly reminder for your VoltaShowroom booking ${booking.bookingCode} starting tomorrow, ${format(new Date(booking.startDate), "EEEE")}.
+Friendly reminder for your ShowroomTZ booking ${booking.bookingCode} starting tomorrow, ${format(new Date(booking.startDate), "EEEE")}.
 
 Vehicle: ${booking.vehicleName}
 Location: ${booking.pickupLocation}

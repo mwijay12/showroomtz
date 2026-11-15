@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { CampaignPage } from '@/components/landing/CampaignPage';
 
 export const metadata: Metadata = {
-  title: 'The Volta Collection | Tanzania’s Unmistakable Marques — VoltaShowroom',
+  title: 'The ShowroomTZ Collection | Tanzania’s Unmistakable Marques — ShowroomTZ',
   description:
-    'Duty-cleared, fully verified Land Cruiser, S-Class, Range Rover and Lexus imports — inspected, documented and delivered anywhere in Tanzania. Talk to a Volta car concierge today.',
+    'Duty-cleared, fully verified Land Cruiser, S-Class, Range Rover and Lexus imports — inspected, documented and delivered anywhere in Tanzania. Talk to a ShowroomTZ car concierge today.',
   openGraph: {
-    title: 'The Volta Collection — Drive the Unmistakable',
+    title: 'The ShowroomTZ Collection — Drive the Unmistakable',
     description: 'Verified imports, clear paperwork, white-glove delivery across Tanzania.',
     type: 'website',
   },
@@ -15,14 +15,14 @@ export const metadata: Metadata = {
 export default function LuxuryLandingPage() {
   return (
     <CampaignPage
-      kicker="The Volta Collection · 2026"
+      kicker="The ShowroomTZ Collection · 2026"
       titleA="Drive the"
       titleB="Unmistakable."
       intro="Duty-cleared, auction-graded imports — Land Cruiser 300, S-Class, Range Rover, LX 600 — inspected at source, documented end-to-end, and delivered to your doorstep anywhere in Tanzania."
       badge="Featured This Month"
       primaryCta={{ label: 'Explore The Collection', href: '/cars' }}
       whatsappLabel="Car Concierge"
-      whatsappMessage="Habari Volta! I’m interested in The Volta Collection (luxury imports). Please send me the current list."
+      whatsappMessage="Habari ShowroomTZ! I’m interested in The ShowroomTZ Collection (luxury imports). Please send me the current list."
       shader="aurora"
       featuredIds={['car-landcruiser-300', 'car-mercedes-s500', 'car-lexus-lx600']}
       bullets={[
@@ -38,7 +38,7 @@ export default function LuxuryLandingPage() {
         { value: '48h',  label: 'Delivery Setup' },
       ]}
       quote={{
-        text: 'I bought a Cruiser 300 without leaving my office. Auction sheet, customs entry, EFD receipt, keys — everything handled by Volta in 21 days.',
+        text: 'I bought a Cruiser 300 without leaving my office. Auction sheet, customs entry, EFD receipt, keys — everything handled by ShowroomTZ in 21 days.',
         author: 'A. Mwangi — Managing Director, Dar es Salaam',
       }}
     />

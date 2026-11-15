@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview AI Vehicle Description Generator for VoltaShowroom Admin.
+ * @fileOverview AI Vehicle Description Generator for ShowroomTZ Admin.
  *
  * - generateCarDescription - A function that generates a professional marketing description for a vehicle.
  * - CarDescriptionInput - The input type for the generator.
@@ -32,7 +32,7 @@ const carDescriptionPrompt = ai.definePrompt({
   name: 'carDescriptionPrompt',
   input: { schema: CarDescriptionInputSchema },
   output: { schema: CarDescriptionOutputSchema },
-  prompt: `You are the Master Storyteller for VoltaShowroom Tanzania. 
+  prompt: `You are the Master Storyteller for ShowroomTZ Tanzania. 
 Your task is to write a unique, deep, and technically impressive rental description.
 DO NOT use generic templates. Research (simulated) the specific heritage and capability of this model.
 
@@ -47,7 +47,7 @@ Guidelines:
 - Focus: Specific technical prowess (e.g. suspension for safari, engine torque for speed, or interior silence for business).
 - Unique Narrative: Connect the car's soul to Tanzania (e.g. "Command the Serengeti horizon", "Silent elegance in Masaki nights").
 - Format: 2 short but punchy paragraphs.
-- Keywords: Reliability, Prestige, Volta Protocol.
+- Keywords: Reliability, Prestige, ShowroomTZ Protocol.
 - Do not mention price or generic availability.`,
 });
 
@@ -65,7 +65,7 @@ export async function generateCarDescription(input: CarDescriptionInput): Promis
     console.warn('[HA MONITORING] GROQ Node successfully generated narrative. Zero downtime achieved.');
     
     return {
-      description: `[Generated via Groq Llama 3] Experience the uncompromising excellence of the ${input.year} ${input.make} ${input.model}. Engineered for absolute reliability and prestige, this ${input.category} is precisely calibrated for the demanding landscapes of Tanzania. Whether you are navigating the dynamic streets of Dar es Salaam or embarking on an exclusive expedition, the Volta Protocol guarantees a seamless, executive-class mobility experience.`
+      description: `[Generated via Groq Llama 3] Experience the uncompromising excellence of the ${input.year} ${input.make} ${input.model}. Engineered for absolute reliability and prestige, this ${input.category} is precisely calibrated for the demanding landscapes of Tanzania. Whether you are navigating the dynamic streets of Dar es Salaam or embarking on an exclusive expedition, the ShowroomTZ Protocol guarantees a seamless, executive-class mobility experience.`
     };
   }
 }

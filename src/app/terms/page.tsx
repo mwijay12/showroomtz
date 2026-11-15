@@ -15,17 +15,17 @@ export default function TermsPage() {
       id: "acceptance",
       icon: <FileText className="h-5 w-5 text-primary" />,
       title: "Acceptance of Terms",
-      content: `By purchasing, reserving, or inquiring about a vehicle through VoltaShowroom Tanzania — whether via our website, mobile platform, WhatsApp, or directly at our showroom locations — you ("the Buyer") unconditionally accept and agree to be legally bound by these Terms and Conditions in their entirety.
+      content: `By purchasing, reserving, or inquiring about a vehicle through ShowroomTZ Tanzania — whether via our website, mobile platform, WhatsApp, or directly at our showroom locations — you ("the Buyer") unconditionally accept and agree to be legally bound by these Terms and Conditions in their entirety.
 
-These Terms constitute a binding legal agreement governed by the laws of the United Republic of Tanzania. VoltaShowroom reserves the right to update these Terms at any time, with updated versions taking effect immediately upon publication. Continued use of our services implies acceptance of any amendments.
+These Terms constitute a binding legal agreement governed by the laws of the United Republic of Tanzania. ShowroomTZ reserves the right to update these Terms at any time, with updated versions taking effect immediately upon publication. Continued use of our services implies acceptance of any amendments.
 
-If you do not agree with any part of these Terms, you must immediately cease use of all VoltaShowroom services.`
+If you do not agree with any part of these Terms, you must immediately cease use of all ShowroomTZ services.`
     },
     {
       id: "eligibility",
       icon: <UserCheck className="h-5 w-5 text-primary" />,
       title: "Buyer Eligibility & Registration Requirements",
-      content: `To purchase or reserve a vehicle from VoltaShowroom, the Buyer must satisfy all of the following conditions:
+      content: `To purchase or reserve a vehicle from ShowroomTZ, the Buyer must satisfy all of the following conditions:
 
 • Minimum age: 18 years old with full legal capacity to enter into vehicle transfer contracts in Tanzania.
 • Valid National ID (NIDA), Passport, or registered Business Registration Certificate (BRELA) for corporate buyers.
@@ -41,9 +41,9 @@ If you do not agree with any part of these Terms, you must immediately cease use
 
 A vehicle reservation is confirmed only upon:
 • Receipt of a minimum reservation deposit (typically 10% to 20% of the vehicle asking price, or as agreed in writing), AND
-• Issuance of an official VoltaShowroom EFD receipt / reservation confirmation.
+• Issuance of an official ShowroomTZ EFD receipt / reservation confirmation.
 
-Reserved vehicles will be held exclusively for the Buyer for a maximum period of 7 business days unless otherwise agreed in writing. If final payment is not completed within the agreed period, VoltaShowroom reserves the right to cancel the reservation and re-list the vehicle for sale.`
+Reserved vehicles will be held exclusively for the Buyer for a maximum period of 7 business days unless otherwise agreed in writing. If final payment is not completed within the agreed period, ShowroomTZ reserves the right to cancel the reservation and re-list the vehicle for sale.`
     },
     {
       id: "payment",
@@ -62,7 +62,7 @@ An official TRA Electronic Fiscal Device (EFD) receipt will be issued for all pa
       id: "inspection",
       icon: <Wrench className="h-5 w-5 text-primary" />,
       title: "Pre-Purchase Inspection & Dealer Warranty",
-      content: `VoltaShowroom encourages independent pre-purchase inspections. Buyers are welcome to bring a certified mechanic or third-party vehicle inspector to examine any car on our showroom floor.
+      content: `ShowroomTZ encourages independent pre-purchase inspections. Buyers are welcome to bring a certified mechanic or third-party vehicle inspector to examine any car on our showroom floor.
 
 • Foreign Used Imports: Covered by our standard 6-month or 12-month Dealer Powertrain Warranty (Engine & Transmission) as specified on the vehicle spec sheet.
 • Locally Used Vehicles: Sold "As-Is, Where-Is" unless accompanied by a written warranty statement.
@@ -72,7 +72,7 @@ An official TRA Electronic Fiscal Device (EFD) receipt will be issued for all pa
       id: "liability",
       icon: <Scale className="h-5 w-5 text-primary" />,
       title: "Limitation of Liability & Dispute Resolution",
-      content: `VoltaShowroom's total liability for any claim arising from a vehicle sale or reservation shall not exceed the actual deposit or purchase amount paid by the Buyer for the specific vehicle transaction.
+      content: `ShowroomTZ's total liability for any claim arising from a vehicle sale or reservation shall not exceed the actual deposit or purchase amount paid by the Buyer for the specific vehicle transaction.
 
 In the event of any dispute, the parties agree to first seek resolution through good-faith negotiation. If unresolved within 14 days, disputes shall be submitted to arbitration in Dar es Salaam under the laws of Tanzania.`
     }

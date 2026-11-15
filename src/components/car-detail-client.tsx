@@ -94,7 +94,7 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
   const displayPrice = car.discountPrice ?? car.price;
   const savings = hasDiscount ? car.price - (car.discountPrice ?? 0) : 0;
 
-  const inquiryMessage = `Hello! I'm interested in the ${car.year} ${car.make} ${car.model} listed on Volta. Is it still available?`;
+  const inquiryMessage = `Hello! I'm interested in the ${car.year} ${car.make} ${car.model} listed on ShowroomTZ. Is it still available?`;
 
   const handleSubmitInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -520,7 +520,7 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                 </div>
 
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Bring your voucher code or transaction reference to <strong>Volta Motors Showroom</strong> to complete vehicle pickup!
+                  Bring your voucher code or transaction reference to <strong>ShowroomTZ Motors Showroom</strong> to complete vehicle pickup!
                 </p>
 
                 <Button 
@@ -543,7 +543,7 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                     ? Math.round(displayPrice * 0.1) 
                     : (payAmountType === 'deposit20' ? Math.round(displayPrice * 0.2) : displayPrice);
                   
-                  const voucherCode = `VOLTA-RES-${Math.floor(100000 + Math.random() * 900000)}`;
+                  const voucherCode = `SHOWROOMTZ-RES-${Math.floor(100000 + Math.random() * 900000)}`;
 
                   const newDocRef = doc(collection(db, 'inquiries'));
                   await setDoc(newDocRef, {
@@ -553,7 +553,7 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                     carYear: car.year,
                     carPrice: displayPrice,
                     showroomId: car.showroomId ?? 'main-showroom',
-                    showroomName: car.showroomName ?? 'Volta Motors Tanzania',
+                    showroomName: car.showroomName ?? 'ShowroomTZ Motors Tanzania',
                     buyerName: payName,
                     buyerPhone: payPhone,
                     offeredPrice: depositAmount,
@@ -591,11 +591,11 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                     </div>
                     <div className="flex justify-between items-center bg-card/60 p-2.5 rounded-xl border border-border">
                       <span className="text-muted-foreground">🏦 CRDB Bank:</span>
-                      <span className="font-mono font-black">0150299481200 (Volta Motors)</span>
+                      <span className="font-mono font-black">0150299481200 (ShowroomTZ Motors)</span>
                     </div>
                     <div className="flex justify-between items-center bg-card/60 p-2.5 rounded-xl border border-border">
                       <span className="text-muted-foreground">🏦 NMB Bank:</span>
-                      <span className="font-mono font-black">20110098412 (Volta Motors)</span>
+                      <span className="font-mono font-black">20110098412 (ShowroomTZ Motors)</span>
                     </div>
                   </div>
                 </div>

@@ -28,7 +28,7 @@ interface NotificationListProps {
 
 /**
  * A specialized notification list for the Navbar popover.
- * Adheres to the premium navy-gold aesthetic of VoltaShowroom.
+ * Adheres to the premium navy-gold aesthetic of ShowroomTZ.
  */
 export default function NotificationList({ notifications, userId }: NotificationListProps) {
   const db = useFirestore();

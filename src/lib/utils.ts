@@ -51,7 +51,7 @@ export function slugify(value: string): string {
 }
 
 /**
- * Generates an official VoltaShowroom booking code.
+ * Generates an official ShowroomTZ booking code.
  * Format: VLT-[4 chars]-[current year]
  */
 export function generateBookingCode(): string {

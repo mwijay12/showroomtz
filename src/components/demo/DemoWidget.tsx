@@ -138,7 +138,7 @@ export function DemoWidget() {
 
     let baseWebhookUrl = '';
     let specificUrl = '';
-    let companyName = 'VoltaShowroom';
+    let companyName = 'ShowroomTZ';
 
     try {
       const brandingRef = doc(db, 'settings', 'branding');
@@ -258,7 +258,7 @@ export function DemoWidget() {
         message: {
           message_id: 420,
           from: { id: 554433221, is_bot: false, first_name: "Davie", last_name: "Mwijage", username: "mwijay" },
-          chat: { id: -10099887766, title: "Volta Fleet Control", type: "group" },
+          chat: { id: -10099887766, title: "ShowroomTZ Fleet Control", type: "group" },
           date: Math.floor(Date.now() / 1000),
           text: "🔥 New booking VR-TEST99 is ready for dispatch!"
         }
@@ -327,7 +327,7 @@ export function DemoWidget() {
           <div className="flex items-center justify-between border-b border-white/10 pb-3">
             <div className="flex items-center gap-2">
               <Sparkles className="text-primary h-4 w-4 animate-pulse" />
-              <h4 className="text-[10px] font-black uppercase tracking-wider text-white">Volta Demo Suite</h4>
+              <h4 className="text-[10px] font-black uppercase tracking-wider text-white">ShowroomTZ Demo Suite</h4>
             </div>
             <button 
               onClick={() => {

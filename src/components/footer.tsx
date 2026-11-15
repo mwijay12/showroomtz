@@ -26,7 +26,7 @@ export function Footer() {
   const { companyName, logoUrl, officeAddress, supportEmail, whatsappNumber, mode } = useBranding();
   const tablet = useMediaQuery("(max-width: 1024px)");
 
-  const brandName = companyName || "VoltaShowroom";
+  const brandName = companyName || "ShowroomTZ";
   const nameParts = brandName.split(' ');
   const firstName = nameParts[0];
   const secondName = nameParts.slice(1).join(' ');

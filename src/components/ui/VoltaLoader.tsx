@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Zap, Car } from "lucide-react";
 
 /**
- * Branded Loading Component for VoltaShowroom.
+ * Branded Loading Component for ShowroomTZ.
  */
 export function VoltaLoader({ fullPage = false }: { fullPage?: boolean }) {
   const content = (
@@ -23,7 +23,7 @@ export function VoltaLoader({ fullPage = false }: { fullPage?: boolean }) {
       </div>
       <div className="text-center space-y-1">
         <p className="text-sm font-black uppercase tracking-[0.3em] text-foreground">
-          Volta<span className="text-primary italic">Showroom</span>
+          ShowroomTZ<span className="text-primary italic">Showroom</span>
         </p>
         <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">
           Synchronizing Registry...

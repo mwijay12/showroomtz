@@ -89,7 +89,7 @@ export function resolveWebhookTarget(base: string, event: string): string {
 export async function resolveWebhookUrl(
   event: string,
 ): Promise<{ url: string; companyName: string; source: 'env' | 'firestore-specific' | 'firestore-base' | 'env-base' | 'default' }> {
-  let companyName = 'VoltaShowroom Tanzania';
+  let companyName = 'ShowroomTZ Tanzania';
   let fsSpecific = '';
   let fsBase = '';
 
@@ -143,7 +143,7 @@ export async function postJsonWithRetry(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Volta-Event': String((payload as any)?.event ?? ''),
+          'X-ShowroomTZ-Event': String((payload as any)?.event ?? ''),
         },
         body: JSON.stringify(payload),
         signal: controller.signal,

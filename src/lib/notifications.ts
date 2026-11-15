@@ -90,7 +90,7 @@ export function getWhatsAppLink(phone: string, text: string): string {
  * Handles "Booking Created" automated notification.
  */
 export async function sendBookingCreatedNotification(db: Firestore, p: NotificationPayload) {
-  const message = `Hello ${p.customerName}, your booking for ${p.vehicleName} has been received.\n\nBooking Code: ${p.bookingCode}\nDates: ${p.startDate} to ${p.endDate}\nTotal: TSh ${p.totalPrice.toLocaleString()}\n\nPlease complete payment to confirm your booking.\n\nVoltaShowroom.`;
+  const message = `Hello ${p.customerName}, your booking for ${p.vehicleName} has been received.\n\nBooking Code: ${p.bookingCode}\nDates: ${p.startDate} to ${p.endDate}\nTotal: TSh ${p.totalPrice.toLocaleString()}\n\nPlease complete payment to confirm your booking.\n\nShowroomTZ.`;
   
   await saveNotificationToFirestore(db, {
     userId: p.userId,
@@ -107,7 +107,7 @@ export async function sendBookingCreatedNotification(db: Firestore, p: Notificat
  * Handles "Payment Confirmed" automated notification.
  */
 export async function sendPaymentConfirmedNotification(db: Firestore, p: NotificationPayload) {
-  const message = `Hello ${p.customerName}, payment confirmed for booking ${p.bookingCode}. Your ${p.vehicleName} is reserved from ${p.startDate} to ${p.endDate}. Our team will contact you before pickup.\n\nVoltaShowroom.`;
+  const message = `Hello ${p.customerName}, payment confirmed for booking ${p.bookingCode}. Your ${p.vehicleName} is reserved from ${p.startDate} to ${p.endDate}. Our team will contact you before pickup.\n\nShowroomTZ.`;
   
   await saveNotificationToFirestore(db, {
     userId: p.userId,

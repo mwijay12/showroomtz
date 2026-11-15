@@ -24,7 +24,7 @@ import { Badge } from "@/components/ui/badge";
 /**
  * @fileOverview Admin Intelligence Node.
  * An interactive briefing component used for pitching the technical "Why" 
- * behind VoltaShowroom architecture.
+ * behind ShowroomTZ architecture.
  */
 export function AdminIntelligenceNode() {
   return (
@@ -50,7 +50,7 @@ export function AdminIntelligenceNode() {
               <Badge className="bg-white/20 text-white border-none uppercase text-[8px] font-black tracking-widest">Operational Protocol 2026</Badge>
               <h2 className="text-4xl font-black uppercase leading-none tracking-tighter">Atomic Tech Node</h2>
               <p className="text-blue-100/60 text-sm font-medium leading-relaxed italic">
-                "Volta is not a website. It is an automated logistical protocol for the Tanzanian executive market."
+                "ShowroomTZ is not a website. It is an automated logistical protocol for the Tanzanian executive market."
               </p>
             </div>
             <div className="pt-12 relative z-10">

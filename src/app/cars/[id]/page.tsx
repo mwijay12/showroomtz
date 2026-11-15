@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   if (!car) {
-    return { title: 'Vehicle Not Found | Volta' };
+    return { title: 'Vehicle Not Found | ShowroomTZ' };
   }
 
   const priceText = car.discountPrice
@@ -46,17 +46,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `TSh ${formatPrice(car.price)}`;
 
   return {
-    title: `${car.year || ''} ${car.make || 'Premium'} ${car.model || 'Vehicle'} | Volta Showroom`,
+    title: `${car.year || ''} ${car.make || 'Premium'} ${car.model || 'Vehicle'} | ShowroomTZ`,
     description: `${car.year} ${car.make} ${car.model} for sale at ${car.showroomName ?? 'our showroom'} in ${car.location ?? 'Tanzania'} — ${priceText}. ${car.mileage?.toLocaleString() ?? '—'} km, ${car.transmission}, ${car.fuelType}.`,
     openGraph: {
-      title: `${car.year} ${car.make} ${car.model} — Volta Showroom`,
+      title: `${car.year} ${car.make} ${car.model} — ShowroomTZ`,
       description: `Buy at ${priceText} from ${car.showroomName} in ${car.location}`,
       images: car.images && car.images.length > 0 ? [car.images[0]] : ['/og-image.jpg'],
       type: 'website'
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${car.year} ${car.make} ${car.model} — Volta Showroom`,
+      title: `${car.year} ${car.make} ${car.model} — ShowroomTZ`,
       description: `Buy at ${priceText} from ${car.showroomName} in ${car.location}`,
       images: car.images && car.images.length > 0 ? [car.images[0]] : ['/og-image.jpg'],
     }

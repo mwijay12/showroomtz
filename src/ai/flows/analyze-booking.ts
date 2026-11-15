@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview AI Booking Analysis Agent for VoltaShowroom.
+ * @fileOverview AI Booking Analysis Agent for ShowroomTZ.
  * 
  * - analyzeBooking - Predicts customer personality, risk level, and personalized handling steps.
  */
@@ -34,7 +34,7 @@ const analyzeBookingPrompt = ai.definePrompt({
   name: 'analyzeBookingPrompt',
   input: { schema: AnalyzeBookingInputSchema },
   output: { schema: AnalyzeBookingOutputSchema },
-  prompt: `You are the Lead Intelligence Officer at VoltaShowroom Tanzania. 
+  prompt: `You are the Lead Intelligence Officer at ShowroomTZ Tanzania. 
 Analyze this new booking registry entry and provide strategic handling protocols.
 
 Customer: {{{userName}}}

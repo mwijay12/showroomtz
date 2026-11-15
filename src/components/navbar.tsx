@@ -93,7 +93,7 @@ export function Navbar() {
 
   const isStaff = userRole === 'admin' || userRole === 'super_admin';
 
-  const brandParts = (companyName || "VoltaShowroom").split(' ');
+  const brandParts = (companyName || "ShowroomTZ").split(' ');
   const firstName = brandParts[0];
   const restOfName = brandParts.slice(1).join(' ');
 
@@ -124,7 +124,7 @@ export function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-4 sm:px-6 lg:px-12">
-        <Link href="/" aria-label={`${companyName || "VoltaShowroom"} Home`} className="flex items-center gap-3 group shrink-0">
+        <Link href="/" aria-label={`${companyName || "ShowroomTZ"} Home`} className="flex items-center gap-3 group shrink-0">
           <motion.div
             whileHover={{ scale: 1.02 }}
             className="flex items-center gap-3"
@@ -244,7 +244,7 @@ export function Navbar() {
               <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                 <Zap className="text-primary h-8 w-8 fill-current" />
                 <span className="font-black text-xl tracking-tighter uppercase text-foreground">
-                  Volta<span className="text-primary italic">Showroom</span>
+                  ShowroomTZ<span className="text-primary italic">Showroom</span>
                 </span>
               </Link>
               <button onClick={() => setIsOpen(false)} className="h-12 w-12 flex items-center justify-center text-foreground">
@@ -278,7 +278,7 @@ export function Navbar() {
                    <Link href="/privacy" onClick={() => setIsOpen(false)}>Privacy</Link>
                    <Link href="/cookies" onClick={() => setIsOpen(false)}>Cookies</Link>
                 </div>
-                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/30">VoltaShowroom Tanzania • Node 1.0</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.5em] text-muted-foreground/30">ShowroomTZ Tanzania • Node 1.0</p>
               </div>
             </div>
           </motion.div>

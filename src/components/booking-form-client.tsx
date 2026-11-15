@@ -131,7 +131,7 @@ export function BookingFormClient() {
     
     const inquiryData = {
       id: newDocRef.id,
-      inquiryCode: `VOLTA-INQ-${newDocRef.id.slice(-6).toUpperCase()}`,
+      inquiryCode: `SHOWROOMTZ-INQ-${newDocRef.id.slice(-6).toUpperCase()}`,
       userId: user?.uid || null,
       userEmail: values.email,
       userName: values.fullName,
@@ -140,7 +140,7 @@ export function BookingFormClient() {
       vehicleName: `${selectedCar.make} ${selectedCar.model}`,
       vehiclePrice: selectedCar.discountPrice || selectedCar.price || 0,
       showroomId: selectedCar.showroomId || '',
-      showroomName: selectedCar.showroomName || 'Volta Partner Showroom',
+      showroomName: selectedCar.showroomName || 'ShowroomTZ Partner Showroom',
       inquiryType: values.inquiryType,
       paymentPreference: values.paymentPreference,
       city: values.city,
@@ -153,6 +153,22 @@ export function BookingFormClient() {
 
     try {
       await setDoc(newDocRef, inquiryData);
+
+      // Fire-and-forget booking confirmation email — never blocks the UI flow
+      fetch('/api/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          kind: 'booking',
+          to: values.email,
+          name: values.fullName,
+          vehicleName: inquiryData.vehicleName,
+          reference: inquiryData.inquiryCode,
+          showroomName: inquiryData.showroomName,
+          preferredDate: values.preferredDate.toLocaleDateString('en-TZ', { year: 'numeric', month: 'short', day: 'numeric' }),
+          city: values.city,
+        }),
+      }).catch((emailErr) => console.warn('[email] booking confirmation skipped:', emailErr));
       
       setSubmittedData({ ...inquiryData, car: selectedCar });
       toast({ 

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileOverview Social sharing utilities for VoltaShowroom.
+ * @fileOverview Social sharing utilities for ShowroomTZ.
  */
 
 import { toast } from "@/hooks/use-toast";
@@ -61,7 +61,7 @@ export async function nativeShare(data: { title: string, text: string, url: stri
 }
 
 export function generateCarShareMessage(car: any, url: string): string {
-  return `🚗 *Check out this vehicle on VoltaShowroom!*
+  return `🚗 *Check out this vehicle on ShowroomTZ!*
 
 ━━━━━━━━━━━━━━━━━━━━
 🏷️ *${car.year} ${car.make} ${car.model}*
@@ -83,11 +83,11 @@ export function generateCarShareMessage(car: any, url: string): string {
 ${url}
 
 ━━━━━━━━━━━━━━━━━━━━
-🇹🇿 VoltaShowroom - Premium Car Showroom Tanzania`;
+🇹🇿 ShowroomTZ - Premium Car Showroom Tanzania`;
 }
 
 export function generateBookingShareMessage(booking: any): string {
-  return `🎉 *I just booked a car with VoltaShowroom!*
+  return `🎉 *I just booked a car with ShowroomTZ!*
 
 ━━━━━━━━━━━━━━━━━━━━
 🚗 *${booking.vehicleName}*
@@ -96,15 +96,15 @@ export function generateBookingShareMessage(booking: any): string {
 ━━━━━━━━━━━━━━━━━━━━
 
 Looking for reliable car rental in Tanzania?
-Check out VoltaShowroom! 🇹🇿
+Check out ShowroomTZ! 🇹🇿
 
 🌐 voltashowroom.co.tz
 
-#VoltaShowroom #CarRental #Tanzania`;
+#ShowroomTZ #CarRental #Tanzania`;
 }
 
 export function generateWebsiteShareMessage(): string {
-  return `🚗 *VoltaShowroom - Premium Car Showroom in Tanzania*
+  return `🚗 *ShowroomTZ - Premium Car Showroom in Tanzania*
 
 Looking for reliable vehicle rental?
 
@@ -133,7 +133,7 @@ export function generateFleetShareMessage(cars: any[]): string {
     `${i + 1}. *${car.make} ${car.model}* - TSh ${formatPrice(car.pricePerDay)}/day`
   ).join('\n');
 
-  return `🚗 *VoltaShowroom Fleet Highlights*
+  return `🚗 *ShowroomTZ Fleet Highlights*
 
 Top vehicles available now:
 
@@ -143,5 +143,5 @@ ${total > 5 ? `...and ${total - 5} more vehicles!` : ''}
 
 🌐 Browse full fleet: voltashowroom.co.tz/fleet
 
-🇹🇿 VoltaShowroom Tanzania`;
+🇹🇿 ShowroomTZ Tanzania`;
 }
