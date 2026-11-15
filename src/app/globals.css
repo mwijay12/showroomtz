@@ -158,3 +158,353 @@
 @media (prefers-reduced-motion: reduce) {
   .kenburns, .sheen { animation: none !important; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   MOTION SYSTEM — ShowroomTZ premium animation layer
+   Reusable keyframes + utilities for loaders, skeletons, text FX,
+   animated SVG and hover choreography. All motion honours
+   prefers-reduced-motion at the bottom of this file.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ──────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes skeleton-sweep {
+  0%   { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+}
+
+@keyframes gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33%      { transform: translate3d(10px, -12px, 0) rotate(1.5deg); }
+  66%      { transform: translate3d(-8px, 8px, 0) rotate(-1.5deg); }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes caret-blink {
+  0%, 45%   { opacity: 1; }
+  50%, 95%  { opacity: 0; }
+  100%      { opacity: 1; }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+@keyframes dash-draw {
+  from { stroke-dashoffset: var(--dash-length, 600); }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(0.9); opacity: 0.7; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  40%  { opacity: 0.6; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50%      { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.35; filter: blur(28px); }
+  50%      { opacity: 0.75; filter: blur(38px); }
+}
+
+@keyframes bar-bounce {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.5; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes ticker-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes underline-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes tilt-hint {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50%      { transform: rotate(1.2deg); }
+}
+
+/* ── Skeleton primitives ────────────────────────────────────────────── */
+.skeleton-block {
+  position: relative;
+  overflow: hidden;
+  background-color: hsl(var(--muted));
+  /* no border-radius here on purpose — let utilities (rounded-full,
+     rounded-xl, rounded-none) decide, since this class outranks them
+     in source order. */
+}
+.skeleton-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-12deg);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    hsl(var(--foreground) / 0.06) 42%,
+    hsl(var(--primary) / 0.10) 50%,
+    hsl(var(--foreground) / 0.06) 58%,
+    transparent 80%
+  );
+  animation: skeleton-sweep 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.skeleton-block::after { border-radius: inherit; }
+
+/* Alias so both class names resolve to the same shimmer treatment */
+.skeleton-sheen {
+  position: relative;
+  overflow: hidden;
+  background-color: hsl(var(--muted));
+}
+.skeleton-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-12deg);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    hsl(var(--foreground) / 0.06) 42%,
+    hsl(var(--primary) / 0.10) 50%,
+    hsl(var(--foreground) / 0.06) 58%,
+    transparent 80%
+  );
+  animation: skeleton-sweep 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ── Type & gradient FX ─────────────────────────────────────────────── */
+.text-shimmer {
+  background-image: linear-gradient(
+    100deg,
+    hsl(var(--foreground)) 0%,
+    hsl(var(--foreground)) 35%,
+    hsl(var(--secondary)) 50%,
+    hsl(var(--foreground)) 65%,
+    hsl(var(--foreground)) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5.5s linear infinite;
+}
+
+.text-gold-gradient {
+  background-image: linear-gradient(
+    96deg,
+    hsl(var(--secondary)) 0%,
+    hsl(38 92% 72%) 38%,
+    hsl(var(--primary)) 62%,
+    hsl(var(--secondary)) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 8s ease-in-out infinite;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 0.1em;
+  translate: 0 0.12em;
+  background: currentColor;
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
+.hover-underline { position: relative; }
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── Surfaces ───────────────────────────────────────────────────────── */
+.glass-panel {
+  background: hsl(var(--card) / 0.55);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid hsl(var(--border) / 0.7);
+}
+
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    hsl(var(--primary) / 0.55),
+    transparent 65%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.spotlight-card:hover::before { opacity: 1; }
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    hsl(var(--primary) / 0.10),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight-card:hover::after { opacity: 1; }
+
+/* ── SVG helpers ────────────────────────────────────────────────────── */
+.svg-draw path,
+.svg-draw circle,
+.svg-draw line,
+.svg-draw polyline,
+.svg-draw rect {
+  stroke-dasharray: var(--dash-length, 600);
+  stroke-dashoffset: var(--dash-length, 600);
+  animation: dash-draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.orbit-a { animation: orbit-spin 18s linear infinite; transform-origin: center; }
+.orbit-b { animation: orbit-spin-reverse 26s linear infinite; transform-origin: center; }
+.orbit-c { animation: orbit-spin 34s linear infinite; transform-origin: center; }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 34s) linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ── Loader shells ──────────────────────────────────────────────────── */
+.loader-ring {
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--border));
+  border-top-color: hsl(var(--primary));
+  border-right-color: hsl(var(--primary) / 0.45);
+  animation: orbit-spin 0.9s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+}
+
+.loader-bars span {
+  display: block;
+  width: 3px;
+  height: 18px;
+  border-radius: 9999px;
+  background: currentColor;
+  transform-origin: center;
+  animation: bar-bounce 1.05s ease-in-out infinite;
+}
+.loader-bars span:nth-child(2) { animation-delay: 0.12s; height: 26px; }
+.loader-bars span:nth-child(3) { animation-delay: 0.24s; height: 22px; }
+.loader-bars span:nth-child(4) { animation-delay: 0.36s; height: 30px; }
+.loader-bars span:nth-child(5) { animation-delay: 0.48s; }
+
+/* ── Misc motion utilities ──────────────────────────────────────────── */
+.animate-float-y   { animation: float-y 7s ease-in-out infinite; }
+.animate-float-soft{ animation: float-soft 14s ease-in-out infinite; }
+.animate-glow      { animation: glow-breathe 6s ease-in-out infinite; }
+.animate-twinkle   { animation: twinkle 3.4s ease-in-out infinite; }
+.animate-scan      { animation: scanline 4.2s linear infinite; }
+.animate-tilt      { animation: tilt-hint 6s ease-in-out infinite; }
+
+.pressable { transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.pressable:active { transform: scale(0.97); }
+
+/* ── Reduced motion: keep the brand, lose the jitter ────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-block::after,
+  .text-shimmer,
+  .text-gold-gradient,
+  .caret,
+  .orbit-a, .orbit-b, .orbit-c,
+  .marquee-track,
+  .loader-ring,
+  .loader-bars span,
+  .animate-float-y,
+  .animate-float-soft,
+  .animate-glow,
+  .animate-twinkle,
+  .animate-scan,
+  .animate-tilt,
+  .svg-draw path,
+  .svg-draw circle,
+  .svg-draw line,
+  .svg-draw polyline,
+  .svg-draw rect {
+    animation: none !important;
+  }
+  .svg-draw path,
+  .svg-draw circle,
+  .svg-draw line,
+  .svg-draw polyline,
+  .svg-draw rect {
+    stroke-dashoffset: 0 !important;
+  }
+  .caret { opacity: 1; }
+}

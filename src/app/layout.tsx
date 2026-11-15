@@ -1,8 +1,27 @@
-import { Inter } from 'next/font/google';
-const inter = Inter({
-  subsets: ['latin'],
+import localFont from 'next/font/local';
+
+/**
+ * Inter is self-hosted from @fontsource-variable/inter (one variable file,
+ * latin subset, 100–900 weights). No request ever leaves for Google Fonts:
+ * faster first paint, no third-party privacy hop, and builds that don't
+ * depend on network access.
+ */
+const inter = localFont({
+  src: [
+    {
+      path: '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2',
+      weight: '100 900',
+      style: 'normal',
+    },
+    {
+      path: '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-italic.woff2',
+      weight: '100 900',
+      style: 'italic',
+    },
+  ],
   display: 'swap',
   variable: '--font-inter',
+  fallback: ['system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
 });
 import './globals.css';
 

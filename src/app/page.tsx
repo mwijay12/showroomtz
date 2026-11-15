@@ -51,6 +51,9 @@ import { optimizeImageUrl } from "@/lib/utils";
 import { SEED_CARS } from "@/lib/showroom-seed";
 import { GsapScrollFX } from "@/components/effects/GsapScrollFX";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
+import { Typewriter } from "@/components/effects/Typewriter";
+import { ScrambleText } from "@/components/effects/ScrambleText";
+import { CarCardSkeleton } from "@/components/ui/CarCardSkeleton";
 
 function LiveFleetPreview() {
   const db = useFirestore();
@@ -156,7 +159,9 @@ function LiveFleetPreview() {
 
         {loading ? (
           Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="shrink-0 w-[280px] md:w-[360px] h-[480px] rounded-[2.5rem] bg-card border border-border animate-pulse" />
+            <div key={i} className="shrink-0 w-[280px] md:w-[360px]">
+              <CarCardSkeleton />
+            </div>
           ))
         ) : cars.length === 0 ? (
           <div className="shrink-0 w-full py-20 text-center text-muted-foreground text-sm">
@@ -673,8 +678,11 @@ export default function Home() {
     announcementText,
   } = useBranding();
 
-  const [displayText, setDisplayText] = useState("");
-  const fullText = "DISCOVER TANZANIA'S FINEST CARS";
+  const heroTypingPhrases = [
+    "DISCOVER TANZANIA'S FINEST CARS",
+    "VERIFIED. DUTY CLEARED. DELIVERED.",
+    "LUXURY IMPORTS · NATIONWIDE",
+  ];
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -738,15 +746,6 @@ export default function Home() {
   const magnet1 = useMagnet();
   const magnet2 = useMagnet();
 
-  useEffect(() => {
-    let i = 0;
-    const timer = setInterval(() => {
-      setDisplayText(fullText.slice(0, i));
-      i++;
-      if (i > fullText.length) clearInterval(timer);
-    }, 100);
-    return () => clearInterval(timer);
-  }, []);
 
   const safeName = companyName || "ShowroomTZ";
   const nameParts = safeName.split(' ');
@@ -832,14 +831,26 @@ export default function Home() {
               style={{ opacity: heroOpacity }} className="max-max-w-3xl space-y-12"
             >
               <motion.div variants={itemVariants} className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-card/50 backdrop-blur-xl border border-border text-primary text-[8px] font-black uppercase tracking-[0.4em]">
-                <Zap className="h-3 w-3 fill-current animate-pulse text-secondary" /> {(heroKicker || '').trim() || 'Ready 2026'}
+                <Zap className="h-3 w-3 fill-current animate-pulse text-secondary" />
+                <ScrambleText
+                  text={(heroKicker || '').trim() || 'Ready 2026'}
+                  trigger="mount"
+                  className="text-primary"
+                />
               </motion.div>
               <div className="space-y-6">
                 <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase text-foreground">
                   {headlineLine1} <br /> <span className="text-primary italic glow-text">{headlineLine2}</span>
                 </motion.h1>
                 <motion.p variants={itemVariants} className="text-lg md:text-xl font-black text-secondary tracking-[0.2em] h-8">
-                  {displayText}<span className="animate-pulse">|</span>
+                  <Typewriter
+                    phrases={heroTypingPhrases}
+                    typingSpeed={62}
+                    deletingSpeed={26}
+                    holdTime={2400}
+                    className="text-secondary"
+                    cursorClassName="text-secondary"
+                  />
                 </motion.p>
               </div>
               <motion.p variants={itemVariants} className="text-base md:text-lg text-foreground/60 font-medium max-w-lg leading-relaxed tracking-tight">

@@ -42,3 +42,29 @@ Certain features have been intentionally mocked or simulated during this demonst
 
 ---
 **Protocol Status**: ACTIVE. Ready for client demonstration.
+
+---
+
+## 🎬 Design System & Motion
+
+The visual language is documented as code:
+
+- **Motion Lab** — `/landing/motion`: every animation primitive (GLSL shaders, split-text,
+  typewriter, scramble, tween.js counters, Anime.js SVG drawing, spinners and skeletons)
+  isolated and playable on one page.
+- **Campaign pages** — `/landing` (portal), `/landing/luxury`, `/landing/corporate`:
+  full-bleed WebGL heroes, split-text headlines, live counters, spotlight/tilt cards.
+- **Login** — `/auth`: split-screen aurora terminal with animated fields, password strength,
+  caps-lock warning and a state-morphing submit button.
+- **Loading** — branded orbital loader (`components/ui/VoltaLoader.tsx`), shimmer skeletons
+  (`components/ui/skeleton.tsx`), route-level `loading.tsx` for cars / landing / dashboard / auth.
+- **Resource list** — [`docs/PREMIUM-MOTION-STACK.md`](docs/PREMIUM-MOTION-STACK.md): curated
+  GitHub repos for WebGL/GLSL, GSAP, Anime.js, tween.js, Barba.js (and its App-Router
+  equivalents), SVG and loader libraries.
+
+Reusable effect components live in `src/components/effects/`:
+`Typewriter`, `ScrambleText`, `SplitReveal`, `CountUp`, `AnimatedSVG`, `Interactive`
+(TiltCard / SpotlightCard / MagneticButton), `Marquee`, `WebGLShaderBackground`, `GsapScrollFX`.
+
+Fonts are **self-hosted** (`@fontsource-variable/inter` through `next/font/local`), so builds
+never depend on Google Fonts being reachable and no request leaves for a third party.
