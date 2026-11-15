@@ -139,7 +139,7 @@ function CarCardComponent({ car: rawCar, index, viewMode }: CarCardProps) {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="executive-card group flex flex-col md:flex-row h-auto md:h-48 overflow-hidden"
+        className="executive-card group flex flex-col md:flex-row h-auto md:h-48 overflow-hidden transition-transform duration-500 hover:-translate-y-1"
       >
         <div className="relative w-full md:w-72 h-48 md:h-full shrink-0">
           <ImageDisplay />
@@ -203,7 +203,7 @@ function CarCardComponent({ car: rawCar, index, viewMode }: CarCardProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="executive-card group h-full flex flex-col"
+      className="executive-card group h-full flex flex-col transition-transform duration-500 hover:-translate-y-1"
     >
       <div className="relative aspect-[16/10] border-b border-border">
         <ImageDisplay />
