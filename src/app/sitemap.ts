@@ -1,62 +1,31 @@
 import { MetadataRoute } from 'next';
-import { initializeFirebase } from '@/firebase';
-import { collection, getDocs } from 'firebase/firestore';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+// Static, build-safe sitemap. No network dependencies — works identically
+// in the sandbox, CI and Vercel. Add new routes here when they ship.
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://voltashowroom.co.tz';
-  
-  let carPaths: MetadataRoute.Sitemap = [];
-  try {
-    const { db } = initializeFirebase();
-    const carsSnap = await getDocs(collection(db, 'cars'));
-    carPaths = carsSnap.docs.map((doc) => ({
-      url: `${baseUrl}/cars/${doc.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  } catch (e) {
-    console.warn("Sitemap: Dynamic car paths skipped during build (empty DB or permissions).", e);
-  }
+  const now = new Date();
 
-  const staticPaths: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/cars`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/showrooms`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
+  const staticPaths: Array<{ path: string; priority: number; changeFrequency: 'daily' | 'weekly' | 'monthly' }> = [
+    { path: '',                priority: 1.0, changeFrequency: 'daily' },
+    { path: '/cars',           priority: 0.9, changeFrequency: 'daily' },
+    { path: '/showrooms',      priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/fleet',          priority: 0.7, changeFrequency: 'weekly' },
+    { path: '/find-my-car',    priority: 0.7, changeFrequency: 'weekly' },
+    { path: '/compare',        priority: 0.6, changeFrequency: 'weekly' },
+    { path: '/book',           priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/about',          priority: 0.5, changeFrequency: 'monthly' },
+    { path: '/contact',        priority: 0.5, changeFrequency: 'monthly' },
+    { path: '/faq',            priority: 0.5, changeFrequency: 'monthly' },
+    { path: '/landing',        priority: 0.7, changeFrequency: 'weekly' },
+    { path: '/landing/luxury', priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/landing/corporate', priority: 0.8, changeFrequency: 'weekly' },
   ];
 
-  return [...staticPaths, ...carPaths];
+  return staticPaths.map(({ path, priority, changeFrequency }) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: now,
+    changeFrequency,
+    priority,
+  }));
 }

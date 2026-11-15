@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://voltarentals.co.tz/sitemap.xml
+Sitemap: https://voltashowroom.co.tz/sitemap.xml

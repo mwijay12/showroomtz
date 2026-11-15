@@ -1,110 +1,25 @@
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '@/firebase';
+/**
+ * @fileOverview Client entry-point for n8n automation.
+ * Thin wrapper over the shared hardened core (timeout + retry + resolution chain).
+ * Delivery never blocks the user flow — failures are logged, not thrown.
+ */
 
-const N8N_BASE = process.env.NEXT_PUBLIC_N8N_BASE_URL || 
-  'https://mwijay-automation.duckdns.org/webhook-test/volta-booking';
+import { sendEnvelope, type N8NResult, type WebhookEvent } from '@/lib/n8n/core';
 
-type WebhookEvent = 
-  | 'volta-booking' 
-  | 'car-added' 
-  | 'driver-added' 
-  | 'volta-user-register' 
-  | 'payment-verified' 
-  | 'booking-status-updated'
-  | 'telegram-webhook';
+export type { N8NResult, WebhookEvent };
 
-export async function triggerN8N(event: WebhookEvent, payload: any) {
-  try {
-    let specificUrl = '';
-
-    // 1. Check environment variable overrides first
-    if (event === 'volta-booking') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_BOOKING || '';
-    else if (event === 'payment-verified') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_PAYMENT || '';
-    else if (event === 'booking-status-updated') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_STATUS || '';
-    else if (event === 'car-added') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_CAR || '';
-    else if (event === 'driver-added') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_DRIVER || '';
-    else if (event === 'volta-user-register') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_USER || '';
-    else if (event === 'telegram-webhook') specificUrl = process.env.NEXT_PUBLIC_N8N_URL_TELEGRAM || '';
-
-    // 2. Check Firestore overrides if environment variables are not configured
-    if (!specificUrl) {
-      try {
-        const brandingRef = doc(db, 'settings', 'branding');
-        const brandingSnap = await getDoc(brandingRef);
-        if (brandingSnap.exists()) {
-          const snapData = brandingSnap.data();
-          if (event === 'volta-booking') specificUrl = snapData.webhookUrlBooking || '';
-          else if (event === 'payment-verified') specificUrl = snapData.webhookUrlPayment || '';
-          else if (event === 'booking-status-updated') specificUrl = snapData.webhookUrlStatus || '';
-          else if (event === 'car-added') specificUrl = snapData.webhookUrlCar || '';
-          else if (event === 'driver-added') specificUrl = snapData.webhookUrlDriver || '';
-          else if (event === 'volta-user-register') specificUrl = snapData.webhookUrlUser || '';
-          else if (event === 'telegram-webhook') specificUrl = snapData.webhookUrlTelegram || '';
-        }
-      } catch (firestoreErr) {
-        console.warn('n8nWebhook: Firestore overrides fetch skipped or failed.');
-      }
-    }
-
-    let url = '';
-    if (specificUrl) {
-      url = specificUrl.trim();
-    } else {
-      let inputUrl = N8N_BASE.trim().replace(/\/+$/, '');
-      
-      // Determine if sandbox or production webhook type
-      let webhookType = 'webhook-test';
-      if (inputUrl.includes('/webhook/')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.includes('/webhook-test/')) {
-        webhookType = 'webhook-test';
-      } else if (inputUrl.endsWith('/webhook')) {
-        webhookType = 'webhook';
-      } else if (inputUrl.endsWith('/webhook-test')) {
-        webhookType = 'webhook-test';
-      }
-      
-      // Extract base domain
-      let baseDomain = '';
-      try {
-        const parsed = new URL(inputUrl);
-        baseDomain = `${parsed.protocol}//${parsed.host}`;
-      } catch {
-        const match = inputUrl.match(/^(https?:\/\/[^\/]+)/);
-        baseDomain = match ? match[1] : inputUrl;
-      }
-      
-      if (event === 'telegram-webhook') {
-        url = `${baseDomain}/${webhookType}/volta-tg-bot/webhook`;
-      } else {
-        url = `${baseDomain}/${webhookType}/volta-booking/${event}`;
-      }
-    }
-
-    console.log(`🔔 n8n trigger: ${event} -> ${url}`, payload);
-    
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    
-    if (!res.ok) throw new Error(`Webhook failed: ${res.status}`);
-    const data = await res.json();
-    console.log(`✅ n8n success:`, data);
-    return data;
-  } catch (error) {
-    console.error(`❌ n8n error (${event}):`, error);
-    // Don't throw — webhooks should not block main flow
-    return null;
-  }
+export async function triggerN8N(
+  event: WebhookEvent | string,
+  payload: any,
+): Promise<N8NResult> {
+  return sendEnvelope(event, payload ?? {});
 }
 
-// Convenience functions
+// ── Convenience notifiers (unchanged public API) ─────────────────────
 export const notifyTelegramBot = (payload: any) =>
   triggerN8N('telegram-webhook', payload);
 
-export const notifyNewCar = (car: any) => 
+export const notifyNewCar = (car: any) =>
   triggerN8N('car-added', {
     firebaseId: car.id,
     make: car.make || car.brand,
