@@ -46,8 +46,8 @@ function shell(opts: { title: string; preheader: string; body: string }) {
             <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
               <tr>
                 <td style="vertical-align:middle;">
-                  <span style="display:inline-block;width:38px;height:38px;border-radius:10px;background:${BRAND};color:#FFFFFF;font-weight:900;font-size:20px;line-height:38px;text-align:center;vertical-align:middle;">S</span>
-                  <span style="display:inline-block;vertical-align:middle;margin-left:12px;color:#FFFFFF;font-weight:900;font-size:20px;letter-spacing:2px;">SHOWROOM<span style="color:${BRAND};">TZ</span></span>
+                  <img src="https://showroomtz.vercel.app/icons/icon-192x192.png" width="46" height="46" alt="ShowroomTZ" style="display:inline-block;vertical-align:middle;border-radius:11px;border:1px solid rgba(212,162,78,0.35);" />
+                  <span style="display:inline-block;vertical-align:middle;margin-left:13px;color:#F5E7CB;font-weight:900;font-size:19px;letter-spacing:3px;">SHOWROOM<span style="color:#E5483C;font-style:italic;font-family:Georgia,serif;">TZ</span></span>
                 </td>
                 <td align="right" style="vertical-align:middle;">
                   <span style="color:#9CA3AF;font-size:10px;letter-spacing:3px;font-weight:700;">TANZANIA</span>

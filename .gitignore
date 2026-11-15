@@ -43,3 +43,5 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+# local image search scratch — never commit
+image-search/

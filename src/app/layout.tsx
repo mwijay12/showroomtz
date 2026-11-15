@@ -29,18 +29,27 @@ export const metadata = {
   keywords: 'car showroom Tanzania, buy car Dar es Salaam, luxury cars Arusha, vehicle marketplace',
   manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/icons/apple-touch-icon.png',
   },
   openGraph: {
     type: 'website',
     locale: 'en_TZ',
     url: 'https://voltashowroom.co.tz',
     siteName: 'ShowroomTZ Tanzania',
-    title: 'ShowroomTZ - Elite Vehicle Logistics Tanzania',
-    description: 'The premier logistical partner for elite travelers across the United Republic.',
-    images: [{ url: '/icons/icon-512x512.svg', width: 512, height: 512 }]
+    title: 'ShowroomTZ — Tanzania\'s Premier Showroom',
+    description: 'Verified dealers, transparent pricing, nationwide delivery. SUVs, sedans and luxury cars across Dar es Salaam, Arusha and Zanzibar.',
+    images: [{ url: '/icons/og-image.png', width: 1200, height: 630, alt: 'ShowroomTZ — Tanzania\'s Premier Showroom' }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ShowroomTZ — Tanzania\'s Premier Showroom',
+    description: 'Verified dealers, transparent pricing, nationwide delivery across Tanzania.',
+    images: ['/icons/og-image.png'],
   }
 };
 

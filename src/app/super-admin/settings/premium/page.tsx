@@ -2,7 +2,7 @@
 
 /**
  * Premium Studio — Super Admin control deck for the cinematic layer of the site.
- * Controls the 3D hero scene (React Three Fiber + Drei), film grain, headline copy overrides,
+ * Controls the cinematic photo hero (ken-burns + sheen), film grain, headline copy overrides,
  * CTA labels and the announcement ribbon. Persisted to Firestore
  * `settings/branding` (merged) and picked up site-wide by BrandingProvider.
  */
@@ -21,13 +21,12 @@ import {
 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { HeroScene } from '@/components/three/HeroScene';
 import { GrainOverlay } from '@/components/effects/GrainOverlay';
 
-const SCENE_FACTS = [
-  { icon: Car,    text: 'Procedural GT coupé — extruded silhouette, clearcoat paint, crimson spear lighting. Not a downloaded model; renders instantly.' },
-  { icon: Layers, text: 'Blurred planar reflections (MeshReflectorMaterial), local Lightformer rig — zero external HDR fetches.' },
-  { icon: Cpu,    text: 'GSAP drive-in intro, wheels spin down, headlight flash, pointer-parallax camera, gold dust glints.' },
+const HERO_FACTS = [
+  { icon: Car,    text: 'Full-bleed studio photograph — self-hosted (public/images/hero-showroom.jpg), zero external dependencies, instant paint.' },
+  { icon: Layers, text: 'Ken-burns drift (24s alternate) + travelling light sheen behind the copy; left-weighted gradient keeps type legible.' },
+  { icon: Cpu,    text: 'Framer-motion staggered reveal for kicker → headline → sub → CTAs; film grain layered on top; respects prefers-reduced-motion.' },
 ];
 
 export default function PremiumStudioPage() {
@@ -118,7 +117,7 @@ export default function PremiumStudioPage() {
             <span className="text-[9px] font-black uppercase tracking-[0.4em]">Cinematic Layer</span>
           </div>
           <h1 className="text-4xl lg:text-6xl font-black text-white tracking-tighter uppercase leading-none">Premium<br />Studio</h1>
-          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">3D hero · film grain · hero copy — all live, no redeploy</p>
+          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.3em]">Cinematic hero · film grain · hero copy — all live, no redeploy</p>
         </div>
         <div className="flex items-center gap-3">
           <Button asChild variant="outline" className="h-12 rounded-xl border-white/10 font-black uppercase text-[10px] tracking-widest gap-2">
@@ -135,17 +134,24 @@ export default function PremiumStudioPage() {
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <div className="flex items-center gap-3">
             <MonitorPlay className="h-4 w-4 text-primary" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Live 3D Preview</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Live Hero Preview</span>
           </div>
-          <Badge variant="outline" className="font-mono text-[9px] uppercase">{form.webglEnabled ? "3D SCENE" : "OFF"} · {Math.round(form.webglOpacity)}%</Badge>
+          <Badge variant="outline" className="font-mono text-[9px] uppercase">{form.webglEnabled ? "CINEMATIC" : "MINIMAL"} · {Math.round(form.webglOpacity)}%</Badge>
         </div>
         <div className="relative h-72 sm:h-80 bg-black overflow-hidden">
           {form.webglEnabled ? (
-            <HeroScene style={{ opacity: Math.min(100, Math.max(0, form.webglOpacity)) / 100 }} />
+            <img
+              src="/images/hero-showroom.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover object-[70%_45%]"
+              style={{ opacity: 0.55 + (Math.min(100, Math.max(0, form.webglOpacity)) / 100) * 0.45 }}
+            />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">3D Scene Disabled — Image Hero</span>
-            </div>
+            <div
+              className="absolute inset-0"
+              style={{ background: 'radial-gradient(ellipse 80% 65% at 28% 36%, rgba(212,43,30,0.28) 0%, transparent 65%)' }}
+            />
           )}
           {form.grainEnabled && <GrainOverlay opacity={0.09} />}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -165,13 +171,13 @@ export default function PremiumStudioPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Zap className="h-5 w-5 text-primary" />
-              <h2 className="text-sm font-black uppercase tracking-widest">3D Hero Engine</h2>
+              <h2 className="text-sm font-black uppercase tracking-widest">Cinematic Hero</h2>
             </div>
-            <Switch checked={form.webglEnabled} onCheckedChange={(v) => set({ webglEnabled: v })} aria-label="Toggle 3D hero scene" />
+            <Switch checked={form.webglEnabled} onCheckedChange={(v) => set({ webglEnabled: v })} aria-label="Toggle cinematic hero" />
           </div>
 
           <div className="space-y-4">
-            {SCENE_FACTS.map((f, i) => {
+            {HERO_FACTS.map((f, i) => {
               const Icon = f.icon;
               return (
                 <div key={i} className="flex items-start gap-4 rounded-2xl border border-border bg-muted/30 px-5 py-4">
@@ -184,7 +190,7 @@ export default function PremiumStudioPage() {
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label htmlFor="webgl-opacity" className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Scene Intensity</label>
+              <label htmlFor="webgl-opacity" className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Image Presence</label>
               <span className="font-mono text-[10px] text-primary">{Math.round(form.webglOpacity)}%</span>
             </div>
             <input

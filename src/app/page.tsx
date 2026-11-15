@@ -49,7 +49,6 @@ import { useFirestore } from "@/firebase";
 import { TripEstimator } from "@/components/ui/TripEstimator";
 import { optimizeImageUrl } from "@/lib/utils";
 import { SEED_CARS } from "@/lib/showroom-seed";
-import { HeroScene } from "@/components/three/HeroScene";
 import { GsapScrollFX } from "@/components/effects/GsapScrollFX";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
 
@@ -782,33 +781,40 @@ export default function Home() {
         <section ref={heroRef} className="relative min-h-[95vh] flex items-center overflow-hidden w-full">
           <motion.div style={{ y: heroY, scale: heroScale }} className="absolute inset-0 z-0">
             {webglEnabled ? (
-              // 3D showroom: procedural GT coupe + reflector floor (R3F/Drei/GSAP).
-              // Admin "hero video/image" still honoured when the 3D scene is disabled in Premium Studio.
-              <HeroScene
-                fallbackImage={optimizeImageUrl(heroImageUrl, 1920, 75) || null}
-                style={{ opacity: webglOpacity01 }}
-              />
-            ) : heroVideoUrl && (heroVideoUrl.endsWith('.mp4') || heroVideoUrl.includes('video')) ? (
-              <video 
-                autoPlay 
-                muted 
-                loop 
-                playsInline 
-                poster={optimizeImageUrl(heroImageUrl, 1920, 70) || undefined}
-                className="w-full h-full object-cover opacity-30 scale-105"
-                {...({ fetchPriority: "high" } as any)}
-              >
-                <source src={heroVideoUrl} type="video/mp4" />
-              </video>
+              // Cinematic hero: full-bleed studio photograph (local, self-hosted) with
+              // ken-burns drift + travelling light sheen; admin video/image overrides respected.
+              <div className="absolute inset-0 overflow-hidden">
+                {heroVideoUrl && (heroVideoUrl.endsWith('.mp4') || heroVideoUrl.includes('video')) ? (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster={optimizeImageUrl(heroImageUrl, 1920, 75) || '/images/hero-showroom.jpg'}
+                    className="w-full h-full object-cover object-[70%_45%] kenburns"
+                    {...({ fetchPriority: "high" } as any)}
+                  >
+                    <source src={heroVideoUrl} type="video/mp4" />
+                  </video>
+                ) : (
+                  <div className="absolute inset-0" style={{ opacity: 0.55 + webglOpacity01 * 0.45 }}>
+                    <VoltaImage
+                      src={optimizeImageUrl(heroImageUrl, 1920, 75) || '/images/hero-showroom.jpg'}
+                      alt={`${companyName} — featured grand tourer, studio showcase`}
+                      fill priority
+                      quality={80}
+                      sizes="100vw"
+                      className="kenburns object-cover object-[70%_45%]"
+                    />
+                  </div>
+                )}
+                <div className="sheen" aria-hidden="true" />
+              </div>
             ) : (
-              <VoltaImage
-                src={heroImageUrl || heroVideoUrl || null}
-                alt={`${companyName} Showcase Vehicles for Sale`}
-                fill priority unoptimized
-                fetchPriority="high"
-                quality={70}
-                sizes="100vw"
-                className="opacity-30"
+              // Minimal mode: typographic hero on plain espresso backdrop
+              <div
+                className="absolute inset-0"
+                style={{ background: 'radial-gradient(ellipse 80% 65% at 28% 36%, rgba(212,43,30,0.22) 0%, rgba(212,43,30,0.05) 45%, transparent 70%)' }}
               />
             )}
             {/* text-legibility wash: strong at the text side, open on the car side */}
