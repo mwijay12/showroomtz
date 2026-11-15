@@ -4,7 +4,7 @@
 import { Variants } from 'framer-motion';
 
 /**
- * Common Framer Motion variants for VoltaShowroom
+ * Common Framer Motion variants for ShowroomTZ
  */
 
 // Fade up - most used

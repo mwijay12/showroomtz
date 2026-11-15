@@ -107,7 +107,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
           </div>
         </div>
         <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl h-14 px-8 font-black uppercase tracking-widest text-[10px] gap-2 shadow-xl shadow-emerald-600/20">
-          <Link href={getWhatsAppLink(userProfile.phoneNumber || '', `Hello ${userProfile.displayName}, regarding your VoltaShowroom profile...`)} target="_blank"><MessageCircle className="h-5 w-5" /> Dispatch WhatsApp</Link>
+          <Link href={getWhatsAppLink(userProfile.phoneNumber || '', `Hello ${userProfile.displayName}, regarding your ShowroomTZ profile...`)} target="_blank"><MessageCircle className="h-5 w-5" /> Dispatch WhatsApp</Link>
         </Button>
       </div>
 

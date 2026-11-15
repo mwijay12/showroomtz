@@ -83,7 +83,7 @@ export function PWAInstallPrompt() {
     if (outcome === 'accepted') {
       setShowBanner(false);
       setIsInstalled(true);
-      toast({ title: "🎉 Volta installed!", description: "Check your home screen." });
+      toast({ title: "🎉 ShowroomTZ installed!", description: "Check your home screen." });
       localStorage.setItem('volta_installed', 'true');
     }
     setDeferredPrompt(null);
@@ -117,7 +117,7 @@ export function PWAInstallPrompt() {
                     <Zap className="h-6 w-6 text-white fill-white" />
                   </div>
                   <div className="space-y-0.5">
-                    <h3 className="text-sm font-black uppercase tracking-tight text-foreground">Install VoltaShowroom</h3>
+                    <h3 className="text-sm font-black uppercase tracking-tight text-foreground">Install ShowroomTZ</h3>
                     <p className="text-[11px] text-muted-foreground font-medium leading-tight">
                       Get the elite app experience. Book assets faster from your home screen.
                     </p>

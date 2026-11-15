@@ -115,7 +115,7 @@ export default function BookingPaymentPage({ params }: { params: Promise<{ id: s
   const isPaid = booking.paymentStatus === "paid";
   const perPerson = Math.round((booking.totalPrice || 0) / splitCount);
 
-  const shareText = `Hey! Join our VoltaShowroom trip.
+  const shareText = `Hey! Join our ShowroomTZ trip.
 Your share is TSh ${perPerson.toLocaleString()}.
 Book ref: ${booking.bookingCode}
 Pay via M-Pesa: 0700 000 000
@@ -293,7 +293,7 @@ www.voltashowroom.co.tz`;
                     )}
                     
                     <p className="text-muted-foreground text-sm font-medium italic max-w-md mx-auto">
-                      "Your registry credentials are now active. Welcome to the elite VoltaShowroom 2026 fleet expedition."
+                      "Your registry credentials are now active. Welcome to the elite ShowroomTZ 2026 fleet expedition."
                     </p>
                     <div className="flex gap-4">
                        <Button asChild className="flex-1 h-14 bg-primary text-white font-black uppercase tracking-widest rounded-xl shadow-xl">
@@ -479,7 +479,7 @@ www.voltashowroom.co.tz`;
                                <div className="text-3xl md:text-4xl font-black tracking-tighter tabular-nums bg-background text-foreground py-4 rounded-xl border-2 border-primary shadow-inner">
                                  {lipaNamba || "555 5555"}
                                </div>
-                               <p className="text-[10px] text-foreground uppercase font-black">VOLTA SHOWROOM LTD</p>
+                               <p className="text-[10px] text-foreground uppercase font-black">SHOWROOMTZ LTD</p>
                                <div className="pt-4 space-y-2">
                                  <p className="text-[10px] font-medium leading-relaxed italic text-muted-foreground">After making the transfer, please share your confirmation message with our dispatch team.</p>
                                  <Button asChild className="w-full h-12 bg-emerald-600 hover:bg-emerald-700 text-white font-black uppercase text-[9px] tracking-widest rounded-xl shadow-lg gap-2">
@@ -498,7 +498,7 @@ www.voltashowroom.co.tz`;
                   <div className="bg-primary/5 border border-dashed border-primary/20 rounded-2xl p-6 flex gap-4 items-start">
                     <ShieldCheck size={20} className="text-primary shrink-0" />
                     <p className="text-[9px] text-muted-foreground font-black uppercase leading-relaxed tracking-widest italic">
-                      "All transactions are processed through BOT-regulated gateways. Secure encryption is enforced per Volta protocol 2026."
+                      "All transactions are processed through BOT-regulated gateways. Secure encryption is enforced per ShowroomTZ protocol 2026."
                     </p>
                   </div>
                 </div>

@@ -98,7 +98,7 @@ export default function SuperAdminDashboard() {
           <h1 className="text-4xl lg:text-6xl font-black tracking-tighter uppercase leading-none text-foreground">
             System <span className="text-primary italic">Command</span>
           </h1>
-          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em] italic">VoltaShowroom Global Operational Hub.</p>
+          <p className="text-muted-foreground font-medium uppercase text-[10px] tracking-[0.4em] italic">ShowroomTZ Global Operational Hub.</p>
         </div>
         <div className="flex gap-4">
           <Link href='/super-admin/admins'>

@@ -1,5 +1,5 @@
 /**
- * Official Firebase configuration for ShowroomTZ (Volta Motors Showroom).
+ * Official Firebase configuration for ShowroomTZ (ShowroomTZ Motors Showroom).
  * Configured for project: showroomtz
  */
 export const firebaseConfig = {

@@ -1,8 +1,8 @@
-# Volta Rentals
+# ShowroomTZ Rentals
 
 Elite Mobility for the Modern Executive.
 
-This Next.js 15 application manages the entire fleet protocol, customer booking registry, identity verification (NIDA), and backend admin intelligence for Volta Rentals Tanzania.
+This Next.js 15 application manages the entire fleet protocol, customer booking registry, identity verification (NIDA), and backend admin intelligence for ShowroomTZ Rentals Tanzania.
 
 ## 🚀 Production Refinements Completed
 
@@ -23,7 +23,7 @@ Certain features have been intentionally mocked or simulated during this demonst
 
 2. **Domain Integration & Cloudflare**
    - *Current State:* Deployed on Vercel preview URLs.
-   - *Final Fix:* Connect the official custom domain (e.g., `voltarentals.co.tz`) through Cloudflare, map the DNS to Vercel, and configure SSL.
+   - *Final Fix:* Connect the official custom domain (e.g., `voltashowroom.co.tz`) through Cloudflare, map the DNS to Vercel, and configure SSL.
 
 3. **NIDA Verification (`dashboard/page.tsx`)**
    - *Current State:* The dashboard simulates a NIDA lookup with a 2-second delay.
@@ -35,7 +35,7 @@ Certain features have been intentionally mocked or simulated during this demonst
 
 ## 💡 Tips & Facts
 
-- **Light/Dark Adapter**: The toggle switches between rich, tailored CSS variables (accessible in `lib/themes.ts`) rather than just raw Tailwind inversions. This allows completely custom branding profiles (like *Volta Red* or *Emerald Racing*).
+- **Light/Dark Adapter**: The toggle switches between rich, tailored CSS variables (accessible in `lib/themes.ts`) rather than just raw Tailwind inversions. This allows completely custom branding profiles (like *ShowroomTZ Red* or *Emerald Racing*).
 - **Automation Engine**: `lib/automation.ts` handles all the email and system log broadcasts. It is highly extensible.
 - **React Compiler**: This application leverages Next.js 15's React Compiler. Do not use `useMemo` or `useCallback` unless specifically required, as the compiler handles most memorization under the hood automatically.
 - **Supreme Master Authorization**: In the `super-admin/layout.tsx`, there is a bypass list. If you are locked out, you can add your email to the `SUPREME_MASTERS` array to guarantee top-level access.

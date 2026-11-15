@@ -34,7 +34,7 @@ const strategyPrompt = ai.definePrompt({
   name: 'fleetStrategyPrompt',
   input: { schema: FleetStrategyInputSchema },
   output: { schema: FleetStrategyOutputSchema },
-  prompt: `You are the AI Revenue Manager for VoltaShowroom. 
+  prompt: `You are the AI Revenue Manager for ShowroomTZ. 
 Analyze the current fleet performance for {{{month}}} and generate a dynamic pricing strategy.
 
 Current Stats:

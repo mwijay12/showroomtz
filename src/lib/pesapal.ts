@@ -1,5 +1,5 @@
 /**
- * @fileOverview Pesapal API 3.0 Utility for VoltaShowroom.
+ * @fileOverview Pesapal API 3.0 Utility for ShowroomTZ.
  * Handles token authentication, IPN registration, and order submission.
  */
 

@@ -30,7 +30,7 @@ export default function NotFound() {
             Asset Not Located
           </h1>
           <p className="text-muted-foreground text-sm font-medium italic">
-            "The route you are requesting does not exist in the Volta registry. Return to base for deployment."
+            "The route you are requesting does not exist in the ShowroomTZ registry. Return to base for deployment."
           </p>
         </motion.div>
 

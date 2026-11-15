@@ -41,7 +41,7 @@ export function AboutClient() {
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
               <p className="text-xl md:text-2xl text-blue-50/60 font-medium max-w-2xl mx-auto">
-                VoltaShowroom is the premium logistical partner for elite events and travelers in the United Republic.
+                ShowroomTZ is the premium logistical partner for elite events and travelers in the United Republic.
               </p>
             </AnimatedSection>
             <AnimatedSection delay={0.4} className="flex justify-center gap-4">
@@ -64,7 +64,7 @@ export function AboutClient() {
                   <div className="space-y-6">
                     <h2 className="text-5xl font-black tracking-tight uppercase text-foreground">OUR STORY</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed font-medium">
-                      Founded in 2026, VoltaShowroom was established with a singular vision: to redefine motor vehicle showroom and car buying standards in Tanzania. We recognized a gap for transparent, high-fidelity automobile sales and verified dealer services.
+                      Founded in 2026, ShowroomTZ was established with a singular vision: to redefine motor vehicle showroom and car buying standards in Tanzania. We recognized a gap for transparent, high-fidelity automobile sales and verified dealer services.
                     </p>
                     <p className="text-muted-foreground text-lg leading-relaxed font-medium">
                       Whether you are looking for a brand new SUV in Dar es Salaam, a foreign-used luxury sedan, or a reliable 4x4 in Arusha, we provide mechanical excellence, verified pre-purchase inspections, and seamless vehicle transfer.
@@ -113,7 +113,7 @@ export function AboutClient() {
           <div className="container mx-auto px-4 lg:px-12">
             <AnimatedSection direction="down" className="text-center max-max-w-2xl mx-auto mb-24">
               <h2 className="text-5xl font-black tracking-tight mb-6 uppercase text-foreground">
-                The Volta <span className="text-primary italic">Standard</span>
+                The ShowroomTZ <span className="text-primary italic">Standard</span>
               </h2>
               <p className="text-muted-foreground text-lg font-medium">Built on three pillars: Safety, Transparency, and Service.</p>
             </AnimatedSection>

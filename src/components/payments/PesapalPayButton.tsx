@@ -7,6 +7,22 @@ import { useFirestore } from '@/firebase';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
+
+/** Fire-and-forget payment receipt email — never blocks the payment flow. */
+function notifyPaymentEmail(to: string, input: {
+  name: string; amount: number; bookingCode: string; vehicleName: string; method: string;
+}) {
+  try {
+    fetch('/api/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kind: 'payment', to, ...input, reference: input.bookingCode }),
+    }).catch((e) => console.warn('[email] payment receipt skipped:', e));
+  } catch (e) {
+    console.warn('[email] payment receipt skipped:', e);
+  }
+}
+
 interface PesapalPayButtonProps {
   bookingId: string;
   bookingCode: string;
@@ -70,8 +86,16 @@ export default function PesapalPayButton({
         channel: 'Credit/Debit Card'
       });
 
+      notifyPaymentEmail(customerEmail, {
+        name: customerName,
+        amount: Number(amount),
+        bookingCode,
+        vehicleName,
+        method: 'Pesapal (Demo)',
+      });
+
       toast({ title: "✅ Payment Successful", description: "Simulated payment successfully." });
-      
+
       // Reload to show the success state
       window.location.reload();
       return;
@@ -100,7 +124,7 @@ export default function PesapalPayButton({
   }
 
   const whatsappText = encodeURIComponent(
-    `Hello VoltaShowroom! I have made an M-Pesa payment.\n\nBooking: ${bookingCode}\nVehicle: ${vehicleName}\nAmount: TSh ${amount.toLocaleString()}\nName: ${customerName}\nPhone: ${customerPhone}\n\nPlease confirm my booking. Asante! 🙏`
+    `Hello ShowroomTZ! I have made an M-Pesa payment.\n\nBooking: ${bookingCode}\nVehicle: ${vehicleName}\nAmount: TSh ${amount.toLocaleString()}\nName: ${customerName}\nPhone: ${customerPhone}\n\nPlease confirm my booking. Asante! 🙏`
   );
 
   if (payLaterDone) {
@@ -176,6 +200,13 @@ export default function PesapalPayButton({
                     reference: bookingCode,
                     channel: 'Credit/Debit Card'
                   });
+                  notifyPaymentEmail(customerEmail, {
+                    name: customerName,
+                    amount: Number(amount),
+                    bookingCode,
+                    vehicleName,
+                    method: 'Pesapal (Demo)',
+                  });
                   toast({ title: "✅ Demo Payment Successful", description: "Simulated payment successfully." });
                   window.location.reload();
                 } catch (e) {
@@ -239,7 +270,7 @@ export default function PesapalPayButton({
               { label: "Send To", val: MPESA_NUMBER, highlight: true },
               { label: "Amount (TSh)", val: amount.toLocaleString(), highlight: true },
               { label: "Reference (IMPORTANT)", val: bookingCode, highlight: true, mono: true },
-              { label: "Account Name", val: "VoltaShowroom Tanzania" },
+              { label: "Account Name", val: "ShowroomTZ Tanzania" },
             ].map(item => (
               <div key={item.label} className="flex justify-between items-center">
                 <span className="text-[9px] font-black uppercase text-muted-foreground">{item.label}</span>

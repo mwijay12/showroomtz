@@ -35,7 +35,7 @@ export default function CookieConsentBanner() {
   const handleAcceptAll = () => {
     acceptAllCookies();
     setIsVisible(false);
-    toast({ title: "🍪 Preferences saved!", description: "Thank you for trusting VoltaShowroom." });
+    toast({ title: "🍪 Preferences saved!", description: "Thank you for trusting ShowroomTZ." });
   };
 
   const handleRejectOptional = () => {
@@ -77,7 +77,7 @@ export default function CookieConsentBanner() {
             </div>
 
             <p className="text-[13px] text-muted-foreground leading-relaxed font-medium">
-              We use cookies to improve your experience on VoltaShowroom. 
+              We use cookies to improve your experience on ShowroomTZ. 
               Essential cookies keep the site running. Optional cookies 
               help us understand how you use our platform and improve 
               our services for Tanzania.
@@ -117,7 +117,7 @@ export default function CookieConsentBanner() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-1">
                         <p className="text-[13px] font-black uppercase text-foreground">Analytics Cookies</p>
-                        <p className="text-[11px] text-muted-foreground leading-normal">Help us understand how visitors use VoltaShowroom. Anonymous usage data only.</p>
+                        <p className="text-[11px] text-muted-foreground leading-normal">Help us understand how visitors use ShowroomTZ. Anonymous usage data only.</p>
                       </div>
                       <Switch 
                         checked={prefs.analytics} 
@@ -177,7 +177,7 @@ export default function CookieConsentBanner() {
               </div>
 
               <p className="text-[10px] text-muted-foreground leading-tight">
-                By continuing to use VoltaShowroom, you agree to our{" "}
+                By continuing to use ShowroomTZ, you agree to our{" "}
                 <Link href="/privacy" className="text-primary underline font-bold">Cookie Policy</Link> and{" "}
                 <Link href="/privacy" className="text-primary underline font-bold">Privacy Policy</Link>.
               </p>

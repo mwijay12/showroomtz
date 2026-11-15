@@ -1,7 +1,7 @@
 
 'use server';
 /**
- * @fileOverview An AI Event-Fit Advisor for VoltaShowroom.
+ * @fileOverview An AI Event-Fit Advisor for ShowroomTZ.
  *
  * - recommendEventFit - A function that analyzes booking details to generate a required configuration.
  * - EventFitAdvisorInput - The input type for the recommendEventFit function.
@@ -40,7 +40,7 @@ const eventFitAdvisorPrompt = ai.definePrompt({
   name: 'eventFitAdvisorPrompt',
   input: { schema: EventFitAdvisorInputSchema },
   output: { schema: EventFitAdvisorOutputSchema },
-  prompt: `You are an AI Event Configuration Specialist for VoltaShowroom. Your task is to analyze booking details and generate a MANDATORY configuration for the rental.
+  prompt: `You are an AI Event Configuration Specialist for ShowroomTZ. Your task is to analyze booking details and generate a MANDATORY configuration for the rental.
 
 Booking Details:
 - Event Type: {{{eventType}}}

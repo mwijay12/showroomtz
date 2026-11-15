@@ -92,6 +92,15 @@ export default function AuthPage() {
           };
           await setDoc(userRef, newUser);
           notifyNewUser(newUser);
+          fetch('/api/email/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              kind: 'welcome',
+              to: newUser.email,
+              name: newUser.displayName || newUser.email?.split('@')[0],
+            }),
+          }).catch((e) => console.warn('[email] welcome skipped:', e));
         } else {
           const existingRole = userSnap.data().role;
           if (assignedRole !== 'customer' && existingRole !== assignedRole) {
@@ -109,14 +118,14 @@ export default function AuthPage() {
     } catch (err: any) {
       console.warn("Google Auth Popup Notice:", err);
       // Resilient fallback for demo environment or blocked popups
-      const demoEmail = "executive@volta.tz";
+      const demoEmail = "executive@showroomtz.co.tz";
       const assignedRole = MASTER_SUPER_ADMINS.includes(demoEmail) ? 'super_admin' : 'admin';
       const demoUid = "google-demo-" + Date.now().toString(36);
       
       handleRoleRedirect(assignedRole, demoUid);
       toast({
         title: "Access Initialized",
-        description: "Authenticated with Volta Executive Credentials.",
+        description: "Authenticated with ShowroomTZ Executive Credentials.",
       });
     } finally {
       setGoogleLoading(false);
@@ -167,6 +176,15 @@ export default function AuthPage() {
           };
           await setDoc(userRef, newUser);
           notifyNewUser(newUser);
+          fetch('/api/email/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              kind: 'welcome',
+              to: newUser.email,
+              name: newUser.displayName || newUser.email?.split('@')[0],
+            }),
+          }).catch((e) => console.warn('[email] welcome skipped:', e));
         } else {
           assignedRole = userSnap.data().role || assignedRole;
         }
@@ -229,7 +247,7 @@ export default function AuthPage() {
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary/60" />
                   <Input
                     type="email"
-                    placeholder="client@volta.tz"
+                    placeholder="client@showroomtz.co.tz"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-muted border-none h-11 pl-12 rounded-xl font-bold text-sm text-foreground"

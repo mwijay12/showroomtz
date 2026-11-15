@@ -105,7 +105,7 @@ export default function CookieSettingsPage() {
                   {
                     id: "necessary",
                     title: "Essential Cookies",
-                    desc: "These cookies are strictly necessary for VoltaShowroom to function. They enable core features like user authentication, booking state, security protocols, and fraud prevention.",
+                    desc: "These cookies are strictly necessary for ShowroomTZ to function. They enable core features like user authentication, booking state, security protocols, and fraud prevention.",
                     enabled: true,
                     locked: true
                   },

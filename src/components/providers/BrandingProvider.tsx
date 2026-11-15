@@ -47,7 +47,7 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
   const [mode, setModeState] = useState<"dark" | "light">("dark");
   const [isLoading, setIsLoading] = useState(false);
   const [settings, setSettings] = useState<Branding>({
-    companyName: "VoltaShowroom",
+    companyName: "ShowroomTZ",
     tagline: "Tanzania's Premier Showroom Portal for Quality & Luxury Vehicles",
     logoUrl: "",
     heroImageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop",
@@ -84,7 +84,7 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
     ],
     webglEnabled: true,
     webglStyle: 'aurora',
-    webglOpacity: 60,
+    webglOpacity: 80,
     grainEnabled: true,
     heroKicker: '',
     heroHeadlineLine1: '',
@@ -123,6 +123,11 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
         if (!isMounted) return;
         if (snap.exists()) {
           const data = snap.data() as Branding;
+          // Legacy brand normalization: docs written before the ShowroomTZ rebrand still read "VoltaShowroom".
+          const LEGACY_BRANDS = new Set(['voltashowroom', 'volta showroom', 'volta show-room']);
+          if (data.companyName && LEGACY_BRANDS.has(data.companyName.trim().toLowerCase())) {
+            data.companyName = 'ShowroomTZ';
+          }
           setSettings(prev => ({ ...prev, ...data }));
           
           let t = themeId;

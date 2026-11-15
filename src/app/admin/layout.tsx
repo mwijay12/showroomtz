@@ -112,7 +112,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
              <div className="absolute inset-0 bg-gradient-to-t from-transparent to-background z-10" />
              <div className="absolute inset-0 px-6">
                 <FlickeringGrid
-                  text={companyName || "VOLTA SHOWROOM"}
+                  text={companyName || "SHOWROOMTZ"}
                   fontSize={60}
                   className="h-full w-full"
                   squareSize={2}

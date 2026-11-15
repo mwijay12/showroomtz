@@ -55,7 +55,7 @@ export function ShareButton({
 
     switch (platform) {
       case 'whatsapp':
-        const shared = await shareUtils.nativeShare({ title: 'VoltaShowroom', text, url });
+        const shared = await shareUtils.nativeShare({ title: 'ShowroomTZ', text, url });
         if (!shared) shareUtils.shareOnWhatsApp(text, url);
         break;
       case 'twitter':
@@ -73,7 +73,7 @@ export function ShareButton({
         setTimeout(() => setCopied(false), 2000);
         break;
       case 'more':
-        shareUtils.nativeShare({ title: 'VoltaShowroom', text, url });
+        shareUtils.nativeShare({ title: 'ShowroomTZ', text, url });
         break;
     }
   };

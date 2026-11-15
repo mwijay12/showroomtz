@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google';
-import './globals.css';
-
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
+import './globals.css';
+
 
 import { Toaster } from "@/components/ui/toaster";
 import { FirebaseClientProvider } from '@/firebase/client-provider';
@@ -24,7 +24,7 @@ import { CompareBar } from '@/components/ui/CompareBar';
 
 export const metadata = {
   metadataBase: new URL('https://voltashowroom.co.tz'),
-  title: 'VoltaShowroom - Premium Car Showroom Tanzania',
+  title: 'ShowroomTZ - Premium Car Showroom Tanzania',
   description: 'Browse verified vehicles from Tanzania\'s most trusted dealers and private showrooms. SUVs, Sedans, Luxury cars in Dar es Salaam, Arusha, and Zanzibar.',
   keywords: 'car showroom Tanzania, buy car Dar es Salaam, luxury cars Arusha, vehicle marketplace',
   manifest: '/manifest.json',
@@ -37,8 +37,8 @@ export const metadata = {
     type: 'website',
     locale: 'en_TZ',
     url: 'https://voltashowroom.co.tz',
-    siteName: 'VoltaShowroom Tanzania',
-    title: 'VoltaShowroom - Elite Vehicle Logistics Tanzania',
+    siteName: 'ShowroomTZ Tanzania',
+    title: 'ShowroomTZ - Elite Vehicle Logistics Tanzania',
     description: 'The premier logistical partner for elite travelers across the United Republic.',
     images: [{ url: '/icons/icon-512x512.svg', width: 512, height: 512 }]
   }
@@ -56,7 +56,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="VoltaShowroom" />
+        <meta name="apple-mobile-web-app-title" content="ShowroomTZ" />
         <link rel="apple-touch-icon" href="/icons/icon-512x512.svg" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
@@ -105,7 +105,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "AutoDealer",
-              "name": "VoltaShowroom Tanzania",
+              "name": "ShowroomTZ Tanzania",
               "image": "https://voltashowroom.co.tz/icons/icon-512x512.svg",
               "@id": "https://voltashowroom.co.tz",
               "url": "https://voltashowroom.co.tz",

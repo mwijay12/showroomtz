@@ -52,7 +52,7 @@ function SettingsPageInner() {
   const [lastResponses, setLastResponses] = useState<Record<string, any>>({});
   const [expandedPayloads, setExpandedPayloads] = useState<Record<string, boolean>>({});
   const [form, setForm] = useState<any>({ 
-    companyName: 'VoltaShowroom', 
+    companyName: 'ShowroomTZ', 
     tagline: 'Elite Mobility for the Modern Executive',
     supportEmail: 'info@voltashowroom.co.tz',
     whatsappNumber: '+255 790942616',
@@ -190,11 +190,11 @@ function SettingsPageInner() {
 
       const result = await postJsonWithRetry(targetUrl, {
         timestamp: new Date().toISOString(),
-        companyName: form.companyName || 'VoltaShowroom Tanzania',
+        companyName: form.companyName || 'ShowroomTZ Tanzania',
         companyId: 'volta001',
         event: 'volta-booking',
         bookingCode: 'TEST-000000',
-        userName: 'Volta Test Hub',
+        userName: 'ShowroomTZ Test Hub',
         email: 'test@voltashowroom.co.tz',
         phone: '+255700000000',
         vehicleName: 'Test Sentinel SUV',
@@ -240,7 +240,7 @@ function SettingsPageInner() {
     setWebhookStatuses(prev => ({ ...prev, [endpoint]: 'idle' }));
     try {
       // Add timestamp and company context to match automation.ts behavior
-      const companyName = form.companyName || 'VoltaShowroom Tanzania';
+      const companyName = form.companyName || 'ShowroomTZ Tanzania';
       const finalPayload = {
         timestamp: new Date().toISOString(),
         companyName: companyName,
@@ -315,7 +315,7 @@ function SettingsPageInner() {
           env: form.azamPayEnv,
           clientId: form.azamPayClientId,
           clientSecret: form.azamPayClientSecret,
-          appName: form.azamPayToken || 'VoltaShowroom' // Fallback to verified app name
+          appName: form.azamPayToken || 'ShowroomTZ' // Fallback to verified app name
         })
       });
       const data = await res.json();
@@ -436,7 +436,7 @@ function SettingsPageInner() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[9px] font-black uppercase text-muted-foreground ml-1">Lipa Namba Registered Name</label>
-                  <Input value={form.lipaNambaName ?? ""} onChange={e => setForm({...form, lipaNambaName: e.target.value})} className="h-12 bg-muted border-none font-bold text-foreground" placeholder="e.g. VOLTA SHOWROOM (M-PESA)" />
+                  <Input value={form.lipaNambaName ?? ""} onChange={e => setForm({...form, lipaNambaName: e.target.value})} className="h-12 bg-muted border-none font-bold text-foreground" placeholder="e.g. SHOWROOMTZ (M-PESA)" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[9px] font-black uppercase text-muted-foreground ml-1">Taxpayer Identification Number (TIN)</label>
@@ -527,7 +527,7 @@ function SettingsPageInner() {
                             createdAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
                             lastUpdated: new Date().toISOString().replace('T', ' ').slice(0, 19),
                             aiTag: 'VIP Customer',
-                            notes: 'Testing Volta New Booking n8n Integration.',
+                            notes: 'Testing ShowroomTZ New Booking n8n Integration.',
                             chauffeurRequested: 'Yes'
                           }
                         },
@@ -630,7 +630,7 @@ function SettingsPageInner() {
                               },
                               chat: {
                                 id: -10099887766,
-                                title: "Volta Fleet Control",
+                                title: "ShowroomTZ Fleet Control",
                                 type: "group"
                               },
                               date: Math.floor(Date.now() / 1000),
@@ -869,7 +869,7 @@ function SettingsPageInner() {
                     <Input
                       value={form.azamPayToken ?? ""}
                       onChange={e => setForm({...form, azamPayToken: e.target.value})}
-                      placeholder="e.g. VoltaShowroom"
+                      placeholder="e.g. ShowroomTZ"
                       className="h-12 bg-muted border-none font-mono text-xs"
                     />
                   </div>

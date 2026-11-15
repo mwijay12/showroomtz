@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 /**
- * @fileOverview Floating WhatsApp contact node for VoltaShowroom.
+ * @fileOverview Floating WhatsApp contact node for ShowroomTZ.
  * Features a dynamic status tooltip and premium Emerald branding.
  */
 export function FloatingWhatsApp() {
@@ -38,7 +38,7 @@ export function FloatingWhatsApp() {
       </AnimatePresence>
 
       <motion.a
-        href="https://wa.me/255700000000?text=Hello%20VoltaShowroom!%20Initiating%20session..."
+        href="https://wa.me/255700000000?text=Hello%20ShowroomTZ!%20Initiating%20session..."
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}

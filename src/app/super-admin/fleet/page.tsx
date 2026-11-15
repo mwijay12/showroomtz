@@ -68,7 +68,7 @@ export default function FleetManagement() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-10">
         <div className="space-y-1">
           <h1 className="text-4xl font-black text-white uppercase tracking-tighter leading-none">Fleet Registry</h1>
-          <p className="text-muted-foreground text-xs font-medium uppercase tracking-widest">Manage VoltaShowroom vehicle inventory node</p>
+          <p className="text-muted-foreground text-xs font-medium uppercase tracking-widest">Manage ShowroomTZ vehicle inventory node</p>
         </div>
         <Link href='/super-admin/fleet/new'>
           <Button className="h-14 px-8 bg-primary hover:bg-primary/90 text-white font-black uppercase text-[10px] tracking-widest rounded-xl shadow-3xl gap-3">

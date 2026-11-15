@@ -43,7 +43,7 @@ export function ShareCardPreview({ car, booking, type }: ShareCardPreviewProps) 
             </span>
           </div>
           <p className="text-[7px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] pt-1">
-            VoltaShowroom Tanzania 🇹🇿
+            ShowroomTZ Tanzania 🇹🇿
           </p>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function ShareCardPreview({ car, booking, type }: ShareCardPreviewProps) 
         </div>
 
         <p className="text-[7px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] pt-2 border-t border-border/50">
-          VoltaShowroom Tanzania 🇹🇿
+          ShowroomTZ Tanzania 🇹🇿
         </p>
       </div>
     );

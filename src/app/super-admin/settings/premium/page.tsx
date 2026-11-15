@@ -38,7 +38,7 @@ export default function PremiumStudioPage() {
   const [form, setForm] = useState({
     webglEnabled: true,
     webglStyle: 'aurora' as WebGLStyle,
-    webglOpacity: 60,
+    webglOpacity: 80,
     grainEnabled: true,
     heroKicker: '',
     heroHeadlineLine1: '',
@@ -59,7 +59,7 @@ export default function PremiumStudioPage() {
             ...prev,
             webglEnabled: d.webglEnabled ?? true,
             webglStyle: (d.webglStyle as WebGLStyle) || 'aurora',
-            webglOpacity: typeof d.webglOpacity === 'number' ? d.webglOpacity : 60,
+            webglOpacity: typeof d.webglOpacity === 'number' ? d.webglOpacity : 80,
             grainEnabled: d.grainEnabled ?? true,
             heroKicker: d.heroKicker || '',
             heroHeadlineLine1: d.heroHeadlineLine1 || '',
@@ -152,8 +152,8 @@ export default function PremiumStudioPage() {
           <div className="absolute bottom-6 left-6 right-6 space-y-2">
             <p className="text-[8px] font-black uppercase tracking-[0.4em] text-amber-400/90">{form.heroKicker || 'Ready 2026'}</p>
             <p className="text-3xl sm:text-5xl font-black uppercase leading-[0.9] tracking-tighter text-white">
-              {form.heroHeadlineLine1 || 'Volta'}<br />
-              <span className="text-primary italic">{form.heroHeadlineLine2 || 'Showroom'}</span>
+              {form.heroHeadlineLine1 || 'ShowroomTZ'}<br />
+              <span className="text-primary italic">{form.heroHeadlineLine2 || 'Tanzania'}</span>
             </p>
           </div>
         </div>
@@ -241,11 +241,11 @@ export default function PremiumStudioPage() {
             </div>
             <div className="space-y-2">
               <label className="text-[9px] font-black uppercase text-muted-foreground ml-1">Headline — Line 1</label>
-              <Input value={form.heroHeadlineLine1} onChange={e => set({ heroHeadlineLine1: e.target.value })} placeholder="Volta" className="h-12 bg-muted border-none font-bold uppercase" />
+              <Input value={form.heroHeadlineLine1} onChange={e => set({ heroHeadlineLine1: e.target.value })} placeholder="ShowroomTZ" className="h-12 bg-muted border-none font-bold uppercase" />
             </div>
             <div className="space-y-2">
               <label className="text-[9px] font-black uppercase text-muted-foreground ml-1">Headline — Line 2 (accent)</label>
-              <Input value={form.heroHeadlineLine2} onChange={e => set({ heroHeadlineLine2: e.target.value })} placeholder="Showroom" className="h-12 bg-muted border-none font-bold uppercase text-primary" />
+              <Input value={form.heroHeadlineLine2} onChange={e => set({ heroHeadlineLine2: e.target.value })} placeholder="Tanzania" className="h-12 bg-muted border-none font-bold uppercase text-primary" />
             </div>
             <div className="space-y-2">
               <label className="text-[9px] font-black uppercase text-muted-foreground ml-1 flex items-center gap-1"><MousePointerClick size={10} /> Primary CTA</label>

@@ -126,7 +126,7 @@ export function AdminSidebar({ isOpen, onClose }: { isOpen?: boolean, onClose?: 
                 exit={{ opacity: 0, x: -10 }}
                 className="whitespace-nowrap"
               >
-                <p className="font-black text-foreground text-lg leading-none tracking-tighter uppercase">{(companyName || 'Volta').split(' ')[0]}<span className="text-primary">Node</span></p>
+                <p className="font-black text-foreground text-lg leading-none tracking-tighter uppercase">{(companyName || 'ShowroomTZ').split(' ')[0]}<span className="text-primary">Node</span></p>
                 <p className="text-[8px] text-muted-foreground font-black uppercase tracking-widest mt-1">Authority: {isSuperAdmin ? 'SUPER ADMIN' : 'ADMINISTRATOR'}</p>
               </motion.div>
             )}

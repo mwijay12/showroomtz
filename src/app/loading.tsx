@@ -65,7 +65,7 @@ export default function Loading() {
               className="text-center space-y-2"
             >
               <p className="text-3xl font-black uppercase tracking-tighter text-foreground">
-                VOLTA
+                SHOWROOMTZ
                 <span className="text-primary italic">SHOWROOM</span>
               </p>
               <div className="flex items-center justify-center gap-3">

@@ -1,5 +1,5 @@
 /**
- * @fileOverview VoltaShowroom Executive Theme Registry
+ * @fileOverview ShowroomTZ Executive Theme Registry
  * Each theme has BOTH dark and light surface tokens.
  */
 
@@ -32,7 +32,7 @@ export type ThemeColors = {
 export const THEMES: Record<string, ThemeColors> = {
   volta_red: {
     id: "volta_red",
-    name: "Volta Red",
+    name: "ShowroomTZ Red",
     emoji: "🔴",
     primary: "0 72% 42%",
     secondary: "38 92% 50%",

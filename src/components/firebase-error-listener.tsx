@@ -13,7 +13,7 @@ export function FirebaseErrorListener() {
     const unsubscribe = errorEmitter.on('permission-error', (error: FirestorePermissionError) => {
       // Non-crashing strategy: 
       // Log with elite context, but allow UI to continue with local cache.
-      console.error("🔥 VOLTA REGISTRY AUTH ERROR:", {
+      console.error("🔥 SHOWROOMTZ REGISTRY AUTH ERROR:", {
         message: error.message,
         path: error.path,
         operation: error.operation,

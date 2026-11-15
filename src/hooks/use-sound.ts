@@ -1,5 +1,5 @@
 /**
- * @fileOverview UI Sound effects hook for VoltaShowroom.
+ * @fileOverview UI Sound effects hook for ShowroomTZ.
  * Provides subtle audio feedback for elite user interactions.
  * Respects global enableSounds setting.
  */

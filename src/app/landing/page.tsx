@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Volta Campaigns | Curated Experiences — VoltaShowroom Tanzania',
-  description: 'The Volta Collection luxury import edit and the Volta Corporate Fleet programme — Tanzania’s most disciplined vehicle partner, in two acts.',
+  title: 'ShowroomTZ Campaigns | Curated Experiences — ShowroomTZ Tanzania',
+  description: 'The ShowroomTZ Collection luxury import edit and the ShowroomTZ Corporate Fleet programme — Tanzania’s most disciplined vehicle partner, in two acts.',
 };
 
 const CAMPAIGNS = [
   {
     href: '/landing/luxury',
     index: '01',
-    tag: 'The Volta Collection',
+    tag: 'The ShowroomTZ Collection',
     title: 'Drive the Unmistakable.',
     text: 'Duty-cleared auction-graded imports. Land Cruiser, S-Class, Range Rover, LX 600.',
     accent: 'text-primary',
@@ -19,7 +19,7 @@ const CAMPAIGNS = [
   {
     href: '/landing/corporate',
     index: '02',
-    tag: 'Volta Corporate Fleet',
+    tag: 'ShowroomTZ Corporate Fleet',
     title: 'Move Teams, Not Excuses.',
     text: 'Executive & field fleet leasing — insured, tracked, EFD-compliant billing. Nationwide.',
     accent: 'text-amber-400',
@@ -30,12 +30,12 @@ export default function LandingIndexPage() {
   return (
     <div className="min-h-screen bg-[#050505] text-white">
       <header className="mx-auto max-w-7xl px-5 sm:px-8 h-16 flex items-center justify-between border-b border-white/5">
-        <Link href="/" className="text-[11px] font-black uppercase tracking-[0.35em] hover:text-amber-400 transition-colors">Volta <span className="text-white/30">/ Campaigns</span></Link>
+        <Link href="/" className="text-[11px] font-black uppercase tracking-[0.35em] hover:text-amber-400 transition-colors">ShowroomTZ <span className="text-white/30">/ Campaigns</span></Link>
         <Link href="/cars" className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-400 hover:text-amber-300 transition-colors">Full Stock →</Link>
       </header>
 
       <main className="mx-auto max-w-7xl px-5 sm:px-8 py-16 sm:py-24">
-        <p className="text-[9px] font-black uppercase tracking-[0.45em] text-primary mb-6">Volta Showroom — Campaigns</p>
+        <p className="text-[9px] font-black uppercase tracking-[0.45em] text-primary mb-6">ShowroomTZ — Campaigns</p>
         <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.88]">Two Ways<br /><span className="text-white/20">To Ride.</span></h1>
 
         <div className="mt-16 divide-y divide-white/8 border-y border-white/8">

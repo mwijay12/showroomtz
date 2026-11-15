@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * @fileOverview Cookie consent management utility for VoltaShowroom.
+ * @fileOverview Cookie consent management utility for ShowroomTZ.
  * Handles storage and retrieval of user privacy preferences.
  */
 

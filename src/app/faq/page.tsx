@@ -19,7 +19,7 @@ const FAQ_DATA = [
   {
     category: "Booking & Reservations",
     items: [
-      { q: "How do I make a booking?", a: "Browse our fleet, select your vehicle, choose your dates and submit your request online. You will receive a confirmation email and booking code (VOLTA-XXXXXX) immediately." },
+      { q: "How do I make a booking?", a: "Browse our fleet, select your vehicle, choose your dates and submit your request online. You will receive a confirmation email and booking code (SHOWROOMTZ-XXXXXX) immediately." },
       { q: "Can I modify my booking after confirmation?", a: "Yes. Contact us via WhatsApp or phone at least 24 hours before your rental start date." },
       { q: "How far in advance should I book?", a: "We recommend booking at least 3 days in advance, especially during weekends and public holidays." },
       { q: "Is my booking confirmed immediately?", a: "Your booking request is submitted instantly. An admin will confirm it within 2-4 hours during business hours." }
