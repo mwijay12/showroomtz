@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
+import { PageMasthead } from "@/components/layout/PageMasthead";
 import { Footer } from "@/components/footer";
 import { SEED_CARS } from "@/lib/showroom-seed";
 import { Car } from "@/lib/types";
@@ -113,36 +114,26 @@ export default function ComparePage() {
     <div className="min-h-screen bg-background flex flex-col font-body">
       <Navbar />
 
-      <main className="flex-1 pt-24 pb-32">
-        {/* HEADER BAR */}
-        <div className="border-b border-border bg-card/60 backdrop-blur-2xl">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <Badge className="bg-primary/10 text-primary border-primary/20 font-black text-[9px] uppercase px-3 py-1">
-                  Vehicle Intelligence Tool
-                </Badge>
-              </div>
-              <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-foreground">
-                Side-By-Side Comparison
-              </h1>
-              <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider">
-                Compare price, specifications, condition & dealer details for up to 3 vehicles
-              </p>
-            </div>
+      <PageMasthead
+        kicker="Compare"
+        index="05"
+        title="Three cars."
+        outline="One table."
+        blurb="Price, specification, condition and dealer — lined up side by side, with no marketing gloss in between."
+        seal="none"
+      >
+        {compareList.length > 0 && (
+          <Button
+            variant="outline"
+            onClick={clearCompare}
+            className="rounded-full border-rose-500/30 text-rose-500 hover:bg-rose-500 hover:text-white font-bold text-[9px] uppercase tracking-[0.24em]"
+          >
+            Clear selected ({compareList.length})
+          </Button>
+        )}
+      </PageMasthead>
 
-            {compareList.length > 0 && (
-              <Button
-                variant="outline"
-                onClick={clearCompare}
-                className="rounded-2xl border-rose-500/30 text-rose-500 hover:bg-rose-500 hover:text-white font-bold text-xs uppercase self-start md:self-auto"
-              >
-                Clear Selected ({compareList.length})
-              </Button>
-            )}
-          </div>
-        </div>
-
+      <main className="flex-1 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-12 space-y-16">
           
           {/* CAR SELECTION QUICK PICKER IF LESS THAN 3 SELECTED */}

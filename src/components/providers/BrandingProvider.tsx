@@ -40,6 +40,38 @@ type BrandingContextType = Branding & {
 
 const BrandingContext = createContext<BrandingContextType | undefined>(undefined);
 
+/**
+ * Older branding documents (and theme presets) still point at Unsplash stock
+ * photography. It is generic, slow to load, and unrelated to the vehicles we
+ * actually sell — so any stock URL is rewritten onto the local studio shoot.
+ */
+const STOCK_REMAP: [RegExp, string][] = [
+  [/1503376780353|7e6692767b70/i, '/images/studio/hero-suv.jpg'],
+  [/1494976388531|d1058494cdd8/i, '/images/studio/lc300.jpg'],
+  [/1603584173870|7f23fdae1b7a/i, '/images/studio/sclass.jpg'],
+];
+
+function localizeImage(url?: string): string | undefined {
+  if (!url) return url;
+  if (!/images\.unsplash\.com|images\.pexels\.com/i.test(url)) return url;
+  for (const [re, src] of STOCK_REMAP) if (re.test(url)) return src;
+  return '/images/studio/hero-suv.jpg';
+}
+
+function localizeBranding(data: Partial<Branding>): Partial<Branding> {
+  return {
+    ...data,
+    heroImageUrl: localizeImage(data.heroImageUrl),
+    aboutImageUrl: localizeImage(data.aboutImageUrl),
+    precisionImageUrl: localizeImage(data.precisionImageUrl),
+    experienceMediaUrl: localizeImage(data.experienceMediaUrl),
+    suvImageUrl: localizeImage(data.suvImageUrl),
+    sedanImageUrl: localizeImage(data.sedanImageUrl),
+    vanImageUrl: localizeImage(data.vanImageUrl),
+    luxuryImageUrl: localizeImage(data.luxuryImageUrl),
+  };
+}
+
 export function BrandingProvider({ children }: { children: ReactNode }) {
   const db = useFirestore();
   const [themeId, setThemeIdState] = useState<ThemeId>(DEFAULT_THEME);
@@ -50,14 +82,14 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
     companyName: "ShowroomTZ",
     tagline: "Tanzania's Premier Showroom Portal for Quality & Luxury Vehicles",
     logoUrl: "",
-    heroImageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop",
+    heroImageUrl: "/images/studio/hero-suv.jpg",
     heroVideoUrl: "",
     suvImageUrl: "",
     sedanImageUrl: "",
     vanImageUrl: "",
     luxuryImageUrl: "",
-    aboutImageUrl: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=2070&auto=format&fit=crop",
-    precisionImageUrl: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2069&auto=format&fit=crop",
+    aboutImageUrl: "/images/studio/lc300.jpg",
+    precisionImageUrl: "/images/studio/sclass.jpg",
     experienceMediaUrl: "",
     experienceMediaType: "image",
     activeTheme: DEFAULT_THEME,
@@ -128,7 +160,7 @@ export function BrandingProvider({ children }: { children: ReactNode }) {
           if (data.companyName && LEGACY_BRANDS.has(data.companyName.trim().toLowerCase())) {
             data.companyName = 'ShowroomTZ';
           }
-          setSettings(prev => ({ ...prev, ...data }));
+          setSettings(prev => ({ ...prev, ...localizeBranding(data as Partial<Branding>) }));
           
           let t = themeId;
           let f = fontId;

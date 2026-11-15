@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
+import { resolveCarImage } from '@/lib/car-image';
+import { AuctionSeal, Stamp } from '@/components/effects/Stickers';
 import { useRouter } from 'next/navigation';
 import {
   Star, Users, Gauge, CheckCircle2,
@@ -84,8 +86,11 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
     damping: 30,
   });
 
-  const images = car.images && car.images.length > 0 ? car.images : [];
-  const safeMainSrc = images[activeImageIndex] || null;
+  const imageHint = `${car.make ?? ''} ${car.model ?? ''}`;
+  const images = (car.images && car.images.length > 0 ? car.images : []).map((u: string) =>
+    resolveCarImage(u, imageHint)
+  );
+  const safeMainSrc = images[activeImageIndex] || resolveCarImage(null, imageHint);
 
   const hasDiscount = !!(car.discountPrice && car.discountPrice < car.price);
   const discountPercent = hasDiscount
@@ -173,10 +178,18 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
             <span className="text-8xl">🚗</span>
           )}
           {hasDiscount && (
-            <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-2xl">
-              {discountPercent}% OFF
+            <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-2xl">
+              {discountPercent}% off
             </div>
           )}
+
+          <div className="pointer-events-none absolute right-4 top-4 flex flex-col items-end gap-2">
+            <Stamp text={car.condition ?? 'Available'} sub={car.showroomName ?? 'ShowroomTZ'} tone="rgba(255,255,255,0.85)" />
+          </div>
+
+          <div className="pointer-events-none absolute -bottom-6 right-6 hidden text-white/85 sm:block">
+            <AuctionSeal size={112} center="JP→TZ" label="SHEET ON FILE" className="drop-shadow-[0_10px_30px_rgba(0,0,0,0.45)]" />
+          </div>
         </div>
 
         {images.length > 1 && (
@@ -235,8 +248,9 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
             </div>
 
             <div className="flex items-start justify-between gap-6">
-              <h1 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase leading-none">
-                {car.make} <br/><span className="text-primary italic">{car.model}</span>
+              <h1 className="text-[clamp(2.6rem,7vw,5.4rem)] font-black tracking-[-0.04em] uppercase leading-[0.88]">
+                {car.make} <br />
+                <span className="text-outline text-primary">{car.model}</span>
               </h1>
             </div>
 

@@ -184,3 +184,42 @@ animate(svg.createDrawable('.my-strokes'), {
 - **Animations are progressive enhancement** — if a library fails to load, content still renders.
 - **Bundle discipline** — GSAP/SplitText/Anime.js are dynamically imported inside `useEffect`,
   so they never block first paint.
+
+---
+
+## 11. The editorial layer (how the site is actually composed)
+
+The motion kit is only half of it — the other half is a consistent editorial
+system, so every page reads like the same publication.
+
+| Component | File | Role |
+| --- | --- | --- |
+| `Hero` + `TickerStrip` | `components/home/Hero.tsx` | cinematic studio open, split lockup, telemetry card, sticker ticker |
+| `Manifesto` | `components/home/Manifesto.tsx` | word-by-word statement + rotating seal + counters |
+| `FeaturedFleet` | `components/home/FeaturedFleet.tsx` | GSAP-pinned horizontal rail, WebGL pointer distortion per card |
+| `ProcessRail` | `components/home/ProcessRail.tsx` | auction → clearance → delivery, drawn connector |
+| `StatsBand` | `components/home/StatsBand.tsx` | dark telemetry band: counters, sparkline, gauge, stamps |
+| `Coverage` | `components/home/Coverage.tsx` | delivery map + city list |
+| `FinalCta` | `components/home/FinalCta.tsx` | GLSL aurora close, magnetic actions, WhatsApp |
+| `PageMasthead` | `components/layout/PageMasthead.tsx` | shared inner-page opening: kicker, two-line lockup, seal |
+| `RouteCurtain` | `components/effects/RouteCurtain.tsx` | 0.7s film wipe on every client navigation |
+| `Stickers` | `components/effects/Stickers.tsx` | auction seal, stamps, steering/wrench/road doodles, word ring |
+| `DistortImage` | `components/effects/DistortImage.tsx` | three.js pointer-ripple image (desktop only, IO-gated) |
+
+### Imagery rules
+
+- All vehicle photography lives in `public/images/studio/` and is model-matched
+  (`lc300.jpg`, `prado.jpg`, `hiace.jpg`, `sclass.jpg`, `bmw7.jpg`, `hilux.jpg`,
+  `rangerover.jpg`, `alphard.jpg`, `lx600.jpg`, `hero-suv.jpg`).
+- Legacy `/images/cars/*` paths in old Firestore documents are remapped by
+  make/model in `lib/car-image.ts` (`resolveCarImage`), and stock Unsplash hero
+  URLs saved in branding settings are rewritten onto the studio set in
+  `BrandingProvider` (`localizeBranding`). Old links never render the wrong car.
+- Because WebGL is expensive, `DistortImage` is only enabled on `min-width:
+  1024px`, pauses when off-screen, and falls back to a plain `<img>`.
+
+### Type treatments
+
+`.text-outline` uses `-webkit-text-fill-color: transparent` + a `currentColor`
+stroke (so `text-outline text-primary` keeps the accent), `.index-number` gives
+tabular catalogue numerals, `.grid-lines` adds a masked technical grid.

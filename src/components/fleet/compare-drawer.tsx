@@ -6,6 +6,7 @@ import { X, GitCompare, Zap, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { resolveCarImage } from '@/lib/car-image';
 import { VoltaImage } from "@/components/ui/VoltaImage";
 
 export function CompareDrawer() {
@@ -36,7 +37,7 @@ export function CompareDrawer() {
             {compareList.map((car) => (
               <div key={car.id} className="relative group shrink-0">
                 <div className="h-14 w-20 rounded-xl overflow-hidden bg-muted border border-border">
-                  <VoltaImage src={car.images?.[0]} alt={car.model} fill className="object-cover" />
+                  <VoltaImage src={resolveCarImage(car.images?.[0], `${car.make ?? ''} ${car.model ?? ''}`)} alt={car.model} fill className="object-cover" />
                 </div>
                 <button 
                   onClick={() => removeFromCompare(car.id)}

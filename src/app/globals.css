@@ -508,3 +508,68 @@
   }
   .caret { opacity: 1; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   EDITORIAL LAYER — big-type treatments, stickers, grid textures
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Outlined display type (champagne / white stroke, hollow fill) */
+.text-outline {
+  /* keep `color` intact so currentColor drives the stroke, then hollow the fill */
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+@media (min-width: 768px) {
+  .text-outline { -webkit-text-stroke-width: 2px; }
+}
+.text-outline-thick {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 3px currentColor;
+}
+@supports not (-webkit-text-stroke: 1px black) {
+  .text-outline,
+  .text-outline-thick { -webkit-text-fill-color: currentColor; }
+}
+
+/* A sticker sits on top of photography: soft drop shadow keeps it legible */
+.sticker-shadow {
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+}
+
+/* Fine technical grid, masked to fade at the edges */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, hsl(var(--foreground) / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--foreground) / 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 50% 40%, black 8%, transparent 72%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 8%, transparent 72%);
+}
+
+/* Reverse marquee direction (sticker strips that counter-scroll) */
+.marquee-reverse > .marquee-track,
+.marquee-track.marquee-reverse {
+  animation-direction: reverse;
+}
+
+/* Vertical hairline separator used between editorial columns */
+.rule-v {
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    hsl(var(--border)),
+    transparent
+  );
+}
+
+/* Underlined "index" number, like a printed catalogue */
+.index-number {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none !important; }
+}

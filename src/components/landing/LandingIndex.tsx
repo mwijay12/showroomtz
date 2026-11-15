@@ -34,7 +34,7 @@ const CAMPAIGNS = [
     text: 'Duty-cleared auction-graded imports. Land Cruiser, S-Class, Range Rover, LX 600.',
     accent: 'text-primary',
     glow: 'hsl(var(--primary))',
-    image: '/images/cars/luxury_hero.jpg',
+    image: '/images/studio/sclass.jpg',
     meta: '12 units in the current edit',
   },
   {
@@ -45,7 +45,7 @@ const CAMPAIGNS = [
     text: 'Executive & field fleet leasing — insured, tracked, EFD-compliant billing. Nationwide.',
     accent: 'text-secondary',
     glow: 'hsl(var(--secondary))',
-    image: '/images/cars/suv_hero.jpg',
+    image: '/images/studio/alphard.jpg',
     meta: 'Fleet from 3 vehicles',
   },
 ];

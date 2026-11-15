@@ -24,7 +24,7 @@ import { cn } from '@/lib/utils';
 import { GrainOverlay } from '@/components/effects/GrainOverlay';
 
 const HERO_FACTS = [
-  { icon: Car,    text: 'Full-bleed studio photograph — self-hosted (public/images/hero-showroom.jpg), zero external dependencies, instant paint.' },
+  { icon: Car,    text: 'Full-bleed studio photograph — self-hosted (public/images/studio/hero-suv.jpg), zero external dependencies, instant paint.' },
   { icon: Layers, text: 'Ken-burns drift (24s alternate) + travelling light sheen behind the copy; left-weighted gradient keeps type legible.' },
   { icon: Cpu,    text: 'Framer-motion staggered reveal for kicker → headline → sub → CTAs; film grain layered on top; respects prefers-reduced-motion.' },
 ];
@@ -141,7 +141,7 @@ export default function PremiumStudioPage() {
         <div className="relative h-72 sm:h-80 bg-black overflow-hidden">
           {form.webglEnabled ? (
             <img
-              src="/images/hero-showroom.jpg"
+              src="/images/studio/hero-suv.jpg"
               alt=""
               aria-hidden="true"
               className="absolute inset-0 h-full w-full object-cover object-[70%_45%]"
