@@ -59,9 +59,12 @@ export function Hero() {
   const copyOpacity = useTransform(smooth, [0, 0.75], [1, 0]);
 
   return (
+    // NB: `dark` forces the cinematic art direction in BOTH themes —
+    // the studio frame is shot dark, so the type/scrims must stay dark too,
+    // otherwise light mode washes the scrim to white and the lockup vanishes.
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-background"
+      className="dark relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-background"
     >
       {/* ── BACKDROP ─────────────────────────────────────────────── */}
       <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0 z-0">
