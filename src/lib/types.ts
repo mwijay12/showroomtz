@@ -20,8 +20,8 @@ export type Currency = "TZS" | "USD";
 
 export interface Showroom {
   id: string;
-  name: string;              // e.g. "XYZ Motors"
-  slug: string;              // e.g. "xyz-motors"
+  name: string;              // e.g. "ShowroomTZ — Dar es Salaam HQ"
+  slug: string;              // e.g. "showroomtz-dar-hq"
   description?: string;
   logoUrl?: string;
   coverImageUrl?: string;

@@ -29,8 +29,8 @@ const STATEMENT = [
 ];
 
 const METRICS = [
-  { value: 412, suffix: '', label: 'Auction sheets verified' },
-  { value: 97, suffix: '%', label: 'Cleared under 14 days' },
+  { value: 100, suffix: '%', label: 'Auction sheet on every unit' },
+  { value: 7, suffix: '', label: 'Delivery regions covered' },
   { value: 4.9, suffix: '★', label: 'Deal rating', decimals: 1 },
 ];
 

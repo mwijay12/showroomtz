@@ -566,8 +566,8 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                     carName: `${car.make} ${car.model}`,
                     carYear: car.year,
                     carPrice: displayPrice,
-                    showroomId: car.showroomId ?? 'main-showroom',
-                    showroomName: car.showroomName ?? 'ShowroomTZ Motors Tanzania',
+                    showroomId: car.showroomId ?? 'showroomtz-dar-hq',
+                    showroomName: car.showroomName ?? 'ShowroomTZ — Dar es Salaam HQ',
                     buyerName: payName,
                     buyerPhone: payPhone,
                     offeredPrice: depositAmount,
@@ -605,11 +605,11 @@ export function CarDetailClient({ car: initialCar, reviews }: CarDetailClientPro
                     </div>
                     <div className="flex justify-between items-center bg-card/60 p-2.5 rounded-xl border border-border">
                       <span className="text-muted-foreground">🏦 CRDB Bank:</span>
-                      <span className="font-mono font-black">0150299481200 (ShowroomTZ Motors)</span>
+                      <span className="font-mono font-black">0150299481200 (ShowroomTZ)</span>
                     </div>
                     <div className="flex justify-between items-center bg-card/60 p-2.5 rounded-xl border border-border">
                       <span className="text-muted-foreground">🏦 NMB Bank:</span>
-                      <span className="font-mono font-black">20110098412 (ShowroomTZ Motors)</span>
+                      <span className="font-mono font-black">20110098412 (ShowroomTZ)</span>
                     </div>
                   </div>
                 </div>
