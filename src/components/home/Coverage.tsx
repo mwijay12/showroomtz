@@ -84,7 +84,9 @@ export function Coverage() {
                 </span>
               </div>
 
-              <TanzaniaMap />
+              <div className="mx-auto w-full max-w-[540px]">
+                <TanzaniaMap />
+              </div>
 
               <div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-border px-2 pt-3">
                 <div className="flex items-center gap-5">
