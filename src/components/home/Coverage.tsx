@@ -3,9 +3,7 @@
 /**
  * Coverage — the two legs of delivery, on real geography.
  *
- * Leg 1 (sea): Yokohama → Singapore → Colombo → Dar es Salaam.
- * Leg 2 (land): Dar es Salaam → the seven regions we deliver to.
- *
+ * One job: Dar es Salaam → the seven regions we deliver to.
  * The map is generated from Natural Earth polygons (see `tanzania-geo.ts`),
  * so Lake Victoria, Tanganyika, Rukwa and Nyasa sit where they belong and the
  * city nodes are projected from true coordinates.
@@ -17,7 +15,6 @@ import { ArrowUpRight, MapPin } from 'lucide-react';
 import { SplitReveal } from '@/components/effects/SplitReveal';
 import { Reveal } from '@/components/effects/Reveal';
 import { TanzaniaMap } from '@/components/effects/TanzaniaMap';
-import { ImportLane } from '@/components/effects/ImportLane';
 import { Stamp, WordRing, ProvenanceSticker } from '@/components/effects/Stickers';
 import { MagneticButton } from '@/components/effects/Interactive';
 
@@ -111,34 +108,6 @@ export function Coverage() {
           </Reveal>
         </div>
 
-        {/* the sea leg */}
-        <Reveal y={30} className="mt-8">
-          <div className="overflow-hidden rounded-[2rem] border border-border bg-card/40">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-4 sm:px-7">
-              <div className="flex items-center gap-3">
-                <span className="text-[8px] font-black uppercase tracking-[0.34em] text-primary">
-                  The import lane
-                </span>
-                <span className="h-px w-10 bg-border" />
-                <span className="text-[8px] font-black uppercase tracking-[0.26em] text-muted-foreground">
-                  Yokohama → Dar es Salaam
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.24em]">
-                <span className="rounded-full border border-border px-2.5 py-1 text-muted-foreground">
-                  JPN
-                </span>
-                <ArrowUpRight className="h-3 w-3 rotate-45 text-secondary" />
-                <span className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-primary">
-                  TZ
-                </span>
-              </div>
-            </div>
-            <div className="px-2 pb-2 pt-4 sm:px-5">
-              <ImportLane />
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

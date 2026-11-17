@@ -207,22 +207,31 @@ export function ProvenanceSticker({ className }: { className?: string }) {
         className
       )}
     >
-      <span className="flex h-5 w-7 items-center justify-center rounded-[2px] bg-white">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#bc002d]" />
-      </span>
+      {/* Japan flag — white field, crimson disc */}
+      <svg viewBox="0 0 30 20" width="30" height="20" className="ring-1 ring-black/30" aria-label="Japan" role="img">
+        <clipPath id="flag-jp-clip"><rect width="30" height="20" rx="2" /></clipPath>
+        <g clipPath="url(#flag-jp-clip)">
+          <rect width="30" height="20" fill="#FFFFFF" />
+          <circle cx="15" cy="10" r="6" fill="#BC002D" />
+        </g>
+      </svg>
       <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/70">JP</span>
       <svg viewBox="0 0 40 12" width="34" height="10" fill="none" aria-hidden="true">
         <path d="M1 6h30" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="text-white/40" />
         <path d="M31 6l-6-4v8l6-4Z" fill="currentColor" className="text-white/40" />
         <circle cx="37" cy="6" r="2" fill="currentColor" className="text-secondary" />
       </svg>
-      <span className="flex h-5 w-7 flex-col overflow-hidden rounded-[2px]">
-        <span className="h-1/3 bg-[#1eb53a]" />
-        <span className="relative h-1/3 bg-black">
-          <span className="absolute inset-y-0 left-1/2 w-[1px] -translate-x-1/2 bg-[#fcd116]" />
-        </span>
-        <span className="h-1/3 bg-[#00a3dd]" />
-      </span>
+      {/* Tanzania flag — gold-edged black diagonal from lower hoist to upper fly,
+          green above / blue below (the old horizontal-stripe render was wrong) */}
+      <svg viewBox="0 0 30 20" width="30" height="20" className="ring-1 ring-black/30" aria-label="Tanzania" role="img">
+        <clipPath id="flag-tz-clip"><rect width="30" height="20" rx="2" /></clipPath>
+        <g clipPath="url(#flag-tz-clip)">
+          <rect width="30" height="20" fill="#1EB53A" />
+          <polygon points="0,20 30,0 30,20" fill="#00A3DD" />
+          <line x1="-6" y1="26" x2="36" y2="-6" stroke="#FCD116" strokeWidth="5.6" />
+          <line x1="-6" y1="26" x2="36" y2="-6" stroke="#000000" strokeWidth="3.4" />
+        </g>
+      </svg>
       <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/70">TZ</span>
     </div>
   );

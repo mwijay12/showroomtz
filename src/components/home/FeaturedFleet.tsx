@@ -8,21 +8,19 @@
  * "curated collection" gesture. Mobile: native snap-scroll, because pinning
  * on touch is a tax on the user.
  *
- * Cards use <DistortImage/> for the WebGL pointer ripple (desktop only) and
- * fall back to a plain <img> on small screens / reduced motion so we never
- * pay for eight WebGL contexts on a phone.
+ * Cards use a plain studio photo with a hover zoom — the previous WebGL
+ * ripple read as a “water”/chromatic-aberration defect on the paint.
  */
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { collection, limit, query, where, getDocs } from 'firebase/firestore';
 
 import { useFirestore } from '@/firebase';
 import { useBranding } from '@/components/providers/BrandingProvider';
 import { SEED_CARS } from '@/lib/showroom-seed';
-import { DistortImage } from '@/components/effects/DistortImage';
 import { SplitReveal } from '@/components/effects/SplitReveal';
 import { CountUp } from '@/components/effects/CountUp';
 import { SpotlightCard, MagneticButton } from '@/components/effects/Interactive';
@@ -63,19 +61,8 @@ export function FeaturedFleet() {
   );
   const [loading, setLoading] = useState(false);
 
-  const [desktop, setDesktop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(trackRef, { once: true, margin: '-60px' });
-
-  /* WebGL distortion is desktop-only — phones keep the CSS hover */
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)');
-    const sync = () => setDesktop(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
 
   /* ── data ─────────────────────────────────────────────────────── */
   useEffect(() => {
@@ -212,7 +199,7 @@ export function FeaturedFleet() {
             className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 lg:snap-none lg:overflow-visible lg:pb-0"
           >
             {cars.map((car, i) => (
-              <FleetCard key={car.id} car={car} index={i} enabled={inView && desktop} />
+              <FleetCard key={car.id} car={car} index={i} />
             ))}
 
             {/* end card */}
@@ -251,11 +238,9 @@ export function FeaturedFleet() {
 function FleetCard({
   car,
   index,
-  enabled,
 }: {
   car: FleetCar;
   index: number;
-  enabled: boolean;
 }) {
   const image = car.coverImage || car.images?.[0] || '/images/studio/lc300.jpg';
   const name = `${car.make ?? ''} ${car.model ?? ''}`.trim() || 'Showroom unit';
@@ -273,12 +258,13 @@ function FleetCard({
         <Link href={`/cars/${car.id}`} className="group flex h-full flex-col">
           {/* media */}
           <div className="relative aspect-[16/11] overflow-hidden">
-            <DistortImage
+            {/* plain studio photo — no shader, no water ripple */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={image}
               alt={`${car.year ?? ''} ${name}`}
-              className="h-full w-full"
-              imgClassName="transition-transform duration-700 group-hover:scale-105"
-              enabled={enabled}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
 
