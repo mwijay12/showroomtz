@@ -68,14 +68,18 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
     >
       <defs>
         <linearGradient id="tz-land" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="hsl(var(--foreground) / 0.18)" />
-          <stop offset="55%" stopColor="hsl(var(--foreground) / 0.09)" />
-          <stop offset="100%" stopColor="hsl(var(--secondary) / 0.16)" />
+          <stop offset="0%" stopColor="hsl(var(--secondary) / 0.26)" />
+          <stop offset="52%" stopColor="hsl(var(--secondary) / 0.13)" />
+          <stop offset="100%" stopColor="hsl(var(--primary) / 0.12)" />
         </linearGradient>
         <radialGradient id="tz-ocean" cx="50%" cy="45%" r="65%">
-          <stop offset="0%" stopColor="hsl(var(--primary) / 0.10)" />
+          <stop offset="0%" stopColor="hsl(var(--primary) / 0.08)" />
+          <stop offset="70%" stopColor="hsl(var(--secondary) / 0.05)" />
           <stop offset="100%" stopColor="transparent" />
         </radialGradient>
+        <filter id="tz-land-shadow" x="-8%" y="-8%" width="116%" height="116%">
+          <feDropShadow dx="0" dy="10" stdDeviation="16" floodColor="hsl(var(--foreground))" floodOpacity="0.22" />
+        </filter>
         <linearGradient id="tz-route" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="hsl(var(--secondary))" />
           <stop offset="100%" stopColor="hsl(var(--primary))" />
@@ -94,7 +98,20 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
 
       {/* ocean + faint graticule */}
       <rect width="1000" height="971" fill="url(#tz-ocean)" />
-      <g stroke="hsl(var(--foreground) / 0.05)" strokeWidth="1">
+      {/* cartographic plate — thin inset frame keeps the map feeling like a survey sheet */}
+      <rect
+        x="16"
+        y="16"
+        width="968"
+        height="939"
+        rx="14"
+        fill="none"
+        stroke="hsl(var(--foreground) / 0.22)"
+        strokeWidth="1.6"
+        strokeDasharray="2.5 7"
+        strokeLinecap="round"
+      />
+      <g stroke="hsl(var(--foreground) / 0.06)" strokeWidth="1">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
           <line key={`h${i}`} x1="0" x2="1000" y1={i * 120 + 40} y2={i * 120 + 40} />
         ))}
@@ -107,9 +124,10 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
       <motion.path
         d={TZ_LAND}
         fill="url(#tz-land)"
-        stroke="hsl(var(--foreground) / 0.30)"
-        strokeWidth="2"
+        stroke="hsl(var(--foreground) / 0.45)"
+        strokeWidth="2.4"
         strokeLinejoin="round"
+        filter="url(#tz-land-shadow)"
         initial={{ scale: 0.985 }}
         animate={inView ? { scale: 1 } : {}}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
@@ -119,10 +137,10 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
       {/* lakes — clipped to the country so they never spill into neighbours */}
       <g clipPath="url(#tz-clip)">
         {TZ_LAKES.map((d, i) => (
-          <path key={i} d={d} fill="hsl(var(--background))" fillOpacity="0.9" />
+          <path key={i} d={d} fill="hsl(204 45% 74% / 0.6)" />
         ))}
         {TZ_LAKES.map((d, i) => (
-          <path key={`s${i}`} d={d} fill="none" stroke="hsl(var(--foreground) / 0.16)" strokeWidth="1.5" />
+          <path key={`s${i}`} d={d} fill="none" stroke="hsl(204 40% 42% / 0.55)" strokeWidth="1.6" />
         ))}
       </g>
 
@@ -136,7 +154,7 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
           fontWeight: 900,
           letterSpacing: '0.34em',
           fill: 'hsl(var(--foreground))',
-          opacity: 0.055,
+          opacity: 0.075,
           pointerEvents: 'none',
         }}
       >
@@ -230,7 +248,11 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
                 fontWeight: isDar ? 900 : 800,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                fill: isActive || isDar ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))',
+                fill: isActive || isDar ? 'hsl(var(--foreground))' : 'hsl(var(--foreground) / 0.72)',
+                paintOrder: 'stroke',
+                stroke: 'hsl(var(--card))',
+                strokeWidth: 5,
+                strokeLinejoin: 'round',
                 transition: 'fill 200ms',
                 pointerEvents: 'none',
               }}
@@ -249,6 +271,10 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
                   letterSpacing: '0.24em',
                   fill: 'hsl(var(--primary))',
                   textTransform: 'uppercase',
+                  paintOrder: 'stroke',
+                  stroke: 'hsl(var(--card))',
+                  strokeWidth: 4,
+                  strokeLinejoin: 'round',
                   pointerEvents: 'none',
                 }}
               >
@@ -260,7 +286,7 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
       })}
 
       {/* compass + scale furniture */}
-      <g transform="translate(72 872)" opacity="0.5">
+      <g transform="translate(72 872)" opacity="0.68">
         <circle r="30" fill="none" stroke="hsl(var(--foreground) / 0.25)" strokeWidth="1.5" />
         <path d="M0 -22 L7 6 L0 0 L-7 6 Z" fill="hsl(var(--foreground) / 0.55)" />
         <text
@@ -271,7 +297,7 @@ export function TanzaniaMap({ className = '' }: { className?: string }) {
           N
         </text>
       </g>
-      <g transform="translate(72 936)" opacity="0.45">
+      <g transform="translate(72 936)" opacity="0.6">
         <line x1="0" y1="0" x2="96" y2="0" stroke="hsl(var(--foreground) / 0.5)" strokeWidth="2" />
         <line x1="0" y1="-5" x2="0" y2="5" stroke="hsl(var(--foreground) / 0.5)" strokeWidth="2" />
         <line x1="96" y1="-5" x2="96" y2="5" stroke="hsl(var(--foreground) / 0.5)" strokeWidth="2" />
