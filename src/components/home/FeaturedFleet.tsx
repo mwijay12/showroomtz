@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { collection, limit, query, where, getDocs } from 'firebase/firestore';
+import { collection, limit, query, where, getDocs, getCountFromServer } from 'firebase/firestore';
 
 import { useFirestore } from '@/firebase';
 import { useBranding } from '@/components/providers/BrandingProvider';
@@ -52,6 +52,10 @@ function priceLabel(n?: number) {
   return new Intl.NumberFormat('en-TZ').format(n);
 }
 
+const SEED_AVAILABLE = (SEED_CARS as unknown as FleetCar[]).filter(
+  (c) => (c as { status?: string }).status !== 'sold'
+).length;
+
 export function FeaturedFleet() {
   const db = useFirestore();
   const { companyName } = useBranding();
@@ -60,6 +64,8 @@ export function FeaturedFleet() {
     (SEED_CARS as unknown as FleetCar[]).slice(0, 8)
   );
   const [loading, setLoading] = useState(false);
+  // honest count: live Firestore availability when it answers, seed size otherwise
+  const [unitCount, setUnitCount] = useState<number>(SEED_AVAILABLE);
 
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -81,6 +87,25 @@ export function FeaturedFleet() {
         /* seed data already on screen */
       } finally {
         if (alive) setLoading(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [db]);
+
+  /* live availability count for the header stat */
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const snap = await getCountFromServer(
+          query(collection(db, 'cars'), where('status', '==', 'available'))
+        );
+        const count = snap.data().count;
+        if (alive && count > 0) setUnitCount(count);
+      } catch {
+        /* keep the seed-based count */
       }
     })();
     return () => {
@@ -174,10 +199,10 @@ export function FeaturedFleet() {
           <div className="flex items-center gap-5">
             <div className="hidden text-right sm:block">
               <p className="text-2xl font-black tracking-tighter text-foreground">
-                <CountUp value={412} suffix="+" duration={1900} />
+                <CountUp value={unitCount} duration={1400} />
               </p>
               <p className="text-[8px] font-black uppercase tracking-[0.24em] text-muted-foreground">
-                verified units
+                units in stock
               </p>
             </div>
             <MagneticButton strength={0.16}>

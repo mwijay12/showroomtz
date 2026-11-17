@@ -28,9 +28,12 @@ import { useCollection, useFirestore, useMemoFirebase } from "@/firebase";
 import { collection, query, where, limit } from "firebase/firestore";
 import Link from 'next/link';
 
+/** Showroom hubs — exactly the ShowroomTZ branches, nothing invented. */
 const TZ_HUBS = [
-  "Dar es Salaam", "Arusha", "Dodoma", "Mwanza", "Mbeya", 
-  "Zanzibar", "Tanga", "Morogoro", "Iringa", "Moshi"
+  "ShowroomTZ — Dar es Salaam (HQ)",
+  "ShowroomTZ — Masaki",
+  "ShowroomTZ — Arusha",
+  "ShowroomTZ — Mwanza",
 ];
 
 const REGISTRATION_FEE = 450000; // TSh for plates & registration
@@ -46,13 +49,14 @@ export function TripEstimator() {
   const [selectedCarId, setSelectedCarId] = useState("");
 
   const carsQuery = useMemoFirebase(
-    () => query(collection(db, "cars"), where("status", "==", "available"), limit(20)),
+    () => query(collection(db, "cars"), where("status", "==", "available"), limit(50)),
     [db]
   );
   const { data: cars } = useCollection(carsQuery);
 
+  const inventoryReady = cars !== undefined;
   const selectedCar = useMemo(
-    () => cars?.find(c => c.id === selectedCarId) || cars?.[0],
+    () => (cars?.find(c => c.id === selectedCarId) ?? cars?.[0]) ?? null,
     [cars, selectedCarId]
   );
 
@@ -103,13 +107,15 @@ export function TripEstimator() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
                 <label className="text-[9px] font-black uppercase tracking-widest text-primary ml-1">Select Showroom Car</label>
-                <Select value={selectedCarId || (cars?.[0]?.id || "")} onValueChange={setSelectedCarId}>
-                  <SelectTrigger className="h-12 md:h-14 rounded-xl bg-muted border-none font-bold text-xs"><SelectValue placeholder="Select Vehicle" /></SelectTrigger>
+                <Select value={selectedCar?.id ?? ""} onValueChange={setSelectedCarId}>
+                  <SelectTrigger className="h-12 md:h-14 rounded-xl bg-muted border-none font-bold text-xs"><SelectValue placeholder={inventoryReady ? "Select Vehicle" : "Loading inventory…"} /></SelectTrigger>
                   <SelectContent className="bg-card border-border rounded-xl">
                     {cars && cars.length > 0 ? (
-                      cars.map(c => <SelectItem key={c.id} value={c.id} className="font-bold text-xs">{c.make} {c.model} ({c.year || '2025'})</SelectItem>)
+                      cars.map(c => <SelectItem key={c.id} value={c.id} className="font-bold text-xs">{c.make} {c.model} ({c.year || '—'})</SelectItem>)
                     ) : (
-                      <SelectItem value="default" className="font-bold text-xs">Toyota Land Cruiser (2026)</SelectItem>
+                      <SelectItem value="__none__" disabled className="font-bold text-xs">
+                        {inventoryReady ? 'No vehicles in stock yet' : 'Loading inventory…'}
+                      </SelectItem>
                     )}
                   </SelectContent>
                 </Select>
@@ -174,6 +180,23 @@ export function TripEstimator() {
 
         {/* ESTIMATE OUTPUT DISPLAY */}
         <div className="space-y-6 md:space-y-8">
+          {inventoryReady && !estimate && (
+            <div className="executive-card p-10 md:p-14 text-center space-y-5">
+              <div className="mx-auto h-14 w-14 rounded-2xl bg-muted flex items-center justify-center text-muted-foreground">
+                <CarIcon size={28} />
+              </div>
+              <h3 className="text-sm md:text-base font-black uppercase tracking-widest">No vehicles in stock right now</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-sm mx-auto">
+                Our next Japan arrivals are being documented and cleared. Leave your details and we will
+                call you the moment the right unit lands, or talk to the floor on WhatsApp.
+              </p>
+              <Link href="/contact" className="inline-flex">
+                <Button className="h-12 px-8 bg-primary text-white font-black uppercase tracking-widest text-[10px] rounded-2xl">
+                  Talk to the showroom <Zap size={12} className="ml-2 fill-current" />
+                </Button>
+              </Link>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {estimate && (
               <motion.div 

@@ -37,7 +37,7 @@ export function formatCompact(value: number): string {
 
 /**
  * Generates a slug from a free-text showroom name.
- * "XYZ Motors & Sons" → "xyz-motors-sons"
+ * "ShowroomTZ Dar HQ" → "showroomtz-dar-hq"
  */
 export function slugify(value: string): string {
   return value

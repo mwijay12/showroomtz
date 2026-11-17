@@ -94,7 +94,7 @@ export default function AdminExpensesPage() {
     setIsSubmitting(true);
     try {
       await addDoc(collection(db, 'expenses'), {
-        showroomId: 'main-showroom',
+        showroomId: 'showroomtz-dar-hq',
         title,
         amount,
         currency: 'TZS',

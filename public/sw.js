@@ -1,4 +1,4 @@
-const CACHE_NAME = 'showroomtz-v6';
+const CACHE_NAME = 'showroomtz-v7';
 const OFFLINE_URL = '/offline';
 
 // Files to cache on install

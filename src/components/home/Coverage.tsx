@@ -77,7 +77,7 @@ export function Coverage() {
                   </span>
                 </div>
                 <span className="rounded-full border border-border px-3 py-1 text-[7px] font-black uppercase tracking-[0.22em] text-muted-foreground">
-                  7 regions · hover a node
+                  7 delivery nodes · hover a node
                 </span>
               </div>
 
